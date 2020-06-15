@@ -1,0 +1,25 @@
+<div class="title">
+    <div class="row mr-0"   style="background-color: #d4d4d4;">
+      <h5 class="pt-3 pb-2 pl-4">Fleet Info</h5>
+      <div class="col d-flex pt-3 pr-4 pl-5">
+        <div class="text-center">
+            <div class="btn-group btn-group-toggle"  ngbRadioGroup [(ngModel)]="current">
+              <label ngbButtonLabel class="btn">
+                <input ngbButton type="radio" value="ground">Fleet on ground<sup> 05</sup>
+              </label>
+              <label ngbButtonLabel class="btn">
+                <input ngbButton type="radio" value="planned">Fleet Planned<sup> 02</sup>
+              </label>
+              <label ngbButtonLabel class="btn">
+                <input ngbButton type="radio" value="orders">Orders<sup> 56</sup>
+              </label>
+            </div>
+          </div>
+      </div>
+      <div class="col justify-content-end d-flex pt-3  pr-4">
+        <mat-checkbox [checked]='checked' class="mr-3">Van</mat-checkbox>
+        <mat-checkbox [checked]='checked' class="mr-3">Auto</mat-checkbox>
+        <mat-checkbox [checked]='checked' class="mr-3">Bike</mat-checkbox>
+      </div>
+    </div>
+    </div>

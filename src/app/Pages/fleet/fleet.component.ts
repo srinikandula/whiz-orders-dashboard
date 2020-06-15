@@ -1,0 +1,17 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-fleet',
+  templateUrl: './fleet.component.html',
+  styleUrls: ['./fleet.component.css']
+})
+export class FleetComponent implements OnInit {
+  current='ground';
+  checked: boolean = true;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
