@@ -1,10 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth.service';
+import {Sort} from '@angular/material/sort';
+import { AuthService } from '../../auth.service';
+import { Router } from '@angular/router';
+
+export interface Dessert {
+  id: number;
+  text: string;
+  time: number;
+  data: string;
+  url:string;
+}
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css']
+  styleUrls: ['./orders.component.sass']
 })
 export class OrdersComponent implements OnInit {
   current='all';
@@ -16,22 +26,105 @@ export class OrdersComponent implements OnInit {
   term;
   closeResult: string;
   size = 0;
+arr= this.stores;
 
-  constructor(private authService: AuthService) { }
 
-  ngOnInit(): void {
+closed(){
+  // console.log(this.arr);
+  this.stores= this.arr;
+  for(let b of this.stores){
+      this.stores = this.stores.filter(function(number){
+        return number.status == 'closed';
+      });
+      // console.log(this.boards);
+  }
+  this.size = this.stores.length;
+}
+completed(){
+  // console.log(this.arr);
+  this.stores= this.arr;
+  for(let b of this.stores){
+      this.stores = this.stores.filter(function(number){
+        return number.status == 'complete';
+      });
+      // console.log(this.boards);
+  }
+  this.size = this.stores.length;
+}
+pending(){
+  // console.log(this.arr);
+  this.stores= this.arr;
+  for(let b of this.stores){
+      this.stores = this.stores.filter(function(number){
+        return number.status == 'pending';
+      });
+      // console.log(this.boards);
+  }
+  this.size = this.stores.length;
+}
+all(){
+  this.stores= this.arr;
+  this.size = this.stores.length;
+}
+
+sortedData: any[];
+
+  
+
+  ngOnInit() {
     this.authService.stores(localStorage.getItem('site')).subscribe((data:any)=>{
       (this.stores= (data.content));
+      (this.arr= (data.content));
+      // this.sortedData = this.stores.slice();
       this.size = data.numberOfElements;
       // console.log(this.stores);
+
     },
     error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
       console.log(error);
     });
-  }
-  selectPageSize(event) {
-    this.pageSize1 = event.target.value;
-    this.page1 = 1;
-    }
 
+  
+
+  }
+  
+  constructor(private authService: AuthService,private router: Router) { 
+    // if(this.stores != null){
+    // }
+  }
+
+
+  
+// selectPageSize(event) {
+//   this.pageSize1 = event.target.value;
+//   }
+//   sortData(sort: Sort) {
+//     const data = this.stores.slice();
+//     if (!sort.active || sort.direction === '') {
+//       this.sortedData = data;
+//       return;
+//     }
+
+//     this.sortedData = data.sort((a, b) => {
+//       const isAsc = sort.direction === 'asc';
+//       switch (sort.active) {
+//         // case 'name': return compare(a.name, b.name, isAsc);
+//         // case 'calories': return compare(a.calories, b.calories, isAsc);
+//         // case 'fat': return compare(a.fat, b.fat, isAsc);
+//         // case 'carbs': return compare(a.carbs, b.carbs, isAsc);
+//         case 'updatedAt': return compare(a.updatedAt, b.updatedAt, isAsc);
+//         default: return 0;
+//       }
+//     });
+//   }
 }
+
+// function compare(a: number | string, b: number | string, isAsc: boolean) {
+//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+// }
+
+

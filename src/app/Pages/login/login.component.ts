@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
   loginform: FormGroup;
@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
       phoneNumber: ['', [Validators.required, Validators.minLength(10),Validators.pattern('^[6789]+[0-9]{9}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
   }); 
+  if(localStorage.getItem('access_token')!= null){
+    this.router.navigate(['/home']);
+  }
   }
   get f() { return this.loginform.controls; }
 
@@ -39,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.formvalue).subscribe((data:any)=>{
       localStorage.setItem('access_token',data.accessToken);
       localStorage.setItem('name',data.fullName);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/home']);
     },
     error =>{
       document.getElementById("error").classList.remove("d-none");

@@ -34,6 +34,10 @@ export class AuthService {
     sites(){
       return this.http.post<[]>(this.testPath + '/api/v1/more/orders/searchStores', {"clientCode":"MORE"},this.httpOptions);
     }
+    batches(){
+      let abc;
+      return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search',{},this.httpOptions);
+    }
     stores(code){
       if(code == 'all'){
         return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {},this.httpOptions);
@@ -41,6 +45,20 @@ export class AuthService {
       else{
         return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {"storeId":code},this.httpOptions);
       }
+    }
+    shifts(id){
+      let httpOptions2= {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          // 'batchId':id
+        })
+      };
+      return this.http.get<[]>(this.testPath + '/api/v1/locusBatch/getShifts?batchId=' + id,httpOptions2);
+    }
+    createplan(shifts,batchid){
+      // let body = new HttpParams();
+      // body = body.set('shiftIds', shifts);
+      return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/createPlan?shiftIds=' + shifts + '&batchId=' + batchid,this.httpOptions);
     }
 }
 

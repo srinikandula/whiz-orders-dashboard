@@ -1,14 +1,16 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-
-import { DashboardComponent } from './Pages/dashboard/dashboard.component';
-import { RouterGuard } from './router.guard';
-import { LoginComponent } from './Pages/login/login.component';
-import { BaselayoutComponent } from './Layout/baselayout/baselayout.component';
-import { PagelayoutComponent } from './Layout/pagelayout/pagelayout.component';
+import {BaseLayoutComponent} from './Layout/base-layout/base-layout.component';
+import {PagesLayoutComponent} from './Layout/pages-layout/pages-layout.component';
+import {AppsLayoutComponent} from './Layout/apps-layout/apps-layout.component';
+import { HomeComponent } from './Pages/home/home.component';
 import { OrdersComponent } from './Pages/orders/orders.component';
-import { FleetComponent } from './Pages/fleet/fleet.component';
+import { TrackvehicleComponent } from './Pages/trackvehicle/trackvehicle.component';
+import { LoginComponent } from './Pages/login/login.component';
+import { RouterguardGuard } from './routerguard.guard';
+import { BatchesComponent } from './Pages/batches/batches.component';
+import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
 
 // DEMO PAGES
 
@@ -58,25 +60,7 @@ import { FleetComponent } from './Pages/fleet/fleet.component';
 const routes: Routes = [
   {
     path: '',
-    component: BaselayoutComponent,
-    children: [
-
-      // Dashboads
-      {path:'',redirectTo:'dashboard',pathMatch:'full'},
-      {path: 'dashboard', component: DashboardComponent,canActivate: [RouterGuard],},
-      {path: 'orders', component: OrdersComponent,canActivate: [RouterGuard],},
-      {path: 'fleetinfo', component: FleetComponent,canActivate: [RouterGuard],},
-      // {path: 'orders', component: OrdersComponent, canActivate: [RouterguardGuard]},
-      // {path: 'trackvehicle', component: TrackvehicleComponent, canActivate: [RouterguardGuard]},
-      
-
-      
-    ]
-
-  },
-  {
-    path: '',
-    component: PagelayoutComponent,
+    component: PagesLayoutComponent,
     children: [
 
       // User Pages
@@ -88,14 +72,80 @@ const routes: Routes = [
      
     ]
   },
-  
-      // User Pages
-      // {path:'',component:LoginComponent,data:{extraParameter:''}},
-      // {path: 'login', component: LoginComponent},
-      // {path:'',redirectTo:'login',pathMatch:'full'},
-      // {path: 'dashboard', component: DashboardComponent,canActivate: [RouterGuard],}
-      // {path: 'orders', component: OrdersComponent, canActivate: [RouterGuard]},
-      // {path: 'trackvehicle', component: TrackvehicleComponent, canActivate: [RouterGuard]},
+  {
+    path: '',
+    component: BaseLayoutComponent,
+    children: [
+
+      // Dashboads
+      {path: 'home', component: HomeComponent,data: {extraParameter: ''},canActivate: [RouterguardGuard]},
+      // {path:'',redirectTo:'home',pathMatch:'full', canActivate: [RouterguardGuard]},
+      {path: 'orders', component: OrdersComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'trackvehicle', component: TrackvehicleComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'batches', component: BatchesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'batches/shifts', component: ShiftsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      
+
+      // Elements  data: {extraParameter: 'dashboardsMenu'}
+
+      
+      // Components
+
+      
+
+      // Tables
+
+      
+
+      // Widgets
+
+     
+
+      // Forms Elements
+
+      
+
+      // Forms Widgets
+
+ 
+
+      // Charts
+
+      
+
+      // Angular Material
+
+      // Form Controls
+
+     
+
+      // Buttons & Indicators
+
+      
+    ]
+
+  },
+  // {
+  //   path: '',
+  //   component: PagesLayoutComponent,
+  //   children: [
+
+  //     // User Pages
+
+     
+  //   ]
+  // },
+  {
+    path: '',
+    component: AppsLayoutComponent,
+    children: [
+
+      // Applications
+
+ 
+    ]
+  },
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({

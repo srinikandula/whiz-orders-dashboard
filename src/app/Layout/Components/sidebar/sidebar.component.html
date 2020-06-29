@@ -1,0 +1,88 @@
+<div [class]="'app-sidebar sidebar-shadow ' + (config$ | async).sidebarTheme" (mouseover)="sidebarHover()"
+     (mouseout)="sidebarHover()">
+  <!-- <div class="app-header__logo">
+    <div class="logo-src"></div>
+    <!-- <img src="assets/images/whizzard.png" width="75%"> -->
+    <!-- <div class="row"><h4>Fleet Management</h4> 
+      <div class="header__pane mt-auto">
+        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                [ngClass]="{'is-active' : globals.toggleSidebar}" (click)="toggleSidebar()">
+          <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+    <!-- <h6 class="text-muted">Powered by - Whizzard</h6> -->
+    
+  <!-- </div> 
+  </div> -->
+  <div class="app-sidebar-content">
+    <div class="app-sidebar-scroll">
+      <perfect-scrollbar>
+        <div class="v-sidebar-menu vsm-default">
+          <div class="vsm-list">
+            <div class="vsm-header" >More Retail
+              <div class="ml-5 pl-5" style="display: inline-block;"><button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                [ngClass]="{'is-active' : globals.toggleSidebar}" (click)="toggleSidebar()">
+          <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+          </span>
+        </button></div>
+            </div>
+            
+            <!-- <ngb-accordion [destroyOnHide]="false" [closeOthers]="true" [activeIds]="extraParameter"> -->
+            <div class="vsm-item" >
+              <a routerLink="/home" routerLinkActive="active-item"  [routerLinkActiveOptions]="{exact: true}" class="vsm-link">
+                <i class="vsm-icon pe-7s-graph2"></i>
+                <span class="vsm-title" >Dashboard</span>
+              </a>
+            </div>
+            <div class="vsm-item">
+              <a routerLink="/fleetinfo" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-car"></i>
+                <span class="vsm-title">Fleet Info</span>
+              </a>
+            </div>
+            <div class="vsm-item" >
+              <a routerLink="/orders" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-graph"></i>
+                <span class="vsm-title">Orders</span>
+              </a>
+            </div>
+            <div class="vsm-item" >
+              <a routerLink="/batches" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-box2"></i>
+                <span class="vsm-title">Batches</span>
+              </a>
+            </div>
+            <div class="vsm-item">
+              <a routerLink="/charts/apexcharts" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-clock"></i>
+                <span class="vsm-title">Inventory</span>
+              </a>
+            </div>
+            <div class="vsm-item">
+              <a routerLink="/charts/gauges" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-users"></i>
+                <span class="vsm-title">Staff Management</span>
+              </a>
+            </div>
+            <div class="vsm-item">
+              <a routerLink="/charts/sparklines" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-global"></i>
+                <span class="vsm-title">Store Settings</span>
+              </a>
+            </div>
+            <div class="vsm-item">
+              <a routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-graph1"></i>
+                <span class="vsm-title" (click)="logout()">Logout</span>
+              </a>
+            </div>
+          <!-- </ngb-accordion> -->
+          </div>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
