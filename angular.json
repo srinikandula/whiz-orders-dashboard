@@ -97,7 +97,7 @@
               "fix-memory-limit": "cross-env LIMIT=2048 increase-memory-limit"
             },
             "assets": [
-              "src/favicon.ico",
+              "src/favicon2.png",
               "src/assets"
             ]
           }

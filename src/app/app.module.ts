@@ -165,6 +165,7 @@ import { TrackvehicleComponent } from './Pages/trackvehicle/trackvehicle.compone
 import { RouterguardGuard } from './routerguard.guard';
 import { BatchesComponent } from './Pages/batches/batches.component';
 import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
+import { PlanesComponent } from './Pages/planes/planes.component';
 
 // Angular Material
 
@@ -229,6 +230,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BatchesComponent,
 
     ShiftsComponent,
+
+    PlanesComponent,
     
 
     // Applications

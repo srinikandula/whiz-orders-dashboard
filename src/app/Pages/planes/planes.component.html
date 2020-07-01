@@ -5,7 +5,7 @@
   <div class="col-md-12">
     <div class="card main-card mb-6">
       <div class="card-header">
-        Batches
+        Plans
       <div class="card-body">
           <div class="search-wrapper" [class.active]="isActive">
               <div class="input-holder">
@@ -26,9 +26,9 @@
         <tr class="text-center">
           <!-- <th><mat-checkbox [(ngModel)]='checked' class="mr-3"></mat-checkbox></th> -->
           <th scope="col">#</th>
-          <th scope="col">Batch Name</th>
+          <th scope="col">Plan Name</th>
           <th scope="col">Site Code</th>
-          <th scope="col">Order Count</th>
+          <!-- <th scope="col">Order Count</th> -->
           <!-- <th>mat-sort-header="updatedAt"</th> -->
           <!-- <th  scope="col">Updated</th> -->
         </tr>
@@ -38,12 +38,12 @@
         </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
       <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
       <tbody>
-      <tr class="text-center"  *ngFor ="let b of batches | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
+      <tr class="text-center"  *ngFor ="let p of plans  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
           <!-- <th><mat-checkbox [checked]='checked' class="mr-3"></mat-checkbox></th> -->
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
-          <td><button class=" btn btn-outline-primary" (click)="shifts(b.id)"><span>{{b.batchName}}</span></button></td>
-          <td><button class=" btn btn-outline-primary" >{{b.siteCode}}</button></td>
-          <td><button class=" btn btn-outline-primary">{{b.ordersCount }}</button></td>
+          <td><button class=" btn btn-outline-primary" ><span>{{p.planName}}</span></button></td>
+          <td><button class=" btn btn-outline-primary" >{{p.siteCode}}</button></td>
+          <!-- <td><button class=" btn btn-outline-primary">{{b.ordersCount }}</button></td> -->
           <!-- <button class=" btn btn-outline-primary"  *ngIf="!b.orderIds[b.orderIds.length-1]" *ngIf="b.orderIds[b.orderIds.length-1]">{{b.orderIds}}</button></td> -->
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
           </tr>    

@@ -72,7 +72,7 @@ sortedData: any[];
   
 
   ngOnInit() {
-    this.authService.stores(localStorage.getItem('site')).subscribe((data:any)=>{
+    this.authService.orders(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
       (this.stores= (data.content));
       (this.arr= (data.content));
       // this.sortedData = this.stores.slice();
@@ -90,6 +90,41 @@ sortedData: any[];
 
   
 
+  }
+
+  search(term){
+    if(term == null || term.length == 0){
+      this.authService.orders(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
+        (this.stores= (data.content));
+        // (this.arr= (data.content));
+        // this.sortedData = this.stores.slice();
+        this.size = data.numberOfElements;
+        // console.log(this.planes);
+      },
+      error =>{
+        if(error.error.message == 'Access Denied'){
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
+    }
+    else if(term.length >= 4){
+      this.authService.orders(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
+        (this.stores= (data.content));
+        // (this.arr= (data.content));
+        // this.sortedData = this.stores.slice();
+        this.size = data.numberOfElements;
+        // console.log(this.planes);
+      },
+      error =>{
+        if(error.error.message == 'Access Denied'){
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
+    }
   }
   
   constructor(private authService: AuthService,private router: Router) { 

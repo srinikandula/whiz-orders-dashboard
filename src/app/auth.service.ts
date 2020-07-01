@@ -34,16 +34,15 @@ export class AuthService {
     sites(){
       return this.http.post<[]>(this.testPath + '/api/v1/more/orders/searchStores', {"clientCode":"MORE"},this.httpOptions);
     }
-    batches(){
-      let abc;
-      return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search',{},this.httpOptions);
+    batches(search){
+      return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search',{"searchParam":search},this.httpOptions);
     }
-    stores(code){
+    orders(code,search){
       if(code == 'all'){
-        return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {},this.httpOptions);
+        return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {"searchParam":search},this.httpOptions);
       }
       else{
-        return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {"storeId":code},this.httpOptions);
+        return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {"storeId":code,"searchParam":search},this.httpOptions);
       }
     }
     shifts(id){
@@ -59,6 +58,9 @@ export class AuthService {
       // let body = new HttpParams();
       // body = body.set('shiftIds', shifts);
       return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/createPlan?shiftIds=' + shifts + '&batchId=' + batchid,this.httpOptions);
+    }
+    planes(search){
+      return this.http.post<[]>(this.testPath + '/api/v1/more/locusPlan/search',{"searchParam":search},this.httpOptions);
     }
 }
 

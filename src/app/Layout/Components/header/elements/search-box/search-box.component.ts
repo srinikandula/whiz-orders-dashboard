@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-box',
@@ -14,7 +15,7 @@ export class SearchBoxComponent implements OnInit {
 
   public isActive: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private router: Router) { }
 
   ngOnInit() {
     this.authService.sites().subscribe((data:any)=>{
@@ -25,6 +26,10 @@ export class SearchBoxComponent implements OnInit {
       localStorage.setItem('site',this.selected);
     }},
     error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
       console.log(error);
     });
   }

@@ -56,10 +56,10 @@
       <div class="card-body">
           <div class="search-wrapper" [class.active]="isActive">
               <div class="input-holder">
-                <input type="text" placeholder="Type to search" [(ngModel)]="term"  class="search-input">
+                <input type="text" placeholder="Type to search" [(ngModel)]="term"  class="search-input" (keyup)="search(term)">
                 <button class="search-icon" (click)="isActive = true"><span></span></button>
               </div>
-              <button class="close" (click)="isActive = false; term = null;"></button>
+              <button class="close" (click)="isActive = false; term = null; search(term)"></button>
             </div>              
       </div>
       <div  class="btn-actions-pane-right">
@@ -85,7 +85,7 @@
         </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
       <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
       <tbody>
-      <tr class="text-center"  *ngFor ="let b of stores | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
+      <tr class="text-center"  *ngFor ="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
           <!-- <th><mat-checkbox [checked]='checked' class="mr-3"></mat-checkbox></th> -->
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
           <td><button class=" btn btn-outline-primary"><span>{{b.orderId}}</span></button></td>

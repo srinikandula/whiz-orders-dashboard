@@ -11,6 +11,7 @@ import { LoginComponent } from './Pages/login/login.component';
 import { RouterguardGuard } from './routerguard.guard';
 import { BatchesComponent } from './Pages/batches/batches.component';
 import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
+import { PlanesComponent } from './Pages/planes/planes.component';
 
 // DEMO PAGES
 
@@ -84,6 +85,7 @@ const routes: Routes = [
       {path: 'trackvehicle', component: TrackvehicleComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'batches', component: BatchesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'batches/shifts', component: ShiftsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'plans', component: PlanesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       
 
       // Elements  data: {extraParameter: 'dashboardsMenu'}

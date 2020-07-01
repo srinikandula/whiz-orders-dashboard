@@ -112,16 +112,16 @@ constructor(calendar: NgbCalendar,private datePipe: DatePipe,private authService
 
     
   }
-  doSomething(event){
-    this.authService.stores(event.value.clientStationCode).subscribe((data:any)=>{
-      (this.stores= (data.content));
-      this.size = data.numberOfElements;
-      console.log(this.stores);
-    },
-    error =>{
-      console.log(error);
-    });
-  }
+  // doSomething(event){
+  //   this.authService.orders(event.value.clientStationCode,term).subscribe((data:any)=>{
+  //     (this.stores= (data.content));
+  //     this.size = data.numberOfElements;
+  //     console.log(this.stores);
+  //   },
+  //   error =>{
+  //     console.log(error);
+  //   });
+  // }
 
   selectPageSize(event) {
     this.pageSize1 = event.target.value;
