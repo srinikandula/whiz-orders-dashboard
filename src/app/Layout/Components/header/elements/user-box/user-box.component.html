@@ -1,0 +1,64 @@
+<div class="d-flex">
+  <div class="header-btn-lg pr-0">
+    <div class="widget-content p-0">
+      <div class="widget-content-wrapper">
+        <div class="widget-content-left">
+          <div class="btn-group" ngbDropdown placement="bottom-right">
+            <button type="button" class="btn btn-link p-0 mr-2" ngbDropdownToggle>
+              <span>
+                <div class="icon-wrapper icon-wrapper-alt rounded-circle">
+                  <img width="42" src="./assets/images/avatars/Ankit1.jpg" alt="" class="rounded-circle">
+                </div>
+              </span>
+            </button>
+            <div class="dropdown-menu-sm" ngbDropdownMenu>
+              <div class="dropdown-menu-header">
+                <div class="dropdown-menu-header-inner bg-info">
+                  <div class="menu-header-image opacity-2 dd-header-bg-6"></div>
+                  <div class="menu-header-content text-left">
+                    <div class="widget-content p-0">
+                      <div class="widget-content-wrapper">
+                        <div class="widget-content-left mr-3">
+                          <img width="42" src="./assets/images/avatars/Ankit1.jpg" alt="" class="rounded-circle">
+                        </div>
+                        <div class="widget-content-left">
+                          <div class="widget-heading">Ankit Mandhania </div>
+                          <div class="widget-subheading opacity-8">Founder</div>
+                        </div>
+                        <div class="widget-content-right mr-2">
+                          <button class="btn-pill btn-shadow btn-shine btn btn-focus">Logout</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="scroll-area-xs">
+                <!-- <perfect-scrollbar [autoPropagation]="true"> -->
+                  <ul class="nav flex-column">
+                    <li class="nav-item"><a [routerLink]="" class="nav-link">Recover Password</a></li>
+                  </ul>
+                <!-- </perfect-scrollbar> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="widget-content-left ml-3 header-user-info">
+          <div class="widget-heading">Ankit Mandhania </div>
+          <div class="widget-subheading">Founder</div>
+        </div>
+        <div class="widget-content-right header-user-info ml-3">
+          <button type="button" class="btn btn-shadow p-1 btn-info btn-sm" placement="bottom" ngbTooltip="No Pending Task!">
+            <fa name="calendar" class="mr-1 ml-1"></fa>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-btn-lg">
+    <button type="button" class="hamburger hamburger--elastic" [ngClass]="{'is-active' : globals.toggleDrawer}" (click)="toggleDrawer()">
+      <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+    </button>
+  </div>
+</div>
+

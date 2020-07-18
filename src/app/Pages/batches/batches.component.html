@@ -1,0 +1,66 @@
+<div class="col-md-12">
+  <div class="card main-card mb-6">
+  </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card main-card mb-6">
+      <div class="card-header">
+        Batches
+      <div class="card-body">
+          <div class="search-wrapper" [class.active]="isActive">
+              <div class="input-holder">
+                <input type="text" placeholder="Type to search" [(ngModel)]="term" class="search-input" (keyup)="search(term)">
+                <button class="search-icon" (click)="isActive = true"><span></span></button>
+              </div>
+              <button class="close" (click)="isActive = false;term = null; search(term)"></button>
+            </div>              
+      </div>
+      <div  class="btn-actions-pane-right">
+        <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
+      </div>
+          </div>
+          <div class="table-responsive">
+           
+      <table class="align-middle text-truncate mb-0 table table-borderless table-hover table-striped"> 
+        <thead >
+        <tr class="text-center">
+          <!-- <th><mat-checkbox [(ngModel)]='checked' class="mr-3"></mat-checkbox></th> -->
+          <th scope="col">#</th>
+          <th scope="col">Batch Name</th>
+          <th scope="col">Site Code</th>
+          <th scope="col">Order Count</th>
+          <!-- <th>mat-sort-header="updatedAt"</th> -->
+          <!-- <th  scope="col">Updated</th> -->
+        </tr>
+        </thead>
+        <!-- <tr>
+          <td *ngIf="this.size == '0'">No Data Available<br><img src="./../../../assets/images/Loader.gif"></td>
+        </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
+      <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
+      <tbody>
+      <tr class="text-center"  *ngFor ="let b of batches | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
+          <!-- <th><mat-checkbox [checked]='checked' class="mr-3"></mat-checkbox></th> -->
+          <th>{{(page1-1) * pageSize1  + i + 1}}</th>
+          <td><button class=" btn btn-outline-primary" (click)="shifts(b.id)"><span>{{b.batchName}}</span></button></td>
+          <td><button class=" btn btn-outline-primary" >{{b.siteCode}}</button></td>
+          <td><button class=" btn btn-outline-primary">{{b.ordersCount }}</button></td>
+          <!-- <button class=" btn btn-outline-primary"  *ngIf="!b.orderIds[b.orderIds.length-1]" *ngIf="b.orderIds[b.orderIds.length-1]">{{b.orderIds}}</button></td> -->
+          <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
+          </tr>    
+      </tbody>
+      </table>
+    
+    </div>
+      <div class="d-block p-4 card-footer">
+          <div class="d-flex w-100 justify-content-between">
+        <ngb-pagination [(page)]="page1"
+        [pageSize]="pageSize1"
+        [collectionSize]="this.size">
+      </ngb-pagination>
+      <!-- <select class="custom-select" style="width: auto" name="pageSize1" (change)="selectPageSize($event)">
+          <option *ngFor = "let size of pageSizeOptions1" [value]="size">{{size}}</option>
+    </select> -->
+    </div>
+    </div>
+    </div>
+    </div>
