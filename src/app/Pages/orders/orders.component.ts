@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 export interface Dessert {
   id: number;
@@ -27,8 +28,25 @@ export class OrdersComponent implements OnInit {
   closeResult: string;
   size = 0;
 arr= this.stores;
+url;
 
+openLarge(content,url) {
+  this.modalService.open(content, {
+    size: 'lg'
+  });
+ this.url = url;
+  
+}
 
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return `with: ${reason}`;
+  }
+}
 closed(){
   // console.log(this.arr);
   this.stores= this.arr;
@@ -127,7 +145,7 @@ sortedData: any[];
     }
   }
   
-  constructor(private authService: AuthService,private router: Router) { 
+  constructor(private authService: AuthService,private router: Router,private modalService: NgbModal) { 
     // if(this.stores != null){
     // }
   }
