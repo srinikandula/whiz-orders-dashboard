@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-batches',
@@ -17,7 +19,7 @@ export class BatchesComponent implements OnInit {
   closeResult: string;
   size = 0;
 
-  constructor(private authService: AuthService,private router: Router) { }
+  constructor(private authService: AuthService,private router: Router,private toastr: ToastrService) { }
 
   ngOnInit() {
     this.authService.batches(this.term).subscribe((data:any)=>{
@@ -34,6 +36,15 @@ export class BatchesComponent implements OnInit {
       }
       console.log(error);
     });
+  }
+
+  opensweetalert()
+  {
+    Swal.fire({
+        title:"Creating Batches!",
+        text: 'Batches Already Created for that!',
+        type: 'info'
+      });
   }
 
   shifts(id){

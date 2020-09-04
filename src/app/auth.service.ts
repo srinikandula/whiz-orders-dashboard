@@ -37,12 +37,24 @@ export class AuthService {
     batches(search){
       return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search',{"searchParam":search},this.httpOptions);
     }
+    createbatches(orderids,sitecode,batchname){
+      return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/createBatch?orderIds=' + orderids +"&siteCode=" + sitecode + "&batchName=" + batchname,this.httpOptions);
+    }
+    // "orderIds":orderids,
     orders(code,search){
       if(code == 'all'){
         return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {"searchParam":search},this.httpOptions);
       }
       else{
         return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {"storeId":code,"searchParam":search},this.httpOptions);
+      }
+    }
+    count(code,search){
+      if(code == 'all'){
+        return this.http.post<[]>(this.testPath + '/api/v1/more/orders/count', {"searchParam":search},this.httpOptions);
+      }
+      else{
+        return this.http.post<[]>(this.testPath + '/api/v1/more/orders/count', {"storeId":code,"status":search},this.httpOptions);
       }
     }
     shifts(id){

@@ -23,12 +23,18 @@ export class OrdersComponent implements OnInit {
   public pageSizeOptions1 = [5,10];
   public isActive: any;
   page1 = 1;
-  pageSize1 =5;
+  pageSize1 =20;
   term;
   closeResult: string;
   size = 0;
 arr= this.stores;
 url;
+total;
+delivered;
+processing;
+cancelled;
+decline;
+
 
 openLarge(content,url) {
   this.modalService.open(content, {
@@ -52,7 +58,18 @@ closed(){
   this.stores= this.arr;
   for(let b of this.stores){
       this.stores = this.stores.filter(function(number){
-        return number.status == 'closed';
+        return number.status == 'CANCELLED';
+      });
+      // console.log(this.boards);
+  }
+  this.size = this.stores.length;
+}
+rejected(){
+  // console.log(this.arr);
+  this.stores= this.arr;
+  for(let b of this.stores){
+      this.stores = this.stores.filter(function(number){
+        return number.status == 'REJECTED';
       });
       // console.log(this.boards);
   }
@@ -63,26 +80,85 @@ completed(){
   this.stores= this.arr;
   for(let b of this.stores){
       this.stores = this.stores.filter(function(number){
-        return number.status == 'complete';
+        return number.status == 'COMPLETED';
       });
       // console.log(this.boards);
   }
   this.size = this.stores.length;
 }
 pending(){
-  // console.log(this.arr);
+  console.log(this.arr);
   this.stores= this.arr;
   for(let b of this.stores){
       this.stores = this.stores.filter(function(number){
-        return number.status == 'pending';
+        return number.status == 'processing';
       });
       // console.log(this.boards);
   }
   this.size = this.stores.length;
+  
 }
 all(){
   this.stores= this.arr;
   this.size = this.stores.length;
+}
+orderids:any[]=[];
+count:any[]=[];
+sitecode:any;
+abc(event){
+  if(event.checked == true){
+    for(let b of this.stores){
+      this.orderids.push(b.orderId);
+      
+    }
+  }
+  if(event.checked == false){
+    this.orderids = [];
+  }
+  console.log(event.checked,this.orderids);
+}
+getdata(event,id){
+  // checked = checked ? false : true;
+  if(event.checked == true){
+    document.getElementById("batch").style.visibility = "visible";
+    // this.shiftids.push({
+    //   "shiftIds":id});
+    this.orderids.push(id);
+  }
+  if(event.checked == false){
+    document.getElementById("batch").style.visibility = "hidden";
+    this.orderids = this.orderids.filter(function(e){return e != id})
+  }
+  console.log(event.checked,this.orderids);
+}
+createbatch(){
+  let prompt = window.prompt("Please Enter The Name Of Batch");
+
+  if(prompt == null || prompt == ""){
+    alert("You cancelled the creating batch!");
+  }
+  else{
+    console.log(prompt);
+    for(let b of this.stores){
+      this.sitecode = b.siteCode;
+    }
+    this.authService.createbatches(this.orderids,this.sitecode,prompt).subscribe((data:any)=>{
+      // (this.stores= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      // console.log(this.stores);
+      window.location.reload();
+
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+  }
 }
 
 sortedData: any[];
@@ -105,8 +181,85 @@ sortedData: any[];
       }
       console.log(error);
     });
+    this.authService.count(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
+      // (this.count= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      this.total = data;
 
-  
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+    
+    this.authService.count(localStorage.getItem('site'),"COMPLETED").subscribe((data:any)=>{
+      // (this.count= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      this.delivered = data;
+
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+
+    this.authService.count(localStorage.getItem('site'),"processing").subscribe((data:any)=>{
+      // (this.count= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      this.processing = data;
+
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+
+    this.authService.count(localStorage.getItem('site'),"CANCELLED").subscribe((data:any)=>{
+      // (this.count= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      this.cancelled = data;
+
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+
+    this.authService.count(localStorage.getItem('site'),"REJECTED").subscribe((data:any)=>{
+      // (this.count= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      this.decline = data;
+
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
 
   }
 
