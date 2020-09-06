@@ -1,18 +1,18 @@
-<div class="app-page-title">
+<!-- <div class="app-page-title">
   <div class="page-title-wrapper">
     <div class="page-title-heading">
       <div>
-        Shifts
+        Trips
       </div>
     </div>
   </div>
-</div>
-<nav class="" aria-label="breadcrumb">
+</div> -->
+<!-- <nav class="" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/batches">Batches</a></li>
     <li class="breadcrumb-item" aria-current="page">Shifts</li>
   </ol>
-</nav>
+</nav> -->
 <div class="col-md-12">
   <div class="card main-card mb-6">
   </div>
@@ -20,7 +20,7 @@
   <div class="col-md-12">
     <div class="card main-card mb-6">
       <div class="card-header">
-        Shifts
+        Trips
       <div class="card-body" style="flex:none">
           <div class="search-wrapper" [class.active]="isActive">
               <div class="input-holder">
@@ -61,13 +61,15 @@
           <!-- <th><mat-checkbox [(ngModel)]='checked' (change)="abc($event)" class="mr-3"></mat-checkbox></th> -->
           <th></th>
           <th scope="col">#</th>
-          <th scope="col">Driver Name</th>
+          <th scope="col">Vehicle Number</th>
+          <th scope="col">Driver name</th>
           <th scope="col">Driver Contact Number</th>
-          <th scope="col">Shift Date</th>
+          <th scope="col">Total Orders</th>
+          <th scope="col">Total Delivered</th>
+          <th scope="col">Trip Distance</th>
+          <th scope="col">Trip Time</th>
           <th scope="col">Start Time</th>
           <th scope="col">End Time</th>
-          <th scope="col">Vehicle Number</th>
-          <th scope="col">Vehicle Type</th>
           <!-- <th>mat-sort-header="updatedAt"</th> -->
           <!-- <th  scope="col">Updated</th> -->
         </tr>

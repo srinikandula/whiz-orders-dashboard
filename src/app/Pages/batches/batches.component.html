@@ -30,7 +30,7 @@
           <th scope="col">Site Code</th>
           <th scope="col">Order Count</th>
           <!-- <th>mat-sort-header="updatedAt"</th> -->
-          <!-- <th  scope="col">Updated</th> -->
+          <th  scope="col">Plan Created</th>
         </tr>
         </thead>
         <!-- <tr>
@@ -46,6 +46,9 @@
           </td>
           <td><button class=" btn btn-outline-primary" >{{b.siteCode}}</button></td>
           <td><button class=" btn btn-outline-primary">{{b.ordersCount }}</button></td>
+          <td><button class=" btn btn-outline-primary" *ngIf="b.planCreated == true">Yes</button>
+            <button class=" btn btn-outline-primary" *ngIf="b.planCreated == false">No</button>
+          </td>
           <!-- <button class=" btn btn-outline-primary"  *ngIf="!b.orderIds[b.orderIds.length-1]" *ngIf="b.orderIds[b.orderIds.length-1]">{{b.orderIds}}</button></td> -->
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
           </tr>    

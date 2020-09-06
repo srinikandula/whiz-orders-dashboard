@@ -4,7 +4,35 @@ import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { element } from '@angular/core/src/render3';
+import { FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+
+// Depending on whether rollup is used, moment needs to be imported differently.
+// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
+// syntax. However, rollup creates a synthetic default module and we thus need to import it using
+// the `default as` syntax.
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import {defaultFormat as _rollupMoment} from 'moment';
+
+const moment = _rollupMoment || _moment;
+
+// See the Moment.js docs for the meaning of these formats:
+// https://momentjs.com/docs/#/displaying/format/
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 export interface Dessert {
   id: number;
@@ -17,7 +45,15 @@ export interface Dessert {
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.sass']
+  styleUrls: ['./orders.component.sass'],
+  providers: [
+    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
+    // application's root module. We provide it at the component level here, due to limitations of
+    // our example generation script.
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class OrdersComponent implements OnInit {
   current='all';
@@ -37,7 +73,12 @@ processing;
 cancelled;
 decline;
 flag =0;
-
+// date =  new FormControl(new Date());
+pipe = new DatePipe('en-US');
+date = new FormControl(_moment());
+flightSchedule = {
+  date: new Date()
+}
 
 openLarge(content,url) {
   this.modalService.open(content, {
@@ -112,8 +153,8 @@ abc(event){
   if(event.checked == true){
     for(let b of this.stores){
       this.orderids.push(b.orderId);
-      
     }
+    console.log(this.orderids);
   }
   if(event.checked == false){
     this.orderids = [];
@@ -138,8 +179,8 @@ getdata(event,id,sitecode){
         this.orderids.push(id);
       }
       else{
-        event.click();
         event.checked = false;
+        
         console.log(event);
         Swal.fire({
           title:"Selecting Orders!",
@@ -164,6 +205,10 @@ getdata(event,id,sitecode){
   console.log(event.checked,this.orderids);
 }
 createbatch(){
+  console.log(this.flightSchedule.date.valueOf());
+    let abc = this.flightSchedule.date.valueOf();
+    let today = this.pipe.transform(abc,'yyyy-MM-dd');
+    console.log(today);
   let prompt = window.prompt("Please Enter The Name Of Batch");
 
   if(prompt == null || prompt == ""){
@@ -172,19 +217,34 @@ createbatch(){
   else{
     console.log(prompt);
     
-    this.authService.createbatches(this.orderids,this.sitecode,prompt).subscribe((data:any)=>{
+    this.authService.createbatches(this.orderids,this.sitecode,prompt,today).subscribe((data:any)=>{
       // (this.stores= (data.content));
       // (this.arr= (data.content));
       // // this.sortedData = this.stores.slice();
       // this.size = data.numberOfElements;
       // console.log(this.stores);
-      window.location.reload();
+      Swal.fire({
+        title:"Batch Created!",
+        text: 'Batch is Successfully Created!',
+        type: 'success'
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+      
 
     },
     error =>{
       if(error.error.message == 'Access Denied'){
         localStorage.clear();
         this.router.navigate(['/']);
+      }
+      else{
+        Swal.fire({
+          title:"Batch Can Not Be Created!",
+          text: error.error.message,
+          type: 'warning'
+        });
       }
       console.log(error);
     });
@@ -196,6 +256,7 @@ sortedData: any[];
   
 
   ngOnInit() {
+    
     this.authService.orders(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
       (this.stores= (data.content));
       (this.arr= (data.content));

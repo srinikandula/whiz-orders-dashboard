@@ -37,8 +37,8 @@ export class AuthService {
     batches(search){
       return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search',{"searchParam":search},this.httpOptions);
     }
-    createbatches(orderids,sitecode,batchname){
-      return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/createBatch?orderIds=' + orderids +"&siteCode=" + sitecode + "&batchName=" + batchname,this.httpOptions);
+    createbatches(orderids,sitecode,batchname,date){
+      return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/createBatch?orderIds=' + orderids +"&siteCode=" + sitecode + "&batchName=" + batchname + '&date=' +date,this.httpOptions);
     }
     // "orderIds":orderids,
     orders(code,search){
@@ -57,14 +57,14 @@ export class AuthService {
         return this.http.post<[]>(this.testPath + '/api/v1/more/orders/count', {"storeId":code,"status":search},this.httpOptions);
       }
     }
-    shifts(id){
+    shifts(id,date){
       let httpOptions2= {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           // 'batchId':id
         })
       };
-      return this.http.get<[]>(this.testPath + '/api/v1/locusBatch/getShifts?batchId=' + id,httpOptions2);
+      return this.http.get<[]>(this.testPath + '/api/v1/locusBatch/getShifts?batchId=' + id + '&date=' + date,httpOptions2);
     }
     createplan(shifts,batchid){
       // let body = new HttpParams();

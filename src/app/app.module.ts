@@ -49,6 +49,7 @@ import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {ChartsModule} from 'ng2-charts';
 import {TimeAgoPipe} from 'time-ago-pipe';
 
+
 // ANGULAR MATERIAL COMPONENTS
 
 import {MatCheckboxModule, MatRippleModule} from '@angular/material';
@@ -166,6 +167,8 @@ import { RouterguardGuard } from './routerguard.guard';
 import { BatchesComponent } from './Pages/batches/batches.component';
 import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
 import { PlanesComponent } from './Pages/planes/planes.component';
+import { TripsComponent } from './Pages/trips/trips.component';
+import { SitesComponent } from './Pages/sites/sites.component';
 
 // Angular Material
 
@@ -232,6 +235,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ShiftsComponent,
 
     PlanesComponent,
+
+    TripsComponent,
+
+    SitesComponent,
     
 
     // Applications

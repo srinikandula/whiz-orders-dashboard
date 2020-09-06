@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-shifts',
-  templateUrl: './shifts.component.html',
-  styleUrls: ['./shifts.component.sass']
+  selector: 'app-trips',
+  templateUrl: './trips.component.html',
+  styleUrls: ['./trips.component.sass']
 })
-export class ShiftsComponent implements OnInit {
+export class TripsComponent implements OnInit {
   shifts: any[];
   starttime: any[];
   endtime: any[];
@@ -115,26 +114,11 @@ export class ShiftsComponent implements OnInit {
 
   createplan(){
     this.authService.createplan(this.shiftids,localStorage.getItem('batchid')).subscribe((data:any)=>{
-      Swal.fire({
-        title:"Shift Allocated!",
-        text: 'Shift is Successfully Allocated!',
-        type: 'success'
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
     },
     error =>{
       if(error.error.message == 'Access Denied'){
         localStorage.clear();
         this.router.navigate(['/']);
-      }
-      else{
-        Swal.fire({
-          title:"Shift Can Not Be Allocated!",
-          text: error.error.message,
-          type: 'warning'
-        });
       }
       console.log(error);
     });
