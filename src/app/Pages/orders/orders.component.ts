@@ -3,6 +3,8 @@ import {Sort} from '@angular/material/sort';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { element } from '@angular/core/src/render3';
 
 export interface Dessert {
   id: number;
@@ -34,6 +36,7 @@ delivered;
 processing;
 cancelled;
 decline;
+flag =0;
 
 
 openLarge(content,url) {
@@ -117,16 +120,45 @@ abc(event){
   }
   console.log(event.checked,this.orderids);
 }
-getdata(event,id){
+getdata(event,id,sitecode){
   // checked = checked ? false : true;
+  console.log(this.orderids);
   if(event.checked == true){
+    this.flag++;
+    console.log(this.orderids);
+    console.log(event);
     document.getElementById("batch").style.visibility = "visible";
     // this.shiftids.push({
     //   "shiftIds":id});
-    this.orderids.push(id);
+    if(this.orderids.length != 0){
+      // for(let b of this.stores){
+      //   this.sitecode = b.siteCode;
+      // }
+      if(this.sitecode == sitecode){
+        this.orderids.push(id);
+      }
+      else{
+        event.click();
+        event.checked = false;
+        console.log(event);
+        Swal.fire({
+          title:"Selecting Orders!",
+          text: 'You cannot select orders from multiple batches!',
+          type: 'info'
+        });
+      }
+    }
+    else{
+      this.sitecode = sitecode;
+      this.orderids.push(id);
+    }
+    console.log(this.sitecode);
   }
   if(event.checked == false){
+    this.flag--;
+    if(this.flag == 0){
     document.getElementById("batch").style.visibility = "hidden";
+    }
     this.orderids = this.orderids.filter(function(e){return e != id})
   }
   console.log(event.checked,this.orderids);
@@ -139,9 +171,7 @@ createbatch(){
   }
   else{
     console.log(prompt);
-    for(let b of this.stores){
-      this.sitecode = b.siteCode;
-    }
+    
     this.authService.createbatches(this.orderids,this.sitecode,prompt).subscribe((data:any)=>{
       // (this.stores= (data.content));
       // (this.arr= (data.content));

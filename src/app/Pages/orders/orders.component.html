@@ -21,7 +21,7 @@
               <input ngbButton type="radio" value="closed" (change)="closed()">Cancelled<sup>{{this.cancelled}}</sup>
             </label>
             <label ngbButtonLabel class="btn">
-              <input ngbButton type="radio" value="closed" (change)="rejected()">Rejected<sup>{{this.decline}}</sup>
+              <input ngbButton type="radio" value="rejected" (change)="rejected()">Rejected<sup>{{this.decline}}</sup>
             </label>
             
           </div>
@@ -95,7 +95,7 @@
       <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
       <tbody>
       <tr class="text-center"  *ngFor ="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
-        <th><mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3" (change)="getdata($event,b.orderId); false"></mat-checkbox></th>
+        <th><mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3" (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox></th>
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
           <td><button class=" btn btn-outline-primary"><span>{{b.orderId}}</span></button></td>
           <td><button class=" btn btn-outline-primary" >{{b.status}}<span *ngIf="b.status == 'pending'" class="badge badge-dot badge-dot-lg badge-warning badge-pulse"></span></button></td>
@@ -106,7 +106,7 @@
           <td><button class="btn btn-outline-primary">{{b.createdDate}}</button></td>
           <td><button class="btn btn-outline-primary" *ngIf='b.orderImageUrl == null'>-</button>
             <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" *ngIf='b.orderImageUrl != null' (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
-            <a href="file:///D:/git/maps.html?id={{b.id}}" target="_blank" style="margin-left: 10px;"><button class=" btn-icon btn-icon-only btn btn-primary" ><span class="fa fa-map"></span></button></a>
+            <!-- <a href="file:///D:/git/maps.html?id={{b.id}}" target="_blank" style="margin-left: 10px;"><button class=" btn-icon btn-icon-only btn btn-primary" ><span class="fa fa-map"></span></button></a> -->
           </td>
           </tr>    
       </tbody>
