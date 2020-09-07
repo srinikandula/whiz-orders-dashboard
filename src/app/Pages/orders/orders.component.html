@@ -157,6 +157,11 @@
         [pageSize]="pageSize1"
         [collectionSize]="this.size">
       </ngb-pagination>
+      <div  class="btn-actions-pane-right">
+      <button class="btn btn-outline-primary" (click)="selectPageSize(200)">200</button>
+      <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
+      <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button>
+    </div>
       <!-- <select class="custom-select" style="width: auto" name="pageSize1" (change)="selectPageSize($event)">
           <option *ngFor = "let size of pageSizeOptions1" [value]="size">{{size}}</option>
     </select> -->

@@ -450,15 +450,15 @@ sortedData: any[];
 
 
   
-// selectPageSize(event) {
-//   this.pageSize1 = event.target.value;
-//   }
-//   sortData(sort: Sort) {
-//     const data = this.stores.slice();
-//     if (!sort.active || sort.direction === '') {
-//       this.sortedData = data;
-//       return;
-//     }
+  selectPageSize(event) {
+  this.pageSize1 = event;
+  }
+  // sortData(sort: Sort) {
+  //   const data = this.stores.slice();
+  //   if (!sort.active || sort.direction === '') {
+  //     this.sortedData = data;
+  //     return;
+  //   }
 
 //     this.sortedData = data.sort((a, b) => {
 //       const isAsc = sort.direction === 'asc';

@@ -70,4 +70,7 @@ export class PlanesComponent implements OnInit {
       });
     }
   }
+  selectPageSize(event) {
+    this.pageSize1 = event;
+    }
 }

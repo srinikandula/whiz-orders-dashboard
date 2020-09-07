@@ -139,4 +139,7 @@ export class ShiftsComponent implements OnInit {
       console.log(error);
     });
   }
+  selectPageSize(event) {
+    this.pageSize1 = event;
+    }
 }
