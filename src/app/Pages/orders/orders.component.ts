@@ -72,6 +72,8 @@ delivered;
 processing;
 cancelled;
 decline;
+road;
+ready;
 flag =0;
 // date =  new FormControl(new Date());
 pipe = new DatePipe('en-US');
@@ -124,7 +126,29 @@ completed(){
   this.stores= this.arr;
   for(let b of this.stores){
       this.stores = this.stores.filter(function(number){
-        return number.status == 'COMPLETED';
+        return number.status == 'DELIVERED';
+      });
+      // console.log(this.boards);
+  }
+  this.size = this.stores.length;
+}
+pickup(){
+  // console.log(this.arr);
+  this.stores= this.arr;
+  for(let b of this.stores){
+      this.stores = this.stores.filter(function(number){
+        return number.status == 'READY_FOR_PICKUP';
+      });
+      // console.log(this.boards);
+  }
+  this.size = this.stores.length;
+}
+onroad(){
+  // console.log(this.arr);
+  this.stores= this.arr;
+  for(let b of this.stores){
+      this.stores = this.stores.filter(function(number){
+        return number.status == 'OUT_ON_ROAD';
       });
       // console.log(this.boards);
   }
@@ -135,7 +159,7 @@ pending(){
   this.stores= this.arr;
   for(let b of this.stores){
       this.stores = this.stores.filter(function(number){
-        return number.status == 'processing';
+        return number.status == 'AT_DC';
       });
       // console.log(this.boards);
   }
@@ -288,7 +312,7 @@ sortedData: any[];
       console.log(error);
     });
     
-    this.authService.count(localStorage.getItem('site'),"COMPLETED").subscribe((data:any)=>{
+    this.authService.count(localStorage.getItem('site'),"DELIVERED").subscribe((data:any)=>{
       // (this.count= (data.content));
       // (this.arr= (data.content));
       // // this.sortedData = this.stores.slice();
@@ -304,7 +328,7 @@ sortedData: any[];
       console.log(error);
     });
 
-    this.authService.count(localStorage.getItem('site'),"processing").subscribe((data:any)=>{
+    this.authService.count(localStorage.getItem('site'),"AT_DC").subscribe((data:any)=>{
       // (this.count= (data.content));
       // (this.arr= (data.content));
       // // this.sortedData = this.stores.slice();
@@ -342,6 +366,36 @@ sortedData: any[];
       // // this.sortedData = this.stores.slice();
       // this.size = data.numberOfElements;
       this.decline = data;
+
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+    this.authService.count(localStorage.getItem('site'),"READY_FOR_PICKUP").subscribe((data:any)=>{
+      // (this.count= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      this.ready = data;
+
+    },
+    error =>{
+      if(error.error.message == 'Access Denied'){
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+    this.authService.count(localStorage.getItem('site'),"OUT_ON_ROAD").subscribe((data:any)=>{
+      // (this.count= (data.content));
+      // (this.arr= (data.content));
+      // // this.sortedData = this.stores.slice();
+      // this.size = data.numberOfElements;
+      this.road = data;
 
     },
     error =>{

@@ -12,10 +12,16 @@
               <input ngbButton type="radio" value="all" (change)="all()" >All Orders<sup>{{this.total}}</sup>
             </label>
             <label ngbButtonLabel class="btn">
-              <input ngbButton type="radio" value="pending" (change)="pending()" >Processing<sup>{{this.processing}}</sup>
+              <input ngbButton type="radio" value="pending" (change)="pending()" >AT_DC<sup>{{this.processing}}</sup>
             </label>
             <label ngbButtonLabel class="btn">
               <input ngbButton type="radio" value="completed"  (change)="completed()">Delivered<sup>{{this.delivered}}</sup>
+            </label>
+            <label ngbButtonLabel class="btn">
+              <input ngbButton type="radio" value="onroad" (change)="onroad()">On Road<sup>{{this.road}}</sup>
+            </label>
+            <label ngbButtonLabel class="btn">
+              <input ngbButton type="radio" value="readytopickup" (change)="pickup()">Ready To Pickup<sup>{{this.ready}}</sup>
             </label>
             <label ngbButtonLabel class="btn">
               <input ngbButton type="radio" value="closed" (change)="closed()">Cancelled<sup>{{this.cancelled}}</sup>
@@ -99,7 +105,7 @@
           <th  scope="col">Order Total</th>
           <!-- <th scope="col">Actions</th> -->
           <!-- <th>mat-sort-header="updatedAt"</th> -->
-          <th  scope="col">Updated</th>
+          <!-- <th  scope="col">Updated</th> -->
           <th  scope="col">Created On</th>
           <th  scope="col">Actions</th>
         </tr>
@@ -117,7 +123,7 @@
           <td><button class="btn btn-outline-primary">{{b.siteCode}}</button></td>
           <td><button class="btn btn-outline-primary">{{b.itemQuantity}}</button></td>
           <td><button class="btn btn-outline-primary">{{b.orderTotal}}</button></td>
-          <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td>
+          <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
           <td><button class="btn btn-outline-primary">{{b.createdDate}}</button></td>
           <td><button class="btn btn-outline-primary" *ngIf='b.orderImageUrl == null'>-</button>
             <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" *ngIf='b.orderImageUrl != null' (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
