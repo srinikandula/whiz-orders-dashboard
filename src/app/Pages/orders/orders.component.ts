@@ -201,14 +201,56 @@ orderids:any[]=[];
 count:any[]=[];
 sitecode:any;
 abc(event){
+//   if(event.checked == true){
+//     for(let b of this.stores){
+//       this.orderids.push(b.orderId);
+//     }
+//     console.log(this.orderids);
+//   }
+//   if(event.checked == false){
+//     this.orderids = [];
+//   }
+//   console.log(event.checked,this.orderids);
+// }
+console.log(this.orderids);
   if(event.checked == true){
-    for(let b of this.stores){
-      this.orderids.push(b.orderId);
-    }
-    console.log(this.orderids);
+    this.flag = this.size;
+  //   console.log(this.orderids);
+  //   console.log(event);
+    document.getElementById("batch").style.visibility = "visible";
+  //   // this.shiftids.push({
+  //   //   "shiftIds":id});
+  //   if(this.orderids.length != 0){
+  //     // for(let b of this.stores){
+  //     //   this.sitecode = b.siteCode;
+  //     // }
+  //     if(this.sitecode == sitecode){
+  //       this.orderids.push(id);
+  //     }
+  //     else{
+  //       event.checked = false;
+        
+  //       console.log(event);
+  //       Swal.fire({
+  //         title:"Selecting Orders!",
+  //         text: 'You cannot select orders from multiple batches!',
+  //         type: 'info'
+  //       });
+  //     }
+  //   }
+  //   else{
+  //     this.sitecode = sitecode;
+  //     this.orderids.push(id);
+  //   }
+  //   console.log(this.sitecode);
+  // }
   }
   if(event.checked == false){
-    this.orderids = [];
+    this.flag = 0;
+    if(this.flag == 0){
+    document.getElementById("batch").style.visibility = "hidden";
+    }
+    // this.orderids = this.orderids.filter(function(e){return e != id})
   }
   console.log(event.checked,this.orderids);
 }
