@@ -219,7 +219,9 @@ console.log(this.orderids);
   //   console.log(event);
     document.getElementById("batch").style.visibility = "visible";
     for(let o of this.stores){
+      if(o.createdBatch == false){
       this.orderids.push(o.orderId);
+      }
     }
     console.log(this.orderids);
   //   // this.shiftids.push({
