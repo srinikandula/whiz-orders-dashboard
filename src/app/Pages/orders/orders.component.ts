@@ -282,11 +282,11 @@ getdata(event,id,sitecode){
         event.checked = false;
         
         console.log(event);
-        Swal.fire({
-          title:"Selecting Orders!",
-          text: 'You cannot select orders from multiple batches!',
-          type: 'info'
-        });
+        // Swal.fire({
+        //   title:"Selecting Orders!",
+        //   text: 'You cannot select orders from multiple batches!',
+        //   type: 'info'
+        // });
       }
     }
     else{
