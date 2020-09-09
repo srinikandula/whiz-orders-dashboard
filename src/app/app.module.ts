@@ -48,6 +48,7 @@ import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {ChartsModule} from 'ng2-charts';
 import {TimeAgoPipe} from 'time-ago-pipe';
+// import {CountUpModule} from 'countup.js-angular2';
 
 
 // ANGULAR MATERIAL COMPONENTS
@@ -169,6 +170,7 @@ import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
 import { PlanesComponent } from './Pages/planes/planes.component';
 import { TripsComponent } from './Pages/trips/trips.component';
 import { SitesComponent } from './Pages/sites/sites.component';
+import { CashmanagementComponent } from './Pages/cashmanagement/cashmanagement.component';
 
 // Angular Material
 
@@ -239,6 +241,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     TripsComponent,
 
     SitesComponent,
+
+    CashmanagementComponent,
     
 
     // Applications

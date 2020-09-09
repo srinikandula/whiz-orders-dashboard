@@ -2,10 +2,10 @@
   <div class="page-title-wrapper">
     <div class="page-title-heading">
       <div>
-        Orders
+        Cash Management 
       </div>
     </div>
-    <div class="col d-flex pt-3 pr-4 pl-5">
+    <!-- <div class="col d-flex pt-3 pr-4 pl-5">
       <div class="text-center">
           <div class="btn-group btn-group-toggle"  ngbRadioGroup [(ngModel)]="current">
             <label ngbButtonLabel class="btn">
@@ -31,7 +31,7 @@
             
           </div>
         </div>
-    </div>
+    </div> -->
   </div>
 </div>
 <!-- <div class="card-header-center">
@@ -60,8 +60,8 @@
   <div class="col-md-12">
     <div class="card main-card mb-6">
       <div class="card-header">
-        Orders
-      <div class="card-body" style="flex:none">
+        Summary
+      <!-- <div class="card-body" style="flex:none">
           <div class="search-wrapper" [class.active]="isActive">
               <div class="input-holder">
                 <input type="text" placeholder="Type to search" [(ngModel)]="term"  class="search-input" (keyup)="search(term)">
@@ -69,10 +69,10 @@
               </div>
               <button class="close" (click)="isActive = false; term = null; search(term)"></button>
             </div>              
-      </div>
+      </div> -->
 
 
-      <div class="card-header-center">
+      <div class="card-header-center" style="margin-left: 10px;">
         <div class="text-center">
       <mat-form-field appearance="fill">
         <mat-label>Date</mat-label>
@@ -94,19 +94,19 @@
       <table  class="align-middle text-truncate mb-0 table table-borderless table-hover table-striped"> 
         <thead >
         <tr class="text-center">
-          <th><mat-checkbox [(ngModel)]='checked' class="mr-3" (change)="abc($event)"></mat-checkbox></th>
+          <!-- <th><mat-checkbox [(ngModel)]='checked' class="mr-3" (change)="abc($event)"></mat-checkbox></th> -->
           <!-- <th></th> -->
           <th scope="col">#</th>
-          <th scope="col">Order Id</th>
-          <th scope="col">Status</th>
-          <th  scope="col">Site Code</th>
-          <th  scope="col">Items Quantity</th>
-          <th  scope="col">Order Total</th>
+          <th scope="col">Vehicle Number</th>
+          <th scope="col">Total Orders</th>
+          <th  scope="col">Total Amount</th>
+          <th  scope="col">Cash To Be Collected</th>
+          <th  scope="col">Cod Collected</th>
           <!-- <th scope="col">Actions</th> -->
           <!-- <th>mat-sort-header="updatedAt"</th> -->
           <!-- <th  scope="col">Updated</th> -->
-          <th  scope="col">Created On</th>
-          <th  scope="col">Actions</th>
+          <th  scope="col">Canceled COD</th>
+          <th  scope="col">Order Ids</th>
         </tr>
         </thead>
         <!-- <tr>
@@ -120,25 +120,19 @@
           No Orders Available
       </tbody>
       <tbody *ngIf="this.size != '0'">
-      <tr class="text-center"  *ngFor ="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
-        <th><mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3" (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox></th>
+      <tr class="text-center"  *ngFor ="let b of cashm  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
+        <!-- <th><mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3" (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox></th> -->
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
-          <td><button class=" btn btn-outline-primary" (click)="openSmall2(content2,b.id)"><span>{{b.orderId}}</span></button></td>
+          <td><button class=" btn btn-outline-primary"><span>{{b.vehicleNumber}}</span></button></td>
           <td>
-            <button class=" btn btn-outline-dark" *ngIf="b.status == 'AT_DC'">{{b.status}}</button>
-            <button class=" btn btn-outline-success"  *ngIf="b.status == 'DELIVERED'">{{b.status}}</button>
-            <button class=" btn btn-outline-warning" *ngIf="b.status == 'CANCELLED'" >{{b.status}}</button>
-            <button class=" btn btn-outline-danger" *ngIf="b.status == 'REJECTED'">{{b.status}}</button>
-            <button class=" btn btn-outline-info" *ngIf="b.status == 'READY_FOR_PICKUP'">{{b.status}}</button>
-            <button class=" btn btn-outline-primary" *ngIf="b.status == 'OUT_ON_ROAD'">{{b.status}}</button>
+            <button class=" btn btn-outline-dark">{{b.totalOrders}}</button>
           </td>
-          <td><button class="btn btn-outline-primary">{{b.siteCode}}</button></td>
-          <td><button class="btn btn-outline-primary">{{b.itemQuantity}}</button></td>
-          <td><button class="btn btn-outline-primary">{{b.orderTotal}}</button></td>
+          <td><button class="btn btn-outline-primary">{{b.totalAmount}}</button></td>
+          <td><button class="btn btn-outline-primary">{{b.cashToBeCollected}}</button></td>
+          <td><button class="btn btn-outline-primary">{{b.codCollected}}</button></td>
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
-          <td><button class="btn btn-outline-primary">{{b.createdDate}}</button></td>
-          <td><button class="btn btn-outline-primary" *ngIf='b.orderImageUrl == null'>-</button>
-            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" *ngIf='b.orderImageUrl != null' (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
+          <td><button class="btn btn-outline-primary">{{b.canceledCOD}}</button></td>
+          <td><button class=" btn btn-outline-primary" ><span>{{b.orderIds}} , </span></button>
             <!-- <a href="file:///D:/git/maps.html?id={{b.id}}" target="_blank" style="margin-left: 10px;"><button class=" btn-icon btn-icon-only btn btn-primary" ><span class="fa fa-map"></span></button></a>
             <span *ngIf="b.status == 'pending'" class="badge badge-dot badge-dot-lg badge-warning badge-pulse"></span> -->
           </td>
@@ -147,8 +141,8 @@
       </table>
 
 
-      <ng-template #content1 let-c="close" let-d="dismiss">
-        <div class="modal-header">
+      <!-- <ng-template #content1 let-c="close" let-d="dismiss">
+        <div class="modal-header">(click)="openSmall2(content2)"
           <h4 class="modal-title">Image</h4>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
@@ -160,25 +154,25 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
           <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-        </div>
-      </ng-template>
+        <!-- </div>
+      </ng-template> -->
 
-      <ng-template #content2 let-c="close" let-d="dismiss">
+      <!-- <ng-template #content2 let-c="close" let-d="dismiss">
         <div class="modal-header">
-          <h4 class="modal-title">Orders Details</h4>
+          <h4 class="modal-title">Orders Ids</h4>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="card-body" *ngFor="let o of details;">
-          <div *ngFor="let od of details2;">
-          <p>
-            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-                <mat-label>Name</mat-label>
-                <input type="text" [(ngModel)]="od.name" matInput  disabled style="color: black;">
+        <div class="card-body" *ngFor="let b of cashm; let i=index;">
+          
+          <p >
+            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;" >
+                <!-- <mat-label>Name</mat-label> -
+                <input  type="text" [(ngModel)]="b.orderIds[i]" matInput  disabled style="color: black;">
                 <mat-icon matSuffix>info</mat-icon>
               </mat-form-field>
-        </p>
+        </p> -->
         <!-- <p>
           <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
               <mat-label>Order Price</mat-label>
@@ -186,10 +180,9 @@
               <mat-icon matSuffix>info</mat-icon>
             </mat-form-field>
       </p> -->
-    </div>
-        <p>
+        <!-- <p>
             <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-                <mat-label> Order Id </mat-label>
+                <mat-label> Order Ids </mat-label>
                 <input [(ngModel)]="o.orderId" type="text"  matInput disabled style="color: black;" >
                 <mat-icon matSuffix>info</mat-icon>
               </mat-form-field>
@@ -214,14 +207,14 @@
                     <input type="text" [(ngModel)]="o.orderTotal" matInput  disabled style="color: black;">
                     <mat-icon matSuffix>info</mat-icon>
                   </mat-form-field>
-            </p>
+            </p> -->
             
             
-          </div>
+          <!-- </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
         </div>
-      </ng-template>
+      </ng-template> -->
     
     </div>
       <div class="d-block p-4 card-footer">

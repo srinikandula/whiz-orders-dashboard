@@ -14,6 +14,7 @@ import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
 import { PlanesComponent } from './Pages/planes/planes.component';
 import { TripsComponent } from './Pages/trips/trips.component';
 import { SitesComponent } from './Pages/sites/sites.component';
+import { CashmanagementComponent } from './Pages/cashmanagement/cashmanagement.component';
 
 // DEMO PAGES
 
@@ -88,8 +89,9 @@ const routes: Routes = [
       {path: 'batches', component: BatchesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'batches/shifts', component: ShiftsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'plans', component: PlanesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
-      {path: 'trips', component: TripsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      // {path: 'trips', component: TripsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'sites', component: SitesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'cashm', component: CashmanagementComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       
 
       // Elements  data: {extraParameter: 'dashboardsMenu'}

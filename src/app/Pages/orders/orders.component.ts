@@ -89,6 +89,33 @@ openLarge(content,url) {
  this.url = url;
   
 }
+details;
+details2;
+error
+openSmall2(content,id) {
+  this.modalService.open(content, {
+    size: 'sm'
+  });
+  this.authService.ordersdetails(id).subscribe((data:any)=>{
+    (this.details= (Array.of(data)));
+    (this.details2= (data.orderItems));
+    // this.sortedData = this.stores.slice();
+    this.size = data.numberOfElements;
+    // console.log(this.stores);
+
+  },
+  error =>{
+    if(error.error.message == 'Access Denied'){
+      localStorage.clear();
+      this.router.navigate(['/']);
+    }
+    else{
+      this.error = error.error.message;
+    }
+    console.log(error);
+  });
+  
+}
 
 private getDismissReason(reason: any): string {
   if (reason === ModalDismissReasons.ESC) {
@@ -229,10 +256,10 @@ getdata(event,id,sitecode){
   console.log(event.checked,this.orderids);
 }
 createbatch(){
-  console.log(this.flightSchedule.date.valueOf());
+  // console.log(this.flightSchedule.date.valueOf());
     let abc = this.flightSchedule.date.valueOf();
     let today = this.pipe.transform(abc,'yyyy-MM-dd');
-    console.log(today);
+    // console.log(today);
   let prompt = window.prompt("Please Enter The Name Of Batch");
 
   if(prompt == null || prompt == ""){
@@ -280,8 +307,10 @@ sortedData: any[];
   
 
   ngOnInit() {
-    
-    this.authService.orders(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
+    let abc = this.flightSchedule.date.valueOf();
+    let today = this.pipe.transform(abc,'yyyy-MM-dd');
+    console.log(today);
+    this.authService.orders(localStorage.getItem('site'),today,this.term).subscribe((data:any)=>{
       (this.stores= (data.content));
       (this.arr= (data.content));
       // this.sortedData = this.stores.slice();
@@ -311,12 +340,20 @@ sortedData: any[];
       }
       console.log(error);
     });
-    
+    let abcd =[];
+    abcd.push("DELIVERED");
+    abcd.push("AT_DC");
+    abcd.push("CANCELLED");
+    abcd.push("REJECTED");
+    abcd.push("READY_FOR_PICKUP");
+    abcd.push("OUT_ON_ROAD");
+    console.log(abcd);
     this.authService.count(localStorage.getItem('site'),"DELIVERED").subscribe((data:any)=>{
       // (this.count= (data.content));
       // (this.arr= (data.content));
       // // this.sortedData = this.stores.slice();
       // this.size = data.numberOfElements;
+      console.log(data);
       this.delivered = data;
 
     },
@@ -409,8 +446,11 @@ sortedData: any[];
   }
 
   search(term){
+    let abc = this.flightSchedule.date.valueOf();
+    let today = this.pipe.transform(abc,'yyyy-MM-dd');
+    console.log(today);
     if(term == null || term.length == 0){
-      this.authService.orders(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
+      this.authService.orders(localStorage.getItem('site'),today,this.term).subscribe((data:any)=>{
         (this.stores= (data.content));
         // (this.arr= (data.content));
         // this.sortedData = this.stores.slice();
@@ -426,7 +466,10 @@ sortedData: any[];
       });
     }
     else if(term.length >= 4){
-      this.authService.orders(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
+      let abc = this.flightSchedule.date.valueOf();
+      let today = this.pipe.transform(abc,'yyyy-MM-dd');
+      console.log(today);
+      this.authService.orders(localStorage.getItem('site'),today,this.term).subscribe((data:any)=>{
         (this.stores= (data.content));
         // (this.arr= (data.content));
         // this.sortedData = this.stores.slice();
