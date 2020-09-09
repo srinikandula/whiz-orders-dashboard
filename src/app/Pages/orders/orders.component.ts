@@ -218,6 +218,10 @@ console.log(this.orderids);
   //   console.log(this.orderids);
   //   console.log(event);
     document.getElementById("batch").style.visibility = "visible";
+    for(let o of this.stores){
+      this.orderids.push(o.orderId);
+    }
+    console.log(this.orderids);
   //   // this.shiftids.push({
   //   //   "shiftIds":id});
   //   if(this.orderids.length != 0){
@@ -249,6 +253,7 @@ console.log(this.orderids);
     this.flag = 0;
     if(this.flag == 0){
     document.getElementById("batch").style.visibility = "hidden";
+    this.orderids = [];
     }
     // this.orderids = this.orderids.filter(function(e){return e != id})
   }
@@ -347,7 +352,7 @@ createbatch(){
 sortedData: any[];
 
   
-
+orders;
   ngOnInit() {
     let abc = this.flightSchedule.date.valueOf();
     let today = this.pipe.transform(abc,'yyyy-MM-dd');
@@ -355,9 +360,10 @@ sortedData: any[];
     this.authService.orders(localStorage.getItem('site'),today,this.term).subscribe((data:any)=>{
       (this.stores= (data.content));
       (this.arr= (data.content));
+      // this.orders = data.content.orderId;
       // this.sortedData = this.stores.slice();
       this.size = data.numberOfElements;
-      // console.log(this.stores);
+      
 
     },
     error =>{
