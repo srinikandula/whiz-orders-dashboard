@@ -220,6 +220,7 @@ console.log(this.orderids);
     document.getElementById("batch").style.visibility = "visible";
     for(let o of this.stores){
       if(o.createdBatch == false){
+        this.sitecode = o.siteCode;
       this.orderids.push(o.orderId);
       }
     }
@@ -365,7 +366,11 @@ orders;
       // this.orders = data.content.orderId;
       // this.sortedData = this.stores.slice();
       this.size = data.numberOfElements;
-      
+      // for(let o of this.stores){
+      //   if(o.createdBatch == false){
+      //   this.orderids.push(o.orderId);
+      //   }
+      // }
 
     },
     error =>{
