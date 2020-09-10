@@ -158,7 +158,7 @@ outfordelivery;
       this.pending = data.pending;
       this.rejected = data.rejected;
       this.total = data.total;
-      this.outfordelivery = data.outfordelivery;
+      this.outfordelivery = data.outForDelivery;
     },
     error =>{
       console.log(error);

@@ -224,6 +224,10 @@ console.log(this.orderids);
       this.orderids.push(o.orderId);
       }
     }
+    if(this.orderids.length == 0){
+      document.getElementById("batch").style.visibility = "hidden";
+      this.checkbox = 0;
+    }
     console.log(this.orderids);
   //   // this.shiftids.push({
   //   //   "shiftIds":id});
@@ -356,6 +360,7 @@ sortedData: any[];
 
   
 orders;
+checkbox;
   ngOnInit() {
     let abc = this.flightSchedule.date.valueOf();
     let today = this.pipe.transform(abc,'yyyy-MM-dd');
@@ -366,11 +371,17 @@ orders;
       // this.orders = data.content.orderId;
       // this.sortedData = this.stores.slice();
       this.size = data.numberOfElements;
-      // for(let o of this.stores){
-      //   if(o.createdBatch == false){
-      //   this.orderids.push(o.orderId);
-      //   }
-      // }
+      for(let o of this.stores){
+        if(o.createdBatch == false){
+        this.orderids.push(o.orderId);
+        }
+      }
+      if(this.orderids.length == 0){
+        this.checkbox = 0;
+      }
+      else{
+        this.checkbox = 1;
+      }
 
     },
     error =>{
@@ -402,13 +413,13 @@ orders;
     abcd.push("REJECTED");
     abcd.push("READY_FOR_PICKUP");
     abcd.push("OUT_ON_ROAD");
-    console.log(abcd);
+    // console.log(abcd);
     this.authService.count(localStorage.getItem('site'),"DELIVERED").subscribe((data:any)=>{
       // (this.count= (data.content));
       // (this.arr= (data.content));
       // // this.sortedData = this.stores.slice();
       // this.size = data.numberOfElements;
-      console.log(data);
+      // console.log(data);
       this.delivered = data;
 
     },
