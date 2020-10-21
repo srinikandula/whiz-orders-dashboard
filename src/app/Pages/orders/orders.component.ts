@@ -55,6 +55,7 @@ export interface Dessert {
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
+
 export class OrdersComponent implements OnInit {
   current='all';
   stores: any[];
@@ -65,7 +66,7 @@ export class OrdersComponent implements OnInit {
   term;
   closeResult: string;
   size = 0;
-arr= this.stores;
+arr;
 url;
 total;
 delivered;
@@ -201,6 +202,8 @@ orderids:any[]=[];
 count:any[]=[];
 sitecode:any;
 abc(event){
+  this.orderids = [];
+  console.log(this.orderids);
 //   if(event.checked == true){
 //     for(let b of this.stores){
 //       this.orderids.push(b.orderId);
@@ -212,7 +215,7 @@ abc(event){
 //   }
 //   console.log(event.checked,this.orderids);
 // }
-console.log(this.orderids);
+
   if(event.checked == true){
     this.flag = this.size;
   //   console.log(this.orderids);
@@ -309,6 +312,7 @@ getdata(event,id,sitecode){
   }
   console.log(event.checked,this.orderids);
 }
+checkbox;
 createbatch(){
   // console.log(this.flightSchedule.date.valueOf());
     let abc = this.flightSchedule.date.valueOf();
@@ -360,7 +364,7 @@ sortedData: any[];
 
   
 orders;
-checkbox;
+
   ngOnInit() {
     let abc = this.flightSchedule.date.valueOf();
     let today = this.pipe.transform(abc,'yyyy-MM-dd');
