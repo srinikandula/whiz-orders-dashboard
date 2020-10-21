@@ -33,6 +33,12 @@
           <th  scope="col">Plan Created</th>
         </tr>
         </thead>
+        <tbody *ngIf="this.size == '0'" class="text-center">
+          <!-- <tr>
+            <td *ngIf="this.size == '0'">No Orders Available</td>
+            </tr> -->
+            No Batches Available
+        </tbody>
         <!-- <tr>
           <td *ngIf="this.size == '0'">No Data Available<br><img src="./../../../assets/images/Loader.gif"></td>
         </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
@@ -46,8 +52,8 @@
           </td>
           <td><button class=" btn btn-outline-primary" >{{b.siteCode}}</button></td>
           <td><button class=" btn btn-outline-primary">{{b.ordersCount }}</button></td>
-          <td><button class=" btn btn-outline-primary" *ngIf="b.planCreated == true">Yes</button>
-            <button class=" btn btn-outline-primary" *ngIf="b.planCreated == false">No</button>
+          <td><button class=" btn btn-outline-success" *ngIf="b.planCreated == true">Yes</button>
+            <button class=" btn btn-outline-danger" *ngIf="b.planCreated == false">No</button>
           </td>
           <!-- <button class=" btn btn-outline-primary"  *ngIf="!b.orderIds[b.orderIds.length-1]" *ngIf="b.orderIds[b.orderIds.length-1]">{{b.orderIds}}</button></td> -->
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->

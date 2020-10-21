@@ -171,6 +171,9 @@ import { PlanesComponent } from './Pages/planes/planes.component';
 import { TripsComponent } from './Pages/trips/trips.component';
 import { SitesComponent } from './Pages/sites/sites.component';
 import { CashmanagementComponent } from './Pages/cashmanagement/cashmanagement.component';
+import { MyLoaderComponent } from './my-loader/my-loader.component';
+import { LoaderService } from './loader.service';
+import { LoaderInterceptorService } from './loader-interceptor.service';
 
 // Angular Material
 
@@ -243,6 +246,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     SitesComponent,
 
     CashmanagementComponent,
+
+    MyLoaderComponent,
     
 
     // Applications
@@ -401,6 +406,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       useClass: AuthInterceptor,
       multi: true
     },
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     ConfigActions,
     ThemeOptions,
     RouterguardGuard
