@@ -11,6 +11,9 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es5",
+    "resolveJsonModule": true,
+    // "basePath":"https://admin.whizzard.in",
+    // "testPath":"https://qa.whizzard.in",
     "typeRoots": [
       "node_modules/@types"
     ],
