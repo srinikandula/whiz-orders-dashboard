@@ -163,17 +163,16 @@ import {NgApexchartsModule} from 'ng-apexcharts';
 import {GaugeModule} from 'angular-gauge';
 import {TrendModule} from 'ngx-trend';
 import { OrdersComponent } from './Pages/orders/orders.component';
-import { TrackvehicleComponent } from './Pages/trackvehicle/trackvehicle.component';
 import { RouterguardGuard } from './routerguard.guard';
 import { BatchesComponent } from './Pages/batches/batches.component';
 import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
-import { PlanesComponent } from './Pages/planes/planes.component';
-import { TripsComponent } from './Pages/trips/trips.component';
 import { SitesComponent } from './Pages/sites/sites.component';
 import { CashmanagementComponent } from './Pages/cashmanagement/cashmanagement.component';
 import { MyLoaderComponent } from './my-loader/my-loader.component';
 import { LoaderService } from './loader.service';
 import { LoaderInterceptorService } from './loader-interceptor.service';
+import { FleetComponent } from './Pages/fleet/fleet.component';
+import { CustomerComponent } from './Pages/customer/customer.component';
 
 // Angular Material
 
@@ -233,21 +232,19 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
     OrdersComponent,
 
-    TrackvehicleComponent,
-
     BatchesComponent,
 
     ShiftsComponent,
-
-    PlanesComponent,
-
-    TripsComponent,
 
     SitesComponent,
 
     CashmanagementComponent,
 
     MyLoaderComponent,
+
+    FleetComponent,
+
+    CustomerComponent,
     
 
     // Applications

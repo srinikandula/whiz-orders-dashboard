@@ -72,22 +72,23 @@ details;
     let abc = this.flightSchedule.date.valueOf();
     let today = this.pipe.transform(abc,'yyyy-MM-dd');
     console.log(today);
-    this.authService.cashm(today).subscribe((data:any)=>{
-      (this.cashm= (data));
-      this.details = data.orderIds;
-      // (this.arr= (data.content));
-      // this.sortedData = this.stores.slice();
-      this.size = data.length;
-      // console.log(this.stores);
+  //   this.authService.cashm(today).subscribe((data:any)=>{
+  //     (this.cashm= (data));
+  //     this.details = data.orderIds;
+  //     // (this.arr= (data.content));
+  //     // this.sortedData = this.stores.slice();
+  //     this.size = data.length;
+  //     // console.log(this.stores);
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
+  //   },
+  //   error =>{
+  //     if(error.error.message == 'Access Denied'){
+  //       localStorage.clear();
+  //       this.router.navigate(['/']);
+  //     }
+  //     console.log(error);
+  //   });
+  // }
   }
   selectPageSize(event) {
     this.pageSize1 = event;

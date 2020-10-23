@@ -124,23 +124,23 @@
       <tr class="text-center"  *ngFor ="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
         <th><mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3" (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox></th>
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
-          <td><button class=" btn btn-outline-primary" (click)="openSmall2(content2,b.id)"><span>{{b.orderId}}</span></button></td>
+          <td><button class=" btn btn-outline-primary border-0" (click)="openSmall2(content2,b.id)"><span>{{b.orderId}}</span></button></td>
           <td>
-            <button class=" btn btn-outline-dark" *ngIf="b.status == 'AT_DC'">{{b.status}}</button>
-            <button class=" btn btn-outline-success"  *ngIf="b.status == 'DELIVERED'">{{b.status}}</button>
-            <button class=" btn btn-outline-warning" *ngIf="b.status == 'CANCELLED'" >{{b.status}}</button>
-            <button class=" btn btn-outline-danger" *ngIf="b.status == 'REJECTED'">{{b.status}}</button>
-            <button class=" btn btn-outline-info" *ngIf="b.status == 'READY_FOR_PICKUP'">{{b.status}}</button>
-            <button class=" btn btn-outline-primary" *ngIf="b.status == 'OUT_ON_ROAD'">{{b.status}}</button>
+            <button class=" btn btn-outline-dark border-0" *ngIf="b.status == 'AT_DC'"><b>{{b.status}}</b></button>
+            <button class=" btn btn-outline-success border-0"  *ngIf="b.status == 'DELIVERED'"><b>{{b.status}}</b></button>
+            <button class=" btn btn-outline-danger border-0" *ngIf="b.status == 'CANCELLED'" ><b>{{b.status}}</b></button>
+            <button class=" btn btn-outline-danger" *ngIf="b.status == 'REJECTED'"><b>{{b.status}}</b></button>
+            <button class=" btn btn-outline-warning border-0" *ngIf="b.status == 'READY_FOR_PICKUP'"><b>{{b.status}}</b></button>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.status == 'OUT_ON_ROAD'"><b>{{b.status}}</b></button>
           </td>
-          <td><button class="btn btn-outline-primary">{{b.siteCode}}</button></td>
-          <td><button class="btn btn-outline-primary">{{b.itemQuantity}}</button></td>
-          <td><button class="btn btn-outline-primary">{{b.orderTotal}}</button></td>
-          <td><button class="btn btn-outline-primary"  *ngIf="b.expectedDeliverySlot != null">{{b. expectedDeliverySlot}}</button>
-            <button class="btn btn-outline-primary"  *ngIf="b.expectedDeliverySlot == null">-</button></td>
-          <td><button class="btn btn-outline-primary">{{b.createdDate}}</button></td>
-          <td><button class="btn btn-outline-primary" *ngIf='b.orderImageUrl == null'>-</button>
-            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary" *ngIf='b.orderImageUrl != null' (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
+          <td><button class="btn btn-outline-primary border-0">{{b.siteCode}}</button></td>
+          <td><button class="btn btn-outline-primary border-0">{{b.itemQuantity}}</button></td>
+          <td><button class="btn btn-outline-primary border-0">{{b.orderTotal}}</button></td>
+          <td><button class="btn btn-outline-primary border-0"  *ngIf="b.expectedDeliverySlot != null">{{b. expectedDeliverySlot}}</button>
+            <button class="btn btn-outline-primary border-0"  *ngIf="b.expectedDeliverySlot == null">-</button></td>
+          <td><button class="btn btn-outline-primary border-0">{{b.createdDate}}</button></td>
+          <td><button class="btn btn-outline-primary border-0" *ngIf='b.orderImageUrl == null'>-</button>
+            <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary border-0" *ngIf='b.orderImageUrl != null' (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
             <!-- <a href="file:///D:/git/maps.html?id={{b.id}}" target="_blank" style="margin-left: 10px;"><button class=" btn-icon btn-icon-only btn btn-primary" ><span class="fa fa-map"></span></button></a>
             <span *ngIf="b.status == 'pending'" class="badge badge-dot badge-dot-lg badge-warning badge-pulse"></span> -->
           </td>

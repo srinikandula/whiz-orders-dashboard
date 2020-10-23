@@ -31,12 +31,12 @@
             </div>
             
             <!-- <ngb-accordion [destroyOnHide]="false" [closeOthers]="true" [activeIds]="extraParameter"> -->
-            <div class="vsm-item" >
+            <!-- <div class="vsm-item" >
               <a routerLink="/home" routerLinkActive="active-item"  [routerLinkActiveOptions]="{exact: true}" class="vsm-link">
                 <i class="vsm-icon pe-7s-graph2"></i>
                 <span class="vsm-title" >Dashboard</span>
               </a>
-            </div>
+            </div> -->
             <!-- <div class="vsm-item">
               <a routerLink="/fleetinfo" routerLinkActive="active-item" class="vsm-link">
                 <i class="vsm-icon pe-7s-car"></i>
@@ -44,7 +44,7 @@
               </a>
             </div> -->
             <div class="vsm-item" >
-              <a routerLink="/orders" routerLinkActive="active-item" class="vsm-link">
+              <a routerLink="/orders" routerLinkActive="active-item" [routerLinkActiveOptions]="{exact: true}" class="vsm-link">
                 <i class="vsm-icon pe-7s-graph"></i>
                 <span class="vsm-title">Orders</span>
               </a>
@@ -52,13 +52,25 @@
             <div class="vsm-item" >
               <a routerLink="/batches" routerLinkActive="active-item" class="vsm-link">
                 <i class="vsm-icon pe-7s-box2"></i>
-                <span class="vsm-title">Batches</span>
+                <span class="vsm-title">Batches & Shifts</span>
+              </a>
+            </div>
+            <div class="vsm-item" >
+              <a routerLink="/fleet" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-plane"></i>
+                <span class="vsm-title">Fleet Management</span>
               </a>
             </div>
             <div class="vsm-item" >
               <a routerLink="/cashm" routerLinkActive="active-item" class="vsm-link">
-                <i class="vsm-icon pe-7s-box2"></i>
+                <i class="vsm-icon pe-7s-wallet"></i>
                 <span class="vsm-title">Cash Management</span>
+              </a>
+            </div>
+            <div class="vsm-item" >
+              <a routerLink="/customer" routerLinkActive="active-item" class="vsm-link">
+                <i class="vsm-icon pe-7s-chat"></i>
+                <span class="vsm-title">Customer Support</span>
               </a>
             </div>
             <!-- <div class="vsm-item" >

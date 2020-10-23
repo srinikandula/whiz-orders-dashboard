@@ -83,13 +83,13 @@
       <tr class="text-center"  *ngFor ="let b of shifts | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
           <th><mat-checkbox [checked]='checked' class="mr-3" (change)="getdata($event,b.shiftId); false"></mat-checkbox></th>
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
-          <td><button class=" btn btn-outline-primary"><span>{{b.driverName}}</span></button></td>
-          <td><button class=" btn btn-outline-primary" >{{b.driverContactNumber}}</button></td>
-          <td><button class=" btn btn-outline-primary" >{{b.shiftDateStr}}</button></td>
-          <td><button class=" btn btn-outline-primary" >{{b.startTime.hours}}:{{b.startTime.minutes}}</button></td>
-          <td><button class=" btn btn-outline-primary"  >{{b.endTime.hours}}:{{b.endTime.minutes}}</button></td>
-          <td><button class=" btn btn-outline-primary" >{{b.vehicleRegistrationNumber}}</button></td>
-          <td><button class=" btn btn-outline-primary" >{{b.vehicleType}}</button></td>
+          <td><button class=" btn btn-outline-primary border-0"><span>{{b.driverName}}</span></button></td>
+          <td><button class=" btn btn-outline-primary border-0" >{{b.driverContactNumber}}</button></td>
+          <td><button class=" btn btn-outline-primary border-0" >{{b.shiftDateStr}}</button></td>
+          <td><button class=" btn btn-outline-primary border-0" >{{b.startTime.hours}}:{{b.startTime.minutes}}</button></td>
+          <td><button class=" btn btn-outline-primary border-0"  >{{b.endTime.hours}}:{{b.endTime.minutes}}</button></td>
+          <td><button class=" btn btn-outline-primary border-0" >{{b.vehicleRegistrationNumber}}</button></td>
+          <td><button class=" btn btn-outline-primary border-0" >{{b.vehicleType}}</button></td>
           <!-- <td><button class=" btn btn-outline-primary" >{{b.endTime.hours}}</button></td> -->
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
           </tr>    

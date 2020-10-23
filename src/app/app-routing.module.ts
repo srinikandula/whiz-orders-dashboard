@@ -6,15 +6,14 @@ import {PagesLayoutComponent} from './Layout/pages-layout/pages-layout.component
 import {AppsLayoutComponent} from './Layout/apps-layout/apps-layout.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { OrdersComponent } from './Pages/orders/orders.component';
-import { TrackvehicleComponent } from './Pages/trackvehicle/trackvehicle.component';
 import { LoginComponent } from './Pages/login/login.component';
 import { RouterguardGuard } from './routerguard.guard';
 import { BatchesComponent } from './Pages/batches/batches.component';
 import { ShiftsComponent } from './Pages/batches/shifts/shifts.component';
-import { PlanesComponent } from './Pages/planes/planes.component';
-import { TripsComponent } from './Pages/trips/trips.component';
 import { SitesComponent } from './Pages/sites/sites.component';
 import { CashmanagementComponent } from './Pages/cashmanagement/cashmanagement.component';
+import { FleetComponent } from './Pages/fleet/fleet.component';
+import { CustomerComponent } from './Pages/customer/customer.component';
 
 // DEMO PAGES
 
@@ -82,13 +81,13 @@ const routes: Routes = [
     children: [
 
       // Dashboads
-      {path: 'home', component: HomeComponent,data: {extraParameter: ''},canActivate: [RouterguardGuard]},
+      // {path: 'home', component: HomeComponent,data: {extraParameter: ''},canActivate: [RouterguardGuard]},
       // {path:'',redirectTo:'home',pathMatch:'full', canActivate: [RouterguardGuard]},
       {path: 'orders', component: OrdersComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
-      {path: 'trackvehicle', component: TrackvehicleComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'fleet', component: FleetComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'batches', component: BatchesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'batches/shifts', component: ShiftsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
-      {path: 'plans', component: PlanesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'customer', component: CustomerComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       // {path: 'trips', component: TripsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'sites', component: SitesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'cashm', component: CashmanagementComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},

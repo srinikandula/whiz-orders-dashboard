@@ -47,13 +47,13 @@
       <tr class="text-center"  *ngFor ="let b of batches | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
           <!-- <th><mat-checkbox [checked]='checked' class="mr-3"></mat-checkbox></th> -->
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
-          <td><button class=" btn btn-outline-primary" (click)="shifts(b.id)" *ngIf="b.planCreated == false"><span>{{b.batchName}}</span></button>
-            <button class=" btn btn-outline-primary" *ngIf="b.planCreated == true" (click)="opensweetalert()"><span>{{b.batchName}}</span></button>
+          <td><button class=" btn btn-outline-primary border-0" (click)="shifts(b.id)" *ngIf="b.planCreated == false"><span>{{b.batchName}}</span></button>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.planCreated == true" (click)="opensweetalert()"><span>{{b.batchName}}</span></button>
           </td>
-          <td><button class=" btn btn-outline-primary" >{{b.siteCode}}</button></td>
-          <td><button class=" btn btn-outline-primary">{{b.ordersCount }}</button></td>
-          <td><button class=" btn btn-outline-success" *ngIf="b.planCreated == true">Yes</button>
-            <button class=" btn btn-outline-danger" *ngIf="b.planCreated == false">No</button>
+          <td><button class=" btn btn-outline-primary border-0" >{{b.siteCode}}</button></td>
+          <td><button class=" btn btn-outline-primary border-0">{{b.ordersCount }}</button></td>
+          <td><button class=" btn btn-outline-success border-0" *ngIf="b.planCreated == true">Yes</button>
+            <button class=" btn btn-outline-danger border-0" *ngIf="b.planCreated == false">No</button>
           </td>
           <!-- <button class=" btn btn-outline-primary"  *ngIf="!b.orderIds[b.orderIds.length-1]" *ngIf="b.orderIds[b.orderIds.length-1]">{{b.orderIds}}</button></td> -->
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->

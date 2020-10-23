@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse,HttpParams } from '@angular/common/http';
+import { env } from 'process';
+import * as config from "./../assets/appsettings.json";
+import { environment } from 'src/environments/environment';
+// import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  basePath = 'https://admin.whizzard.in';
-  testPath = 'http://qa.whizzard.in';
+  basePath = environment.basePath;
+  testPath = environment.testPath;
+  // authToken = localStorage.getItem('access_token');
+  // basePath = config.basePath;
+  // testPath = config.testPath;
 
   constructor(private router: Router,
     private http: HttpClient) { }
 
     httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        // 'Authorization': "Bearer " + this.authToken
       })
     };
     
@@ -69,6 +77,7 @@ export class AuthService {
     }
     // "orderIds":orderids,
     orders(code,date,search){
+      console.log(config.testPath, config.basePath);
       if(code == 'all'){
         return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {"date":date,"searchParam":search},this.httpOptions);
       }

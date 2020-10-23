@@ -53,7 +53,7 @@
   </div>
 </div> -->
 
-<div class="col-md-12">
+<!-- <div class="col-md-12">
   <div class="card main-card mb-6">
   </div>
   </div>
@@ -69,7 +69,7 @@
               </div>
               <button class="close" (click)="isActive = false; term = null; search(term)"></button>
             </div>              
-      </div> -->
+      </div> -
 
 
       <div class="card-header-center" style="margin-left: 10px;">
@@ -95,7 +95,7 @@
         <thead >
         <tr class="text-center">
           <!-- <th><mat-checkbox [(ngModel)]='checked' class="mr-3" (change)="abc($event)"></mat-checkbox></th> -->
-          <!-- <th></th> -->
+          <!-- <th></th> --
           <th scope="col">#</th>
           <th scope="col">Vehicle Number</th>
           <th scope="col">Total Orders</th>
@@ -104,7 +104,7 @@
           <th  scope="col">Cod Collected</th>
           <!-- <th scope="col">Actions</th> -->
           <!-- <th>mat-sort-header="updatedAt"</th> -->
-          <!-- <th  scope="col">Updated</th> -->
+          <!-- <th  scope="col">Updated</th> --
           <th  scope="col">Canceled COD</th>
           <th  scope="col">Order Ids</th>
         </tr>
@@ -112,16 +112,16 @@
         <!-- <tr>
           <td *ngIf="this.size == '0'">No Data Available<br><img src="./../../../assets/images/Loader.gif"></td>
         </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
-      <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
+      <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" --
       <tbody *ngIf="this.size == '0'" class="text-center">
         <!-- <tr>
           <td *ngIf="this.size == '0'">No Orders Available</td>
-          </tr> -->
+          </tr> --
           No Orders Available
       </tbody>
       <tbody *ngIf="this.size != '0'">
       <tr class="text-center"  *ngFor ="let b of cashm  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
-        <!-- <th><mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3" (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox></th> -->
+        <!-- <th><mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3" (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox></th> --
           <th>{{(page1-1) * pageSize1  + i + 1}}</th>
           <td><button class=" btn btn-outline-primary"><span>{{b.vehicleNumber}}</span></button></td>
           <td>
@@ -130,15 +130,15 @@
           <td><button class="btn btn-outline-primary">{{b.totalAmount}}</button></td>
           <td><button class="btn btn-outline-primary">{{b.cashToBeCollected}}</button></td>
           <td><button class="btn btn-outline-primary">{{b.codCollected}}</button></td>
-          <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
+          <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> --
           <td><button class="btn btn-outline-primary">{{b.canceledCOD}}</button></td>
           <td><button class=" btn btn-outline-primary" ><span>{{b.orderIds}} , </span></button>
             <!-- <a href="file:///D:/git/maps.html?id={{b.id}}" target="_blank" style="margin-left: 10px;"><button class=" btn-icon btn-icon-only btn btn-primary" ><span class="fa fa-map"></span></button></a>
-            <span *ngIf="b.status == 'pending'" class="badge badge-dot badge-dot-lg badge-warning badge-pulse"></span> -->
+            <span *ngIf="b.status == 'pending'" class="badge badge-dot badge-dot-lg badge-warning badge-pulse"></span> --
           </td>
           </tr>    
       </tbody>
-      </table>
+      </table> -->
 
 
       <!-- <ng-template #content1 let-c="close" let-d="dismiss">
@@ -216,7 +216,7 @@
         </div>
       </ng-template> -->
     
-    </div>
+    <!-- </div>
       <div class="d-block p-4 card-footer">
           <div class="d-flex w-100 justify-content-between">
         <ngb-pagination [(page)]="page1"
@@ -227,11 +227,14 @@
       <button class="btn btn-outline-primary" (click)="selectPageSize(200)">200</button>
       <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
       <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button>
-    </div>
+    </div> -->
       <!-- <select class="custom-select" style="width: auto" name="pageSize1" (change)="selectPageSize($event)">
           <option *ngFor = "let size of pageSizeOptions1" [value]="size">{{size}}</option>
     </select> -->
+    <!-- </div>
     </div>
     </div>
-    </div>
-    </div>
+    </div> -->
+
+
+    <h1>No Data Found</h1>

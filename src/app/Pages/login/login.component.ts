@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
   }); 
   if(localStorage.getItem('access_token')!= null){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/orders']);
   }
   }
   get f() { return this.loginform.controls; }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.formvalue).subscribe((data:any)=>{
       localStorage.setItem('access_token',data.accessToken);
       localStorage.setItem('name',data.fullName);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/orders']);
     },
     error =>{
       document.getElementById("error").classList.remove("d-none");

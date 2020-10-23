@@ -18,20 +18,20 @@ export class SearchBoxComponent implements OnInit {
   constructor(private authService: AuthService,private router: Router) { }
 
   ngOnInit() {
-    this.authService.sites().subscribe((data:any)=>{
-      if(data.message == 'Access Denied'){
-        localStorage.removeItem('access_token');
-      }else{
-      (this.sites= (data));
-      localStorage.setItem('site',this.selected);
-    }},
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
+    // this.authService.sites().subscribe((data:any)=>{
+    //   if(data.message == 'Access Denied'){
+    //     localStorage.removeItem('access_token');
+    //   }else{
+    //   (this.sites= (data));
+    //   localStorage.setItem('site',this.selected);
+    // }},
+    // error =>{
+    //   if(error.error.message == 'Access Denied'){
+    //     localStorage.clear();
+    //     this.router.navigate(['/']);
+    //   }
+    //   console.log(error);
+    // });
   }
   doSomething(event){
     if(event.value.clientStationCode == undefined){
