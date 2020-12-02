@@ -16,47 +16,47 @@
 <div class="col-md-12">
   <div class="card main-card mb-6">
   </div>
-  </div>
-  <div class="col-md-12">
-    <div class="card main-card mb-6">
-      <div class="card-header">
-        Shifts
+</div>
+<div class="col-md-12">
+  <div class="card main-card mb-6">
+    <div class="card-header">
+      Shifts
       <div class="card-body" style="flex:none">
-          <div class="search-wrapper" [class.active]="isActive">
-              <div class="input-holder">
-                <input type="text" placeholder="Type to search" [(ngModel)]="term" class="search-input">
-                <button class="search-icon" (click)="isActive = true"><span></span></button>
-              </div>
-              <button class="close" (click)="isActive = false;term = null;"></button>
-            </div>   
-            
-            
+        <div class="search-wrapper" [class.active]="isActive">
+          <div class="input-holder">
+            <input type="text" placeholder="Type to search" [(ngModel)]="term" class="search-input">
+            <button class="search-icon" (click)="isActive = true"><span></span></button>
+          </div>
+          <button class="close" (click)="isActive = false;term = null;"></button>
+        </div>
+
+
       </div>
-       
+
       <div class="card-header-center">
         <div class="text-center">
-            <div class="btn-group btn-group-toggle"  ngbRadioGroup [(ngModel)]="current">
-              <label ngbButtonLabel class="btn-outline-primary btn-lg">
-                <input ngbButton type="radio" value="all" (change)="ngOnInit()" >Today({{this.today | date:'yyyy-MM-dd'}})
-              </label>
-              <label ngbButtonLabel class="btn-outline-warning btn-lg">
-                <input ngbButton type="radio" value="tom" (change)="tomorrow()">Tomorrow({{this.tom | date:'yyyy-MM-dd'}})
-              </label>
-              <label ngbButtonLabel class="btn-outline-success btn-lg">
-                <input ngbButton type="radio" value="then" (change)="thenn()">{{this.then | date:'yyyy-MM-dd'}}
-              </label>
-            </div>
+          <div class="btn-group btn-group-toggle" ngbRadioGroup [(ngModel)]="current">
+            <label ngbButtonLabel class="btn-outline-primary btn-lg">
+              <input ngbButton type="radio" value="all" (change)="ngOnInit()">Today({{this.today | date:'yyyy-MM-dd'}})
+            </label>
+            <label ngbButtonLabel class="btn-outline-warning btn-lg">
+              <input ngbButton type="radio" value="tom" (change)="tomorrow()">Tomorrow({{this.tom | date:'yyyy-MM-dd'}})
+            </label>
+            <label ngbButtonLabel class="btn-outline-success btn-lg">
+              <input ngbButton type="radio" value="then" (change)="thenn()">{{this.then | date:'yyyy-MM-dd'}}
+            </label>
           </div>
         </div>
-      <div  class="btn-actions-pane-right">
+      </div>
+      <div class="btn-actions-pane-right">
         <button class=" btn btn-outline-primary" (click)="createplan()"><span>Allocate</span></button>
         <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
       </div>
-          </div>
-          <div class="table-responsive">
-           
-      <table class="align-middle text-truncate mb-0 table table-borderless table-hover table-striped"> 
-        <thead >
+    </div>
+    <div class="table-responsive">
+
+      <table class="align-middle text-truncate mb-0 table table-borderless table-hover table-striped">
+        <thead>
         <tr class="text-center">
           <!-- <th><mat-checkbox [(ngModel)]='checked' (change)="abc($event)" class="mr-3"></mat-checkbox></th> -->
           <th></th>
@@ -66,8 +66,14 @@
           <th scope="col">Shift Date</th>
           <th scope="col">Start Time</th>
           <th scope="col">End Time</th>
+
+          <th scope="col">Quantity</th>
+          <th scope="col">Weight</th>
+
           <th scope="col">Vehicle Number</th>
           <th scope="col">Vehicle Type</th>
+
+          <th scope="col">Action</th>
           <!-- <th>mat-sort-header="updatedAt"</th> -->
           <!-- <th  scope="col">Updated</th> -->
         </tr>
@@ -75,43 +81,102 @@
         <!-- <tr>
           <td *ngIf="this.size == '0'">No Data Available<br><img src="./../../../assets/images/Loader.gif"></td>
         </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
-      <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
-      <tbody *ngIf="this.size == 0" class="text-center">
+        <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
+        <tbody *ngIf="this.size == 0" class="text-center">
         <th>No Shifts Found</th>
-      </tbody>
-      <tbody *ngIf="this.size!= 0">
-      <tr class="text-center"  *ngFor ="let b of shifts | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
-          <th><mat-checkbox [checked]='checked' class="mr-3" (change)="getdata($event,b.shiftId); false"></mat-checkbox></th>
-          <th>{{(page1-1) * pageSize1  + i + 1}}</th>
-          <td><button class=" btn btn-outline-primary border-0"><span>{{b.driverName}}</span></button></td>
-          <td><button class=" btn btn-outline-primary border-0" >{{b.driverContactNumber}}</button></td>
-          <td><button class=" btn btn-outline-primary border-0" >{{b.shiftDateStr}}</button></td>
-          <td><button class=" btn btn-outline-primary border-0" >{{b.startTime.hours}}:{{b.startTime.minutes}}</button></td>
-          <td><button class=" btn btn-outline-primary border-0"  >{{b.endTime.hours}}:{{b.endTime.minutes}}</button></td>
-          <td><button class=" btn btn-outline-primary border-0" >{{b.vehicleRegistrationNumber}}</button></td>
-          <td><button class=" btn btn-outline-primary border-0" >{{b.vehicleType}}</button></td>
+        </tbody>
+        <tbody *ngIf="this.size!= 0">
+        <tr class="text-center"
+            *ngFor="let b of shifts | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;">
+          <th>
+            <mat-checkbox [checked]='checked' class="mr-3" (change)="getdata($event,b); false"></mat-checkbox>
+          </th>
+          <th>{{(page1 - 1) * pageSize1 + i + 1}}</th>
+          <td>
+            <button class=" btn btn-outline-primary border-0"><span>{{b.driverName}}</span></button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.driverContactNumber}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.shiftDateStr}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.startTime.hours}}:{{b.startTime.minutes}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.endTime.hours}}:{{b.endTime.minutes}}</button>
+          </td>
+
+          <td>
+            <!--            {{enableEdit}} -&#45;&#45;&#45;&#45; {{ enableEditIndex}} &#45;&#45;&#45;&#45; {{ i}} {{enableEdit && enableEditIndex == i}}-->
+            <button class=" btn btn-outline-primary border-0">{{b.quantity}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.weight}}</button>
+          </td>
+
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.vehicleRegistrationNumber}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.vehicleType}}</button>
+          </td>
           <!-- <td><button class=" btn btn-outline-primary" >{{b.endTime.hours}}</button></td> -->
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
-          </tr>    
-      </tbody>
+          <td>
+
+            <button class="btn btn-sm" (click)="enableEditMethodForSome(shiftContent2, b)">
+              edit
+            </button>
+          </td>
+        </tr>
+        </tbody>
       </table>
-    
+
     </div>
-      <div class="d-block p-4 card-footer">
-          <div class="d-flex w-100 justify-content-between">
+    <div class="d-block p-4 card-footer">
+      <div class="d-flex w-100 justify-content-between">
         <ngb-pagination [(page)]="page1"
-        [pageSize]="pageSize1"
-        [collectionSize]="this.size">
-      </ngb-pagination>
-      <!-- <select class="custom-select" style="width: auto" name="pageSize1" (change)="selectPageSize($event)">
-          <option *ngFor = "let size of pageSizeOptions1" [value]="size">{{size}}</option>
-    </select> -->
-    <div  class="btn-actions-pane-right">
-      <button class="btn btn-outline-primary" (click)="selectPageSize(200)">200</button>
-      <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
-      <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button>
+                        [pageSize]="pageSize1"
+                        [collectionSize]="this.size">
+        </ngb-pagination>
+        <!-- <select class="custom-select" style="width: auto" name="pageSize1" (change)="selectPageSize($event)">
+            <option *ngFor = "let size of pageSizeOptions1" [value]="size">{{size}}</option>
+      </select> -->
+        <div class="btn-actions-pane-right">
+          <button class="btn btn-outline-primary" (click)="selectPageSize(200)">200</button>
+          <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
+          <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<ng-template #shiftContent2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Shift Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeUpdates()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <label>Quantity</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.quantity"/>
+      </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <label>Weight</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.weight"/>
+      </div>
     </div>
-    </div>
-    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="updateShiftData(shift)">Update</button>
+    <button type="button" class="btn btn-secondary" (click)="closeUpdates()">Close</button>
+  </div>
+</ng-template>
