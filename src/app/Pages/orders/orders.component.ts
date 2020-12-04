@@ -88,7 +88,7 @@ openLarge(content,url) {
     size: 'lg'
   });
  this.url = url;
-  
+
 }
 details;
 details2;
@@ -115,7 +115,7 @@ openSmall2(content,id) {
     }
     console.log(error);
   });
-  
+
 }
 
 private getDismissReason(reason: any): string {
@@ -192,7 +192,7 @@ pending(){
       // console.log(this.boards);
   }
   this.size = this.stores.length;
-  
+
 }
 all(){
   this.stores= this.arr;
@@ -243,7 +243,7 @@ abc(event){
   //     }
   //     else{
   //       event.checked = false;
-        
+
   //       console.log(event);
   //       Swal.fire({
   //         title:"Selecting Orders!",
@@ -288,7 +288,7 @@ getdata(event,id,sitecode){
       }
       else{
         event.checked = false;
-        
+
         console.log(event);
         // Swal.fire({
         //   title:"Selecting Orders!",
@@ -325,7 +325,7 @@ createbatch(){
   }
   else{
     console.log(prompt);
-    
+
     this.authService.createbatches(this.orderids,this.sitecode,prompt,today).subscribe((data:any)=>{
       // (this.stores= (data.content));
       // (this.arr= (data.content));
@@ -340,7 +340,7 @@ createbatch(){
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-      
+
 
     },
     error =>{
@@ -362,7 +362,7 @@ createbatch(){
 
 sortedData: any[];
 
-  
+
 orders;
 
   ngOnInit() {
@@ -555,14 +555,14 @@ orders;
       });
     }
   }
-  
-  constructor(private authService: AuthService,private router: Router,private modalService: NgbModal) { 
+
+  constructor(private authService: AuthService,private router: Router,private modalService: NgbModal) {
     // if(this.stores != null){
     // }
   }
 
 
-  
+
   selectPageSize(event) {
   this.pageSize1 = event;
   }

@@ -49,7 +49,6 @@ export class ShiftsComponent implements OnInit {
   ngOnInit() {
     let today = this.pipe.transform(this.today, 'yyyy-MM-dd');
     this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
-      (this.shiftsData = (data));
       (this.shifts = (data));
         if (this.shifts.length) {
           this.shifts.forEach(item => item.vehicleType == 4 ? item['quantity'] = 50 : item.vehicleType == 3 ? item['quantity'] = 30 : item.vehicleType == 2 ? item['quantity'] = 20 : 0);
@@ -74,7 +73,6 @@ export class ShiftsComponent implements OnInit {
   tomorrow() {
     let today = this.pipe.transform(this.tom, 'yyyy-MM-dd');
     this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
-      (this.shiftsData = (data));
       (this.shifts = (data));
         if (this.shifts.length) {
           this.shifts.forEach(item => item.vehicleType == 4 ? item['quantity'] = 50 : item.vehicleType == 3 ? item['quantity'] = 30 : item.vehicleType == 2 ? item['quantity'] = 20 : 0);
@@ -150,7 +148,6 @@ export class ShiftsComponent implements OnInit {
   thenn() {
     let today = this.pipe.transform(this.then, 'yyyy-MM-dd');
     this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
-      (this.shiftsData = (data));
       (this.shifts = (data));
         if (this.shifts.length) {
           this.shifts.forEach(item => item.vehicleType == 4 ? item['quantity'] = 50 : item.vehicleType == 3 ? item['quantity'] = 30 : item.vehicleType == 2 ? item['quantity'] = 20 : 0);
@@ -200,30 +197,29 @@ export class ShiftsComponent implements OnInit {
   }
 
   createplan() {
-    console.log(this.shiftids);
-    // this.authService.createplan(this.shiftids, localStorage.getItem('batchid')).subscribe((data: any) => {
-    //     Swal.fire({
-    //       title: 'Shift Allocated!',
-    //       text: 'Shift is Successfully Allocated!',
-    //       type: 'success'
-    //     });
-    //     setTimeout(() => {
-    //       window.location.reload();
-    //     }, 3000);
-    //   },
-    //   error => {
-    //     if (error.error.message == 'Access Denied') {
-    //       localStorage.clear();
-    //       this.router.navigate(['/']);
-    //     } else {
-    //       Swal.fire({
-    //         title: 'Shift Can Not Be Allocated!',
-    //         text: error.error.message,
-    //         type: 'warning'
-    //       });
-    //     }
-    //     console.log(error);
-    //   });
+    this.authService.createplanForShifts(this.shiftids, localStorage.getItem('batchid')).subscribe((data: any) => {
+        Swal.fire({
+          title: 'Shift Allocated!',
+          text: 'Shift is Successfully Allocated!',
+          type: 'success'
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        } else {
+          Swal.fire({
+            title: 'Shift Can Not Be Allocated!',
+            text: error.error.message,
+            type: 'warning'
+          });
+        }
+        console.log(error);
+      });
   }
 
   selectPageSize(event) {

@@ -26,7 +26,7 @@ export class AuthService {
         // 'Authorization': "Bearer " + this.authToken
       })
     };
-    
+
 
     login(cred){
       return this.http.post<[]>(this.basePath + '/api/auth/signin', cred,this.httpOptions);
@@ -124,6 +124,11 @@ export class AuthService {
       // body = body.set('shiftIds', shifts);
       return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/createPlan?shiftIds=' + shifts + '&batchId=' + batchid,this.httpOptions);
     }
+
+    createplanForShifts(shifts, batchId) {
+      return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/createPlan?' + '&batchId=' + batchId, shifts, this.httpOptions);
+    }
+
     planes(search){
       return this.http.post<[]>(this.testPath + '/api/v1/more/locusPlan/search',{"searchParam":search},this.httpOptions);
     }
