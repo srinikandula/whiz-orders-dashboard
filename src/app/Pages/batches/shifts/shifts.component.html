@@ -69,7 +69,8 @@
 
           <th scope="col">Quantity</th>
           <th scope="col">Weight</th>
-
+          <th scope="col">Volume</th>
+          <th scope="col">Crates</th>
           <th scope="col">Vehicle Number</th>
           <th scope="col">Vehicle Type</th>
 
@@ -115,7 +116,12 @@
           <td>
             <button class=" btn btn-outline-primary border-0">{{b.weight}}</button>
           </td>
-
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.volume}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">{{b.crates}}</button>
+          </td>
           <td>
             <button class=" btn btn-outline-primary border-0">{{b.vehicleRegistrationNumber}}</button>
           </td>
@@ -127,7 +133,7 @@
           <td>
 
             <button class="btn btn-sm" (click)="enableEditMethodForSome(shiftContent2, b)">
-              edit
+              Edit
             </button>
           </td>
         </tr>
@@ -172,6 +178,18 @@
       <div class="col">
         <label>Weight</label>
         <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.weight"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Weight</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.volume"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Weight</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.crates"/>
       </div>
     </div>
   </div>
