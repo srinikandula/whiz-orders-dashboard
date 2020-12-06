@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Sort} from '@angular/material/sort';
-import { AuthService } from '../../auth.service';
-import { Router } from '@angular/router';
+import {AuthService} from '../../auth.service';
+import {Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { FormControl } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import {FormControl} from '@angular/forms';
+import {DatePipe} from '@angular/common';
 
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
@@ -39,7 +39,7 @@ export interface Dessert {
   text: string;
   time: number;
   data: string;
-  url:string;
+  url: string;
 }
 
 @Component({
@@ -57,153 +57,164 @@ export interface Dessert {
 })
 
 export class OrdersComponent implements OnInit {
-  current='all';
+  current = 'all';
   stores: any[];
-  public pageSizeOptions1 = [5,10];
+  public pageSizeOptions1 = [5, 10];
   public isActive: any;
   page1 = 1;
-  pageSize1 =20;
+  pageSize1 = 20;
   term;
   closeResult: string;
   size = 0;
-arr;
-url;
-total;
-delivered;
-processing;
-cancelled;
-decline;
-road;
-ready;
-flag =0;
+  arr;
+  url;
+  total;
+  delivered;
+  processing;
+  cancelled;
+  decline;
+  road;
+  ready;
+  flag = 0;
+  checked;
 // date =  new FormControl(new Date());
-pipe = new DatePipe('en-US');
-date = new FormControl(_moment());
-flightSchedule = {
-  date: new Date()
-}
+  pipe = new DatePipe('en-US');
+  date = new FormControl(_moment());
+  flightSchedule = {
+    date: new Date()
+  };
 
-openLarge(content,url) {
-  this.modalService.open(content, {
-    size: 'lg'
-  });
- this.url = url;
+  openLarge(content, url) {
+    this.modalService.open(content, {
+      size: 'lg'
+    });
+    this.url = url;
 
-}
-details;
-details2;
-error
-openSmall2(content,id) {
-  this.modalService.open(content, {
-    size: 'sm'
-  });
-  this.authService.ordersdetails(id).subscribe((data:any)=>{
-    (this.details= (Array.of(data)));
-    (this.details2= (data.orderItems));
-    // this.sortedData = this.stores.slice();
-    this.size = data.numberOfElements;
-    // console.log(this.stores);
-
-  },
-  error =>{
-    if(error.error.message == 'Access Denied'){
-      localStorage.clear();
-      this.router.navigate(['/']);
-    }
-    else{
-      this.error = error.error.message;
-    }
-    console.log(error);
-  });
-
-}
-
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return `with: ${reason}`;
   }
-}
-closed(){
-  // console.log(this.arr);
-  this.stores= this.arr;
-  for(let b of this.stores){
-      this.stores = this.stores.filter(function(number){
+
+  details;
+  details2;
+  error;
+
+  openSmall2(content, id) {
+    this.modalService.open(content, {
+      size: 'sm'
+    });
+    this.authService.ordersdetails(id).subscribe((data: any) => {
+        (this.details = (Array.of(data)));
+        (this.details2 = (data.orderItems));
+        // this.sortedData = this.stores.slice();
+        this.size = data.numberOfElements;
+        // console.log(this.stores);
+
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        } else {
+          this.error = error.error.message;
+        }
+        console.log(error);
+      });
+
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  closed() {
+    // console.log(this.arr);
+    this.stores = this.arr;
+    for (let b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
         return number.status == 'CANCELLED';
       });
       // console.log(this.boards);
+    }
+    this.size = this.stores.length;
   }
-  this.size = this.stores.length;
-}
-rejected(){
-  // console.log(this.arr);
-  this.stores= this.arr;
-  for(let b of this.stores){
-      this.stores = this.stores.filter(function(number){
+
+  rejected() {
+    // console.log(this.arr);
+    this.stores = this.arr;
+    for (let b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
         return number.status == 'REJECTED';
       });
       // console.log(this.boards);
+    }
+    this.size = this.stores.length;
   }
-  this.size = this.stores.length;
-}
-completed(){
-  // console.log(this.arr);
-  this.stores= this.arr;
-  for(let b of this.stores){
-      this.stores = this.stores.filter(function(number){
+
+  completed() {
+    // console.log(this.arr);
+    this.stores = this.arr;
+    for (let b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
         return number.status == 'DELIVERED';
       });
       // console.log(this.boards);
+    }
+    this.size = this.stores.length;
   }
-  this.size = this.stores.length;
-}
-pickup(){
-  // console.log(this.arr);
-  this.stores= this.arr;
-  for(let b of this.stores){
-      this.stores = this.stores.filter(function(number){
+
+  pickup() {
+    // console.log(this.arr);
+    this.stores = this.arr;
+    for (let b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
         return number.status == 'READY_FOR_PICKUP';
       });
       // console.log(this.boards);
+    }
+    this.size = this.stores.length;
   }
-  this.size = this.stores.length;
-}
-onroad(){
-  // console.log(this.arr);
-  this.stores= this.arr;
-  for(let b of this.stores){
-      this.stores = this.stores.filter(function(number){
+
+  onroad() {
+    // console.log(this.arr);
+    this.stores = this.arr;
+    for (let b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
         return number.status == 'OUT_ON_ROAD';
       });
       // console.log(this.boards);
+    }
+    this.size = this.stores.length;
   }
-  this.size = this.stores.length;
-}
-pending(){
-  console.log(this.arr);
-  this.stores= this.arr;
-  for(let b of this.stores){
-      this.stores = this.stores.filter(function(number){
+
+  pending() {
+    console.log(this.arr);
+    this.stores = this.arr;
+    for (let b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
         return number.status == 'AT_DC';
       });
       // console.log(this.boards);
-  }
-  this.size = this.stores.length;
+    }
+    this.size = this.stores.length;
 
-}
-all(){
-  this.stores= this.arr;
-  this.size = this.stores.length;
-}
-orderids:any[]=[];
-count:any[]=[];
-sitecode:any;
-abc(event){
-  this.orderids = [];
-  console.log(this.orderids);
+  }
+
+  all() {
+    this.stores = this.arr;
+    this.size = this.stores.length;
+  }
+
+  orderids: any[] = [];
+  count: any[] = [];
+  sitecode: any;
+
+  abc(event) {
+    this.orderids = [];
+    console.log(this.orderids);
 //   if(event.checked == true){
 //     for(let b of this.stores){
 //       this.orderids.push(b.orderId);
@@ -216,356 +227,355 @@ abc(event){
 //   console.log(event.checked,this.orderids);
 // }
 
-  if(event.checked == true){
-    this.flag = this.size;
-  //   console.log(this.orderids);
-  //   console.log(event);
-    document.getElementById("batch").style.visibility = "visible";
-    for(let o of this.stores){
-      if(o.createdBatch == false){
-        this.sitecode = o.siteCode;
-      this.orderids.push(o.orderId);
+    if (event.checked == true) {
+      this.flag = this.size;
+      //   console.log(this.orderids);
+      //   console.log(event);
+      document.getElementById('batch').style.visibility = 'visible';
+      for (let o of this.stores) {
+        if (o.createdBatch == false) {
+          this.sitecode = o.siteCode;
+          this.orderids.push(o.orderId);
+        }
       }
-    }
-    if(this.orderids.length == 0){
-      document.getElementById("batch").style.visibility = "hidden";
-      this.checkbox = 0;
-    }
-    console.log(this.orderids);
-  //   // this.shiftids.push({
-  //   //   "shiftIds":id});
-  //   if(this.orderids.length != 0){
-  //     // for(let b of this.stores){
-  //     //   this.sitecode = b.siteCode;
-  //     // }
-  //     if(this.sitecode == sitecode){
-  //       this.orderids.push(id);
-  //     }
-  //     else{
-  //       event.checked = false;
+      if (this.orderids.length == 0) {
+        document.getElementById('batch').style.visibility = 'hidden';
+        this.checkbox = 0;
+      }
+      console.log(this.orderids);
+      //   // this.shiftids.push({
+      //   //   "shiftIds":id});
+      //   if(this.orderids.length != 0){
+      //     // for(let b of this.stores){
+      //     //   this.sitecode = b.siteCode;
+      //     // }
+      //     if(this.sitecode == sitecode){
+      //       this.orderids.push(id);
+      //     }
+      //     else{
+      //       event.checked = false;
 
-  //       console.log(event);
-  //       Swal.fire({
-  //         title:"Selecting Orders!",
-  //         text: 'You cannot select orders from multiple batches!',
-  //         type: 'info'
-  //       });
-  //     }
-  //   }
-  //   else{
-  //     this.sitecode = sitecode;
-  //     this.orderids.push(id);
-  //   }
-  //   console.log(this.sitecode);
-  // }
-  }
-  if(event.checked == false){
-    this.flag = 0;
-    if(this.flag == 0){
-    document.getElementById("batch").style.visibility = "hidden";
-    this.orderids = [];
-    }
-    // this.orderids = this.orderids.filter(function(e){return e != id})
-  }
-  console.log(event.checked,this.orderids);
-}
-getdata(event,id,sitecode){
-  // checked = checked ? false : true;
-  console.log(this.orderids);
-  if(event.checked == true){
-    this.flag++;
-    console.log(this.orderids);
-    console.log(event);
-    document.getElementById("batch").style.visibility = "visible";
-    // this.shiftids.push({
-    //   "shiftIds":id});
-    if(this.orderids.length != 0){
-      // for(let b of this.stores){
-      //   this.sitecode = b.siteCode;
+      //       console.log(event);
+      //       Swal.fire({
+      //         title:"Selecting Orders!",
+      //         text: 'You cannot select orders from multiple batches!',
+      //         type: 'info'
+      //       });
+      //     }
+      //   }
+      //   else{
+      //     this.sitecode = sitecode;
+      //     this.orderids.push(id);
+      //   }
+      //   console.log(this.sitecode);
       // }
-      if(this.sitecode == sitecode){
+    }
+    if (event.checked == false) {
+      this.flag = 0;
+      if (this.flag == 0) {
+        document.getElementById('batch').style.visibility = 'hidden';
+        this.orderids = [];
+      }
+      // this.orderids = this.orderids.filter(function(e){return e != id})
+    }
+    console.log(event.checked, this.orderids);
+  }
+
+  getdata(event, id, sitecode) {
+    // checked = checked ? false : true;
+    console.log(this.orderids);
+    if (event.checked == true) {
+      this.flag++;
+      console.log(this.orderids);
+      console.log(event);
+      document.getElementById('batch').style.visibility = 'visible';
+      // this.shiftids.push({
+      //   "shiftIds":id});
+      if (this.orderids.length != 0) {
+        // for(let b of this.stores){
+        //   this.sitecode = b.siteCode;
+        // }
+        if (this.sitecode == sitecode) {
+          this.orderids.push(id);
+        } else {
+          event.checked = false;
+
+          console.log(event);
+          // Swal.fire({
+          //   title:"Selecting Orders!",
+          //   text: 'You cannot select orders from multiple batches!',
+          //   type: 'info'
+          // });
+        }
+      } else {
+        this.sitecode = sitecode;
         this.orderids.push(id);
       }
-      else{
-        event.checked = false;
-
-        console.log(event);
-        // Swal.fire({
-        //   title:"Selecting Orders!",
-        //   text: 'You cannot select orders from multiple batches!',
-        //   type: 'info'
-        // });
+      console.log(this.sitecode);
+    }
+    if (event.checked == false) {
+      this.flag--;
+      if (this.flag == 0) {
+        document.getElementById('batch').style.visibility = 'hidden';
       }
-    }
-    else{
-      this.sitecode = sitecode;
-      this.orderids.push(id);
-    }
-    console.log(this.sitecode);
-  }
-  if(event.checked == false){
-    this.flag--;
-    if(this.flag == 0){
-    document.getElementById("batch").style.visibility = "hidden";
-    }
-    this.orderids = this.orderids.filter(function(e){return e != id})
-  }
-  console.log(event.checked,this.orderids);
-}
-checkbox;
-createbatch(){
-  // console.log(this.flightSchedule.date.valueOf());
-    let abc = this.flightSchedule.date.valueOf();
-    let today = this.pipe.transform(abc,'yyyy-MM-dd');
-    // console.log(today);
-  let prompt = window.prompt("Please Enter The Name Of Batch");
-
-  if(prompt == null || prompt == ""){
-    alert("You cancelled the creating batch!");
-  }
-  else{
-    console.log(prompt);
-
-    this.authService.createbatches(this.orderids,this.sitecode,prompt,today).subscribe((data:any)=>{
-      // (this.stores= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      // console.log(this.stores);
-      Swal.fire({
-        title:"Batch Created!",
-        text: 'Batch is Successfully Created!',
-        type: 'success'
+      this.orderids = this.orderids.filter(function(e) {
+        return e != id;
       });
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-
-
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      else{
-        Swal.fire({
-          title:"Batch Can Not Be Created!",
-          text: error.error.message,
-          type: 'warning'
-        });
-      }
-      console.log(error);
-    });
+    }
+    console.log(event.checked, this.orderids);
   }
-}
 
-sortedData: any[];
+  checkbox;
+
+  createbatch() {
+    // console.log(this.flightSchedule.date.valueOf());
+    let abc = this.flightSchedule.date.valueOf();
+    let today = this.pipe.transform(abc, 'yyyy-MM-dd');
+    // console.log(today);
+    let prompt = window.prompt('Please Enter The Name Of Batch');
+
+    if (prompt == null || prompt == '') {
+      alert('You cancelled the creating batch!');
+    } else {
+      console.log(prompt);
+
+      this.authService.createbatches(this.orderids, this.sitecode, prompt, today).subscribe((data: any) => {
+          // (this.stores= (data.content));
+          // (this.arr= (data.content));
+          // // this.sortedData = this.stores.slice();
+          // this.size = data.numberOfElements;
+          // console.log(this.stores);
+          Swal.fire({
+            title: 'Batch Created!',
+            text: 'Batch is Successfully Created!',
+            type: 'success'
+          });
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
 
 
-orders;
+        },
+        error => {
+          if (error.error.message == 'Access Denied') {
+            localStorage.clear();
+            this.router.navigate(['/']);
+          } else {
+            Swal.fire({
+              title: 'Batch Can Not Be Created!',
+              text: error.error.message,
+              type: 'warning'
+            });
+          }
+          console.log(error);
+        });
+    }
+  }
+
+  sortedData: any[];
+
+
+  orders;
 
   ngOnInit() {
     let abc = this.flightSchedule.date.valueOf();
-    let today = this.pipe.transform(abc,'yyyy-MM-dd');
+    let today = this.pipe.transform(abc, 'yyyy-MM-dd');
     console.log(today);
-    this.authService.orders(localStorage.getItem('site'),today,this.term).subscribe((data:any)=>{
-      (this.stores= (data.content));
-      (this.arr= (data.content));
-      // this.orders = data.content.orderId;
-      // this.sortedData = this.stores.slice();
-      this.size = data.numberOfElements;
-      for(let o of this.stores){
-        if(o.createdBatch == false){
-        this.orderids.push(o.orderId);
+    this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+        (this.stores = (data.content));
+        (this.arr = (data.content));
+        // this.orders = data.content.orderId;
+        // this.sortedData = this.stores.slice();
+        this.size = data.numberOfElements;
+        for (let o of this.stores) {
+          if (o.createdBatch == false) {
+            this.orderids.push(o.orderId);
+          }
         }
-      }
-      if(this.orderids.length == 0){
-        this.checkbox = 0;
-      }
-      else{
-        this.checkbox = 1;
-      }
+        if (this.orderids.length == 0) {
+          this.checkbox = 0;
+        } else {
+          this.checkbox = 1;
+        }
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
-    this.authService.count(localStorage.getItem('site'),this.term).subscribe((data:any)=>{
-      // (this.count= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      this.total = data;
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
+    this.authService.count(localStorage.getItem('site'), this.term).subscribe((data: any) => {
+        // (this.count= (data.content));
+        // (this.arr= (data.content));
+        // // this.sortedData = this.stores.slice();
+        // this.size = data.numberOfElements;
+        this.total = data;
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
-    let abcd =[];
-    abcd.push("DELIVERED");
-    abcd.push("AT_DC");
-    abcd.push("CANCELLED");
-    abcd.push("REJECTED");
-    abcd.push("READY_FOR_PICKUP");
-    abcd.push("OUT_ON_ROAD");
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
+    let abcd = [];
+    abcd.push('DELIVERED');
+    abcd.push('AT_DC');
+    abcd.push('CANCELLED');
+    abcd.push('REJECTED');
+    abcd.push('READY_FOR_PICKUP');
+    abcd.push('OUT_ON_ROAD');
     // console.log(abcd);
-    this.authService.count(localStorage.getItem('site'),"DELIVERED").subscribe((data:any)=>{
-      // (this.count= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      // console.log(data);
-      this.delivered = data;
+    this.authService.count(localStorage.getItem('site'), 'DELIVERED').subscribe((data: any) => {
+        // (this.count= (data.content));
+        // (this.arr= (data.content));
+        // // this.sortedData = this.stores.slice();
+        // this.size = data.numberOfElements;
+        // console.log(data);
+        this.delivered = data;
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
 
-    this.authService.count(localStorage.getItem('site'),"AT_DC").subscribe((data:any)=>{
-      // (this.count= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      this.processing = data;
+    this.authService.count(localStorage.getItem('site'), 'AT_DC').subscribe((data: any) => {
+        // (this.count= (data.content));
+        // (this.arr= (data.content));
+        // // this.sortedData = this.stores.slice();
+        // this.size = data.numberOfElements;
+        this.processing = data;
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
 
-    this.authService.count(localStorage.getItem('site'),"CANCELLED").subscribe((data:any)=>{
-      // (this.count= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      this.cancelled = data;
+    this.authService.count(localStorage.getItem('site'), 'CANCELLED').subscribe((data: any) => {
+        // (this.count= (data.content));
+        // (this.arr= (data.content));
+        // // this.sortedData = this.stores.slice();
+        // this.size = data.numberOfElements;
+        this.cancelled = data;
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
 
-    this.authService.count(localStorage.getItem('site'),"REJECTED").subscribe((data:any)=>{
-      // (this.count= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      this.decline = data;
+    this.authService.count(localStorage.getItem('site'), 'REJECTED').subscribe((data: any) => {
+        // (this.count= (data.content));
+        // (this.arr= (data.content));
+        // // this.sortedData = this.stores.slice();
+        // this.size = data.numberOfElements;
+        this.decline = data;
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
-    this.authService.count(localStorage.getItem('site'),"READY_FOR_PICKUP").subscribe((data:any)=>{
-      // (this.count= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      this.ready = data;
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
+    this.authService.count(localStorage.getItem('site'), 'READY_FOR_PICKUP').subscribe((data: any) => {
+        // (this.count= (data.content));
+        // (this.arr= (data.content));
+        // // this.sortedData = this.stores.slice();
+        // this.size = data.numberOfElements;
+        this.ready = data;
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
-    this.authService.count(localStorage.getItem('site'),"OUT_ON_ROAD").subscribe((data:any)=>{
-      // (this.count= (data.content));
-      // (this.arr= (data.content));
-      // // this.sortedData = this.stores.slice();
-      // this.size = data.numberOfElements;
-      this.road = data;
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
+    this.authService.count(localStorage.getItem('site'), 'OUT_ON_ROAD').subscribe((data: any) => {
+        // (this.count= (data.content));
+        // (this.arr= (data.content));
+        // // this.sortedData = this.stores.slice();
+        // this.size = data.numberOfElements;
+        this.road = data;
 
-    },
-    error =>{
-      if(error.error.message == 'Access Denied'){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
+      },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+        console.log(error);
+      });
 
   }
 
-  search(term){
+  search(term) {
     let abc = this.flightSchedule.date.valueOf();
-    let today = this.pipe.transform(abc,'yyyy-MM-dd');
+    let today = this.pipe.transform(abc, 'yyyy-MM-dd');
     console.log(today);
-    if(term == null || term.length == 0){
-      this.authService.orders(localStorage.getItem('site'),today,this.term).subscribe((data:any)=>{
-        (this.stores= (data.content));
-        // (this.arr= (data.content));
-        // this.sortedData = this.stores.slice();
-        this.size = data.numberOfElements;
-        // console.log(this.planes);
-      },
-      error =>{
-        if(error.error.message == 'Access Denied'){
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
-    }
-    else if(term.length >= 4){
+    if (term == null || term.length == 0) {
+      this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+          (this.stores = (data.content));
+          // (this.arr= (data.content));
+          // this.sortedData = this.stores.slice();
+          this.size = data.numberOfElements;
+          // console.log(this.planes);
+        },
+        error => {
+          if (error.error.message == 'Access Denied') {
+            localStorage.clear();
+            this.router.navigate(['/']);
+          }
+          console.log(error);
+        });
+    } else if (term.length >= 4) {
       let abc = this.flightSchedule.date.valueOf();
-      let today = this.pipe.transform(abc,'yyyy-MM-dd');
+      let today = this.pipe.transform(abc, 'yyyy-MM-dd');
       console.log(today);
-      this.authService.orders(localStorage.getItem('site'),today,this.term).subscribe((data:any)=>{
-        (this.stores= (data.content));
-        // (this.arr= (data.content));
-        // this.sortedData = this.stores.slice();
-        this.size = data.numberOfElements;
-        // console.log(this.planes);
-      },
-      error =>{
-        if(error.error.message == 'Access Denied'){
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
+      this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+          (this.stores = (data.content));
+          // (this.arr= (data.content));
+          // this.sortedData = this.stores.slice();
+          this.size = data.numberOfElements;
+          // console.log(this.planes);
+        },
+        error => {
+          if (error.error.message == 'Access Denied') {
+            localStorage.clear();
+            this.router.navigate(['/']);
+          }
+          console.log(error);
+        });
     }
   }
 
-  constructor(private authService: AuthService,private router: Router,private modalService: NgbModal) {
+  constructor(private authService: AuthService, private router: Router, private modalService: NgbModal) {
     // if(this.stores != null){
     // }
   }
 
 
-
   selectPageSize(event) {
-  this.pageSize1 = event;
+    this.pageSize1 = event;
   }
+
   // sortData(sort: Sort) {
   //   const data = this.stores.slice();
   //   if (!sort.active || sort.direction === '') {
@@ -584,7 +594,6 @@ orders;
 //         default: return 0;
 //       }
 //     });
-//   }
 }
 
 // function compare(a: number | string, b: number | string, isAsc: boolean) {
