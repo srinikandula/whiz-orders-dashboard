@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="btn-actions-pane-right">
-        <button class="btn btn-outline-primary" style="margin-left: 10px; visibility:hidden;" id="batch"
+        <button class="btn btn-outline-primary" id="batch" style="margin-left: 10px; visibility:hidden;"
                 (click)="createbatch()"><span>Create Batch</span></button>
         <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
       </div>
@@ -114,6 +114,7 @@
           <th scope="col"> Slot</th>
           <th scope="col">Created On</th>
           <th scope="col">Image</th>
+          <th scope="col">Action</th>
         </tr>
         </thead>
         <!-- <tr>
@@ -181,6 +182,11 @@
                     (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
             <!-- <a href="file:///D:/git/maps.html?id={{b.id}}" target="_blank" style="margin-left: 10px;"><button class=" btn-icon btn-icon-only btn btn-primary" ><span class="fa fa-map"></span></button></a>
             <span *ngIf="b.status == 'pending'" class="badge badge-dot badge-dot-lg badge-warning badge-pulse"></span> -->
+          </td>
+          <td>
+            <button class="btn btn-sm" (click)="editOrder(orderContent2, b)">
+              Edit
+            </button>
           </td>
         </tr>
         </tbody>
@@ -284,3 +290,41 @@
 </div>
 
 
+<ng-template #orderContent2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Order Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeOrderUpdates()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <label>Quantity</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="order.itemQuantity"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Weight</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="order.weight"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Volume</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="order.volume"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Crates</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="order.crates"/>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="updateOrderData(term, true)">Update</button>
+    <button type="button" class="btn btn-secondary" (click)="closeOrderUpdates(term)">Close</button>
+  </div>
+</ng-template>

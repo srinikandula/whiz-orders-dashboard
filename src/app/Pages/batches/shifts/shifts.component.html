@@ -131,7 +131,6 @@
           <!-- <td><button class=" btn btn-outline-primary" >{{b.endTime.hours}}</button></td> -->
           <!-- <td><button class="mb-2 mr-2 btn-pill btn btn-outline-light active">{{b.updatedAt | timeAgo}}</button></td> -->
           <td>
-
             <button class="btn btn-sm" (click)="enableEditMethodForSome(shiftContent2, b)">
               Edit
             </button>
@@ -182,13 +181,13 @@
     </div>
     <div class="row">
       <div class="col">
-        <label>Weight</label>
+        <label>Volume</label>
         <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.volume"/>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <label>Weight</label>
+        <label>Crates</label>
         <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.crates"/>
       </div>
     </div>

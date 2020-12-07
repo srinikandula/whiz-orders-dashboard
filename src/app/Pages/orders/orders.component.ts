@@ -57,6 +57,11 @@ export interface Dessert {
 })
 
 export class OrdersComponent implements OnInit {
+
+  constructor(private authService: AuthService, private router: Router, private modalService: NgbModal) {
+    // if(this.stores != null){
+    // }
+  }
   current = 'all';
   stores: any[];
   public pageSizeOptions1 = [5, 10];
@@ -77,12 +82,29 @@ export class OrdersComponent implements OnInit {
   ready;
   flag = 0;
   checked;
+  shift: any;
 // date =  new FormControl(new Date());
   pipe = new DatePipe('en-US');
   date = new FormControl(_moment());
   flightSchedule = {
     date: new Date()
   };
+
+  details;
+  details2;
+  error;
+
+  orderids: any[] = [];
+  count: any[] = [];
+  sitecode: any;
+
+  checkbox;
+
+  sortedData: any[];
+
+
+  orders;
+  order: any;
 
   openLarge(content, url) {
     this.modalService.open(content, {
@@ -91,10 +113,6 @@ export class OrdersComponent implements OnInit {
     this.url = url;
 
   }
-
-  details;
-  details2;
-  error;
 
   openSmall2(content, id) {
     this.modalService.open(content, {
@@ -133,7 +151,7 @@ export class OrdersComponent implements OnInit {
   closed() {
     // console.log(this.arr);
     this.stores = this.arr;
-    for (let b of this.stores) {
+    for (const b of this.stores) {
       this.stores = this.stores.filter(function(number) {
         return number.status == 'CANCELLED';
       });
@@ -145,7 +163,7 @@ export class OrdersComponent implements OnInit {
   rejected() {
     // console.log(this.arr);
     this.stores = this.arr;
-    for (let b of this.stores) {
+    for (const b of this.stores) {
       this.stores = this.stores.filter(function(number) {
         return number.status == 'REJECTED';
       });
@@ -157,7 +175,7 @@ export class OrdersComponent implements OnInit {
   completed() {
     // console.log(this.arr);
     this.stores = this.arr;
-    for (let b of this.stores) {
+    for (const b of this.stores) {
       this.stores = this.stores.filter(function(number) {
         return number.status == 'DELIVERED';
       });
@@ -169,7 +187,7 @@ export class OrdersComponent implements OnInit {
   pickup() {
     // console.log(this.arr);
     this.stores = this.arr;
-    for (let b of this.stores) {
+    for (const b of this.stores) {
       this.stores = this.stores.filter(function(number) {
         return number.status == 'READY_FOR_PICKUP';
       });
@@ -181,7 +199,7 @@ export class OrdersComponent implements OnInit {
   onroad() {
     // console.log(this.arr);
     this.stores = this.arr;
-    for (let b of this.stores) {
+    for (const b of this.stores) {
       this.stores = this.stores.filter(function(number) {
         return number.status == 'OUT_ON_ROAD';
       });
@@ -193,7 +211,7 @@ export class OrdersComponent implements OnInit {
   pending() {
     console.log(this.arr);
     this.stores = this.arr;
-    for (let b of this.stores) {
+    for (const b of this.stores) {
       this.stores = this.stores.filter(function(number) {
         return number.status == 'AT_DC';
       });
@@ -207,10 +225,6 @@ export class OrdersComponent implements OnInit {
     this.stores = this.arr;
     this.size = this.stores.length;
   }
-
-  orderids: any[] = [];
-  count: any[] = [];
-  sitecode: any;
 
   abc(event) {
     this.orderids = [];
@@ -232,7 +246,7 @@ export class OrdersComponent implements OnInit {
       //   console.log(this.orderids);
       //   console.log(event);
       document.getElementById('batch').style.visibility = 'visible';
-      for (let o of this.stores) {
+      for (const o of this.stores) {
         if (o.createdBatch == false) {
           this.sitecode = o.siteCode;
           this.orderids.push(o.orderId);
@@ -325,14 +339,34 @@ export class OrdersComponent implements OnInit {
     console.log(event.checked, this.orderids);
   }
 
-  checkbox;
+  editOrder(orderContent2, orderData) {
+    this.modalService.open(orderContent2, {size: 'sm'});
+    this.order = orderData;
+  }
+
+  updateOrderData(term, states) {
+    if (states) {
+      console.log('this.order', this.order);
+      this.authService.updateOrder(this.order).subscribe((data: any) => {
+        if (data) {
+          this.search(term);
+          this.modalService.dismissAll();
+        }
+      });
+    }
+  }
+
+  closeOrderUpdates(term) {
+    this.modalService.dismissAll();
+    this.search(term);
+  }
 
   createbatch() {
     // console.log(this.flightSchedule.date.valueOf());
-    let abc = this.flightSchedule.date.valueOf();
-    let today = this.pipe.transform(abc, 'yyyy-MM-dd');
+    const abc = this.flightSchedule.date.valueOf();
+    const today = this.pipe.transform(abc, 'yyyy-MM-dd');
     // console.log(today);
-    let prompt = window.prompt('Please Enter The Name Of Batch');
+    const prompt = window.prompt('Please Enter The Name Of Batch');
 
     if (prompt == null || prompt == '') {
       alert('You cancelled the creating batch!');
@@ -372,14 +406,9 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  sortedData: any[];
-
-
-  orders;
-
   ngOnInit() {
-    let abc = this.flightSchedule.date.valueOf();
-    let today = this.pipe.transform(abc, 'yyyy-MM-dd');
+    const abc = this.flightSchedule.date.valueOf();
+    const today = this.pipe.transform(abc, 'yyyy-MM-dd');
     console.log(today);
     this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
         (this.stores = (data.content));
@@ -387,7 +416,7 @@ export class OrdersComponent implements OnInit {
         // this.orders = data.content.orderId;
         // this.sortedData = this.stores.slice();
         this.size = data.numberOfElements;
-        for (let o of this.stores) {
+        for (const o of this.stores) {
           if (o.createdBatch == false) {
             this.orderids.push(o.orderId);
           }
@@ -421,7 +450,7 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-    let abcd = [];
+    const abcd = [];
     abcd.push('DELIVERED');
     abcd.push('AT_DC');
     abcd.push('CANCELLED');
@@ -527,8 +556,8 @@ export class OrdersComponent implements OnInit {
   }
 
   search(term) {
-    let abc = this.flightSchedule.date.valueOf();
-    let today = this.pipe.transform(abc, 'yyyy-MM-dd');
+    const abc = this.flightSchedule.date.valueOf();
+    const today = this.pipe.transform(abc, 'yyyy-MM-dd');
     console.log(today);
     if (term == null || term.length == 0) {
       this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
@@ -546,8 +575,8 @@ export class OrdersComponent implements OnInit {
           console.log(error);
         });
     } else if (term.length >= 4) {
-      let abc = this.flightSchedule.date.valueOf();
-      let today = this.pipe.transform(abc, 'yyyy-MM-dd');
+      const abc = this.flightSchedule.date.valueOf();
+      const today = this.pipe.transform(abc, 'yyyy-MM-dd');
       console.log(today);
       this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
           (this.stores = (data.content));
@@ -564,11 +593,6 @@ export class OrdersComponent implements OnInit {
           console.log(error);
         });
     }
-  }
-
-  constructor(private authService: AuthService, private router: Router, private modalService: NgbModal) {
-    // if(this.stores != null){
-    // }
   }
 
 
