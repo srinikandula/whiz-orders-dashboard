@@ -93,6 +93,10 @@ export class AuthService {
         return this.http.post<[]>(this.testPath + '/api/v1/more/orders/count', {"storeId":code,"status":search},this.httpOptions);
       }
     }
+
+    updateOrder(data) {
+      return this.http.put(this.testPath + '/api/v1/more/orders/updateOrder/' + data.id, data, this.httpOptions);
+    }
     // count2(code,search){
     //   if(code == 'all'){
     //     return this.http.post<[]>(this.testPath + '/api/v1/more/orders/count', {"searchParam":search},this.httpOptions);
