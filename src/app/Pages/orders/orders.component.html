@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="btn-actions-pane-right">
-        <button class="btn btn-outline-primary" id="batch" style="margin-left: 10px; visibility:hidden;"
+        <button class="btn btn-outline-primary" style="margin-left: 10px;" style="visibility:hidden;" id="batch"
                 (click)="createbatch()"><span>Create Batch</span></button>
         <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
       </div>
@@ -131,7 +131,7 @@
         <tr class="text-center"
             *ngFor="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;">
           <th>
-            <mat-checkbox [checked]='checked' class="mr-3"
+            <mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3"
                           (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox>
           </th>
           <th>{{(page1 - 1) * pageSize1 + i + 1}}</th>
@@ -161,7 +161,7 @@
             <button class="btn btn-outline-primary border-0">{{b.weight + ' KG'}}</button>
           </td>
           <td>
-            <button class="btn btn-outline-primary border-0">{{b.volume}}</button>
+            <button class="btn btn-outline-primary border-0">{{b.volume}} CBM</button>
           </td>
           <td>
             <button class="btn btn-outline-primary border-0">{{b.crates}}</button>
