@@ -120,6 +120,7 @@ export class OrdersComponent implements OnInit {
     });
     this.authService.ordersdetails(id).subscribe((data: any) => {
         (this.details = (Array.of(data)));
+        console.log(this.details);
         (this.details2 = (data.orderItems));
         // this.sortedData = this.stores.slice();
         this.size = data.numberOfElements;

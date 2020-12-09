@@ -84,7 +84,7 @@
         </div>
       </div>
       <div class="btn-actions-pane-right">
-        <button class="btn btn-outline-primary" id="batch" style="margin-left: 10px; visibility:hidden;"
+        <button class="btn btn-outline-primary" style="margin-left: 10px;" style="visibility:hidden;" id="batch"
                 (click)="createbatch()"><span>Create Batch</span></button>
         <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
       </div>
@@ -131,7 +131,7 @@
         <tr class="text-center"
             *ngFor="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;">
           <th>
-            <mat-checkbox [checked]='checked' class="mr-3"
+            <mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3"
                           (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox>
           </th>
           <th>{{(page1 - 1) * pageSize1 + i + 1}}</th>
@@ -150,6 +150,8 @@
             </button>
             <button class=" btn btn-outline-primary border-0" *ngIf="b.status == 'OUT_ON_ROAD'"><b>{{b.status}}</b>
             </button>
+            <button class=" btn btn-outline-danger border-0" *ngIf="b.status == 'ATTEMPTED'"><b>{{b.status}}</b>
+            </button>
           </td>
           <td>
             <button class="btn btn-outline-primary border-0">{{b.siteCode}}</button>
@@ -161,7 +163,7 @@
             <button class="btn btn-outline-primary border-0">{{b.weight + ' KG'}}</button>
           </td>
           <td>
-            <button class="btn btn-outline-primary border-0">{{b.volume}}</button>
+            <button class="btn btn-outline-primary border-0">{{b.volume}} CBM</button>
           </td>
           <td>
             <button class="btn btn-outline-primary border-0">{{b.crates}}</button>
@@ -184,7 +186,7 @@
             <span *ngIf="b.status == 'pending'" class="badge badge-dot badge-dot-lg badge-warning badge-pulse"></span> -->
           </td>
           <td>
-            <button class="btn btn-sm" (click)="editOrder(orderContent2, b)">
+            <button class="btn btn-sm" *ngIf="b.createdBatch == false" (click)="editOrder(orderContent2, b)">
               Edit
             </button>
           </td>
@@ -216,54 +218,78 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="card-body" *ngFor="let o of details;">
-          <div *ngFor="let od of details2;">
-            <p>
-              <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-                <mat-label>Name</mat-label>
-                <input type="text" [(ngModel)]="od.name" matInput disabled style="color: black;">
-                <mat-icon matSuffix>info</mat-icon>
-              </mat-form-field>
-            </p>
-            <!-- <p>
-              <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-                  <mat-label>Order Price</mat-label>
-                  <input type="text" [(ngModel)]="od.orderTotal" matInput  disabled style="color: black;">
-                  <mat-icon matSuffix>info</mat-icon>
-                </mat-form-field>
-          </p> -->
+        <div class="card-body p-0">
+          <div *ngFor="let do of details;">
+            <h6 class="m-2">{{do.orderId}} ({{do.status}})</h6>
+            <div class="table-responsive">
+              <table class="table table-hover dataTable text-center" style="width: 100%">
+                <tr>
+                  <th>Item</th>
+                  <th>Quantity</th>
+                  <th>price</th>
+                </tr>
+                <tr *ngFor="let o of details2;">
+                  <td>{{o.name}}</td>
+                  <td>{{o.itemQuantity}}</td>
+                  <td>{{o.price}}</td>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <td>{{do.itemQuantity}}</td>
+                  <td>{{do.orderTotal}}</td>
+                </tr>
+              </table>
+            </div>
           </div>
-          <p>
-            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-              <mat-label> Order Id</mat-label>
-              <input [(ngModel)]="o.orderId" type="text" matInput disabled style="color: black;">
-              <mat-icon matSuffix>info</mat-icon>
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-              <mat-label>Status</mat-label>
-              <input [(ngModel)]="o.status" type="text" matInput disabled style="color: black;">
-              <mat-icon matSuffix>info</mat-icon>
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-              <mat-label>Item Quantity</mat-label>
-              <input [(ngModel)]="o.itemQuantity" type="text" matInput disabled style="color: black;">
-              <mat-icon matSuffix>info</mat-icon>
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">
-              <mat-label>Order Total</mat-label>
-              <input type="text" [(ngModel)]="o.orderTotal" matInput disabled style="color: black;">
-              <mat-icon matSuffix>info</mat-icon>
-            </mat-form-field>
-          </p>
-
-
         </div>
+<!--        <div class="card-body" *ngFor="let o of details;">-->
+<!--          <div *ngFor="let od of details2;">-->
+<!--            <p>-->
+<!--              <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">-->
+<!--                <mat-label>Name</mat-label>-->
+<!--                <input type="text" [(ngModel)]="od.name" matInput disabled style="color: black;">-->
+<!--                <mat-icon matSuffix>info</mat-icon>-->
+<!--              </mat-form-field>-->
+<!--            </p>-->
+<!--            &lt;!&ndash; <p>-->
+<!--              <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">-->
+<!--                  <mat-label>Order Price</mat-label>-->
+<!--                  <input type="text" [(ngModel)]="od.orderTotal" matInput  disabled style="color: black;">-->
+<!--                  <mat-icon matSuffix>info</mat-icon>-->
+<!--                </mat-form-field>-->
+<!--          </p> &ndash;&gt;-->
+<!--          </div>-->
+<!--          <p>-->
+<!--            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">-->
+<!--              <mat-label> Order Id</mat-label>-->
+<!--              <input [(ngModel)]="o.orderId" type="text" matInput disabled style="color: black;">-->
+<!--              <mat-icon matSuffix>info</mat-icon>-->
+<!--            </mat-form-field>-->
+<!--          </p>-->
+<!--          <p>-->
+<!--            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">-->
+<!--              <mat-label>Status</mat-label>-->
+<!--              <input [(ngModel)]="o.status" type="text" matInput disabled style="color: black;">-->
+<!--              <mat-icon matSuffix>info</mat-icon>-->
+<!--            </mat-form-field>-->
+<!--          </p>-->
+<!--          <p>-->
+<!--            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">-->
+<!--              <mat-label>Item Quantity</mat-label>-->
+<!--              <input [(ngModel)]="o.itemQuantity" type="text" matInput disabled style="color: black;">-->
+<!--              <mat-icon matSuffix>info</mat-icon>-->
+<!--            </mat-form-field>-->
+<!--          </p>-->
+<!--          <p>-->
+<!--            <mat-form-field appearance="legacy" style="width:258px; padding: 4px;">-->
+<!--              <mat-label>Order Total</mat-label>-->
+<!--              <input type="text" [(ngModel)]="o.orderTotal" matInput disabled style="color: black;">-->
+<!--              <mat-icon matSuffix>info</mat-icon>-->
+<!--            </mat-form-field>-->
+<!--          </p>-->
+
+
+<!--        </div>-->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
         </div>

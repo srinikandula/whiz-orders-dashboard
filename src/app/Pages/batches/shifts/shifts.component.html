@@ -67,7 +67,7 @@
           <th scope="col">Start Time</th>
           <th scope="col">End Time</th>
 
-          <th scope="col">Quantity</th>
+<!--          <th scope="col">Quantity</th>-->
           <th scope="col">Weight</th>
           <th scope="col">Volume</th>
           <th scope="col">Crates</th>
@@ -109,15 +109,14 @@
             <button class=" btn btn-outline-primary border-0">{{b.endTime.hours}}:{{b.endTime.minutes}}</button>
           </td>
 
-          <td>
-            <!--            {{enableEdit}} -&#45;&#45;&#45;&#45; {{ enableEditIndex}} &#45;&#45;&#45;&#45; {{ i}} {{enableEdit && enableEditIndex == i}}-->
-            <button class=" btn btn-outline-primary border-0">{{b.quantity}}</button>
-          </td>
+<!--          <td>-->
+<!--            <button class=" btn btn-outline-primary border-0">{{b.quantity}}</button>-->
+<!--          </td>-->
           <td>
             <button class=" btn btn-outline-primary border-0">{{b.weight}}</button>
           </td>
           <td>
-            <button class=" btn btn-outline-primary border-0">{{b.volume}}</button>
+            <button class=" btn btn-outline-primary border-0">{{b.volume}} CBM</button>
           </td>
           <td>
             <button class=" btn btn-outline-primary border-0">{{b.crates}}</button>
@@ -167,12 +166,12 @@
     </button>
   </div>
   <div class="card-body">
-    <div class="row">
-      <div class="col">
-        <label>Quantity</label>
-        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.quantity"/>
-      </div>
-    </div>
+<!--    <div class="row">-->
+<!--      <div class="col">-->
+<!--        <label>Quantity</label>-->
+<!--        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.quantity"/>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="row">
       <div class="col">
         <label>Weight</label>
