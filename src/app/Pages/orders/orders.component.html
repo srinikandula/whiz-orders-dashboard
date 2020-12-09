@@ -141,7 +141,8 @@
           </td>
           <td>
             <button class=" btn btn-outline-dark border-0" *ngIf="b.status == 'AT_DC'"><b>{{b.status}}</b></button>
-            <button class=" btn btn-outline-success border-0" *ngIf="b.status == 'DELIVERED'"><b>{{b.status}}</b>
+            <button class=" btn btn-outline-success border-0" *ngIf="b.status == 'DELIVERED'"><b>{{b.status}}</b></button>
+            <button class=" btn btn-outline-success border-0" *ngIf="b.status == 'PARTIALLY_DELIVERED'"><b>{{b.status}}</b>
             </button>
             <button class=" btn btn-outline-danger border-0" *ngIf="b.status == 'CANCELLED'"><b>{{b.status}}</b>
             </button>
@@ -227,16 +228,19 @@
                   <th>Item</th>
                   <th>Quantity</th>
                   <th>price</th>
+                  <th>status</th>
                 </tr>
                 <tr *ngFor="let o of details2;">
                   <td>{{o.name}}</td>
                   <td>{{o.itemQuantity}}</td>
                   <td>{{o.price}}</td>
+                  <td>{{o.status}}</td>
                 </tr>
                 <tr>
                   <th>Total</th>
                   <td>{{do.itemQuantity}}</td>
                   <td>{{do.orderTotal}}</td>
+                  <td></td>
                 </tr>
               </table>
             </div>

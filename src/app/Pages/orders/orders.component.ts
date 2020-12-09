@@ -116,7 +116,7 @@ export class OrdersComponent implements OnInit {
 
   openSmall2(content, id) {
     this.modalService.open(content, {
-      size: 'sm'
+      size: 'lg'
     });
     this.authService.ordersdetails(id).subscribe((data: any) => {
         (this.details = (Array.of(data)));
