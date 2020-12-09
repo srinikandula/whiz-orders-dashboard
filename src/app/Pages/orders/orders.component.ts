@@ -229,7 +229,6 @@ export class OrdersComponent implements OnInit {
 
   abc(event) {
     this.orderids = [];
-    console.log(this.orderids);
 //   if(event.checked == true){
 //     for(let b of this.stores){
 //       this.orderids.push(b.orderId);
@@ -296,37 +295,36 @@ export class OrdersComponent implements OnInit {
     console.log(event.checked, this.orderids);
   }
 
-  getdata(event, id, sitecode) {
+  getdata(event, orderData) {
     // checked = checked ? false : true;
-    console.log(this.orderids);
+    // if (event.checked == true) {
+    //   this.flag++;
+    //   document.getElementById('batch').style.visibility = 'visible';
+    //   // this.shiftids.push({
+    //   //   "shiftIds":id});
+    //   if (this.orderids.length != 0) {
+    //     // for(let b of this.stores){
+    //     //   this.sitecode = b.siteCode;
+    //     // }
+    //     if (this.sitecode == sitecode) {
+    //       this.orderids.push(id);
+    //     } else {
+    //       event.checked = false;
+    //       // Swal.fire({
+    //       //   title:"Selecting Orders!",
+    //       //   text: 'You cannot select orders from multiple batches!',
+    //       //   type: 'info'
+    //       // });
+    //     }
+    //   } else {
+    //     this.sitecode = sitecode;
+    //     this.orderids.push(id);
+    //   }
+    // }
     if (event.checked == true) {
-      this.flag++;
-      console.log(this.orderids);
-      console.log(event);
       document.getElementById('batch').style.visibility = 'visible';
-      // this.shiftids.push({
-      //   "shiftIds":id});
-      if (this.orderids.length != 0) {
-        // for(let b of this.stores){
-        //   this.sitecode = b.siteCode;
-        // }
-        if (this.sitecode == sitecode) {
-          this.orderids.push(id);
-        } else {
-          event.checked = false;
-
-          console.log(event);
-          // Swal.fire({
-          //   title:"Selecting Orders!",
-          //   text: 'You cannot select orders from multiple batches!',
-          //   type: 'info'
-          // });
-        }
-      } else {
-        this.sitecode = sitecode;
-        this.orderids.push(id);
-      }
-      console.log(this.sitecode);
+      this.sitecode = orderData.siteCode;
+      this.orderids.push(orderData.orderId);
     }
     if (event.checked == false) {
       this.flag--;
@@ -334,10 +332,9 @@ export class OrdersComponent implements OnInit {
         document.getElementById('batch').style.visibility = 'hidden';
       }
       this.orderids = this.orderids.filter(function(e) {
-        return e != id;
+        return e != orderData.id;
       });
     }
-    console.log(event.checked, this.orderids);
   }
 
   editOrder(orderContent2, orderData) {
@@ -372,7 +369,6 @@ export class OrdersComponent implements OnInit {
     if (prompt == null || prompt == '') {
       alert('You cancelled the creating batch!');
     } else {
-      console.log(prompt);
 
       this.authService.createbatches(this.orderids, this.sitecode, prompt, today).subscribe((data: any) => {
           // (this.stores= (data.content));
@@ -417,17 +413,16 @@ export class OrdersComponent implements OnInit {
         // this.orders = data.content.orderId;
         // this.sortedData = this.stores.slice();
         this.size = data.numberOfElements;
-        for (const o of this.stores) {
-          if (o.createdBatch == false) {
-            this.orderids.push(o.orderId);
-          }
-        }
+        // for (const o of this.stores) {
+        //   if (o.createdBatch == false) {
+        //     this.orderids.push(o.orderId);
+        //   }
+        // }
         if (this.orderids.length == 0) {
           this.checkbox = 0;
         } else {
           this.checkbox = 1;
         }
-
       },
       error => {
         if (error.error.message == 'Access Denied') {
