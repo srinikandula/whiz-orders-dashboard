@@ -95,7 +95,7 @@
         <thead>
         <tr class="text-center">
           <th>
-            <mat-checkbox *ngIf="checkbox == 1" [(ngModel)]='checked' class="mr-3"
+            <mat-checkbox  [(ngModel)]='checked' class="mr-3"
                           (change)="abc($event)"></mat-checkbox>
           </th>
           <!-- <th></th> -->
@@ -131,8 +131,8 @@
         <tr class="text-center"
             *ngFor="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;">
           <th>
-            <mat-checkbox *ngIf="b.createdBatch == false" [checked]='checked' class="mr-3"
-                          (change)="getdata($event,b.orderId,b.siteCode); false"></mat-checkbox>
+            <mat-checkbox [checked]='checked' class="mr-3"
+                          (change)="getdata($event, b); false" *ngIf="b.createdBatch == false"></mat-checkbox>
           </th>
           <th>{{(page1 - 1) * pageSize1 + i + 1}}</th>
           <td>

@@ -49,11 +49,11 @@ export class ShiftsComponent implements OnInit {
   ngOnInit() {
     const today = this.pipe.transform(this.today, 'yyyy-MM-dd');
     this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
-      (this.shifts = (data));
-      if (this.shifts.length) {
+        (this.shifts = (data));
+        if (this.shifts.length) {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.weight = 800 : item.vehicleType == 3 ? item.weight = 100 : item.vehicleType == 2 ? item.weight = 15 : 0);
-          this.shifts.forEach(item => item.volume = 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.volume = 392 : item.vehicleType == 3 ? item.volume = 100 : item.vehicleType == 2 ? item.volume = 8 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.crates = 100 : item.vehicleType == 3 ? item.crates = 50 : item.vehicleType == 2 ? item.crates = 5 : 0);
         }
         // console.log(data.shiftId);
@@ -75,11 +75,11 @@ export class ShiftsComponent implements OnInit {
   tomorrow() {
     const today = this.pipe.transform(this.tom, 'yyyy-MM-dd');
     this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
-      (this.shifts = (data));
-      if (this.shifts.length) {
+        (this.shifts = (data));
+        if (this.shifts.length) {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.weight = 800 : item.vehicleType == 3 ? item.weight = 100 : item.vehicleType == 2 ? item.weight = 15 : 0);
-          this.shifts.forEach(item => item.volume = 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.volume = 392 : item.vehicleType == 3 ? item.volume = 100 : item.vehicleType == 2 ? item.volume = 8 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.crates = 100 : item.vehicleType == 3 ? item.crates = 50 : item.vehicleType == 2 ? item.crates = 5 : 0);
         }
         // console.log(data.shiftId);
@@ -87,7 +87,7 @@ export class ShiftsComponent implements OnInit {
         // (this.endtime= (data.endTime));
         // (this.arr= (data.content));
         // this.sortedData = this.stores.slice();
-      this.size = data.length;
+        this.size = data.length;
       },
       error => {
         if (error.error.message == 'Access Denied') {
@@ -142,20 +142,21 @@ export class ShiftsComponent implements OnInit {
       if (itemData.shiftId == this.shift.shiftId) {
         // itemData.vehicleType == 4 ? itemData.quantity = 50 : itemData.vehicleType == 3 ? itemData.quantity = 30 : itemData.vehicleType == 2 ? itemData.quantity = 20 : 0;
         itemData.vehicleType == 4 ? itemData.weight = 800 : itemData.vehicleType == 3 ? itemData.weight = 100 : itemData.vehicleType == 2 ? itemData.weight = 15 : 0;
-        itemData.volume = 0;
+        itemData.vehicleType == 4 ? itemData.volume = 392 : itemData.vehicleType == 3 ? itemData.volume = 200 : itemData.vehicleType == 2 ? itemData.volume = 8 : 0;
         itemData.vehicleType == 4 ? itemData.crates = 100 : itemData.vehicleType == 3 ? itemData.crates = 50 : itemData.vehicleType == 2 ? itemData.crates = 5 : 0;
       }
     });
     this.modalService.dismissAll();
   }
 
-  saveSegment() {}
+  saveSegment() {
+  }
 
   thenn() {
     const today = this.pipe.transform(this.then, 'yyyy-MM-dd');
     this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
-      (this.shifts = (data));
-      if (this.shifts.length) {
+        (this.shifts = (data));
+        if (this.shifts.length) {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.weight = 800 : item.vehicleType == 3 ? item.weight = 100 : item.vehicleType == 2 ? item.weight = 15 : 0);
         }
@@ -164,7 +165,7 @@ export class ShiftsComponent implements OnInit {
         // (this.endtime= (data.endTime));
         // (this.arr= (data.content));
         // this.sortedData = this.stores.slice();
-      this.size = data.length;
+        this.size = data.length;
       },
       error => {
         if (error.error.message == 'Access Denied') {
