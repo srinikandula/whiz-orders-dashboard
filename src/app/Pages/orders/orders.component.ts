@@ -149,6 +149,29 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  attempted() {
+    this.stores = this.arr;
+    for (const b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
+        return number.status == 'ATTEMPTED';
+      });
+      // console.log(this.boards);
+    }
+    this.size = this.stores.length;
+  }
+
+  partiallyDelivered() {
+    // console.log(this.arr);
+    this.stores = this.arr;
+    for (const b of this.stores) {
+      this.stores = this.stores.filter(function(number) {
+        return number.status == 'PARTIALLY_DELIVERED';
+      });
+      // console.log(this.boards);
+    }
+    this.size = this.stores.length;
+  }
+
   closed() {
     // console.log(this.arr);
     this.stores = this.arr;
