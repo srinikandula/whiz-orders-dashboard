@@ -62,6 +62,7 @@ export class OrdersComponent implements OnInit {
     // if(this.stores != null){
     // }
   }
+
   current = 'all';
   stores: any[];
   public pageSizeOptions1 = [5, 10];
@@ -80,6 +81,8 @@ export class OrdersComponent implements OnInit {
   decline;
   road;
   ready;
+  attempt;
+  partial;
   flag = 0;
   checked;
   shift: any;
@@ -152,7 +155,7 @@ export class OrdersComponent implements OnInit {
   attempted() {
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'ATTEMPTED';
       });
       // console.log(this.boards);
@@ -164,7 +167,7 @@ export class OrdersComponent implements OnInit {
     // console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'PARTIALLY_DELIVERED';
       });
       // console.log(this.boards);
@@ -176,7 +179,7 @@ export class OrdersComponent implements OnInit {
     // console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'CANCELLED';
       });
       // console.log(this.boards);
@@ -188,7 +191,7 @@ export class OrdersComponent implements OnInit {
     // console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'REJECTED';
       });
       // console.log(this.boards);
@@ -200,7 +203,7 @@ export class OrdersComponent implements OnInit {
     // console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'DELIVERED';
       });
       // console.log(this.boards);
@@ -212,7 +215,7 @@ export class OrdersComponent implements OnInit {
     // console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'READY_FOR_PICKUP';
       });
       // console.log(this.boards);
@@ -224,7 +227,7 @@ export class OrdersComponent implements OnInit {
     // console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'OUT_ON_ROAD';
       });
       // console.log(this.boards);
@@ -236,7 +239,7 @@ export class OrdersComponent implements OnInit {
     console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
-      this.stores = this.stores.filter(function(number) {
+      this.stores = this.stores.filter(function (number) {
         return number.status == 'AT_DC';
       });
       // console.log(this.boards);
@@ -354,7 +357,7 @@ export class OrdersComponent implements OnInit {
       if (this.flag == 0) {
         document.getElementById('batch').style.visibility = 'hidden';
       }
-      this.orderids = this.orderids.filter(function(e) {
+      this.orderids = this.orderids.filter(function (e) {
         return e != orderData.id;
       });
     }
@@ -454,7 +457,7 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-    this.authService.count(localStorage.getItem('site'), this.term).subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
@@ -476,8 +479,10 @@ export class OrdersComponent implements OnInit {
     abcd.push('REJECTED');
     abcd.push('READY_FOR_PICKUP');
     abcd.push('OUT_ON_ROAD');
+    abcd.push('ATTEMPTED');
+    abcd.push('PARTIALLY_DELIVERED');
     // console.log(abcd);
-    this.authService.count(localStorage.getItem('site'), 'DELIVERED').subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, 'DELIVERED').subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
@@ -494,7 +499,7 @@ export class OrdersComponent implements OnInit {
         console.log(error);
       });
 
-    this.authService.count(localStorage.getItem('site'), 'AT_DC').subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, 'AT_DC').subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
@@ -510,7 +515,7 @@ export class OrdersComponent implements OnInit {
         console.log(error);
       });
 
-    this.authService.count(localStorage.getItem('site'), 'CANCELLED').subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, 'CANCELLED').subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
@@ -526,7 +531,7 @@ export class OrdersComponent implements OnInit {
         console.log(error);
       });
 
-    this.authService.count(localStorage.getItem('site'), 'REJECTED').subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, 'REJECTED').subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
@@ -541,7 +546,7 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-    this.authService.count(localStorage.getItem('site'), 'READY_FOR_PICKUP').subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, 'READY_FOR_PICKUP').subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
@@ -556,21 +561,39 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-    this.authService.count(localStorage.getItem('site'), 'OUT_ON_ROAD').subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, 'OUT_ON_ROAD').subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
         // this.size = data.numberOfElements;
         this.road = data;
-
-      },
-      error => {
+      }, error => {
         if (error.error.message == 'Access Denied') {
           localStorage.clear();
           this.router.navigate(['/']);
         }
         console.log(error);
       });
+
+    this.authService.count(localStorage.getItem('site'), today, 'ATTEMPTED').subscribe((data: any) => {
+      this.attempt = data;
+    }, error => {
+      if (error.error.message == 'Access Denied') {
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+
+    this.authService.count(localStorage.getItem('site'), today, 'PARTIALLY_DELIVERED').subscribe((data: any) => {
+      this.partial = data;
+    }, error => {
+      if (error.error.message == 'Access Denied') {
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
 
   }
 
