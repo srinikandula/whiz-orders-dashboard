@@ -83,6 +83,7 @@ export class OrdersComponent implements OnInit {
   ready;
   attempt;
   partial;
+  customer;
   flag = 0;
   checked;
   shift: any;
@@ -246,6 +247,17 @@ export class OrdersComponent implements OnInit {
     }
     this.size = this.stores.length;
 
+  }
+
+  rejectedByCustomer() {
+    this.stores = this.arr;
+    for (const b of this.stores) {
+      this.stores = this.stores.filter(function (number) {
+        return number.status == 'REJECTED_BY_CUSTOMER';
+      });
+      // console.log(this.boards);
+    }
+    this.size = this.stores.length;
   }
 
   all() {
@@ -481,6 +493,7 @@ export class OrdersComponent implements OnInit {
     abcd.push('OUT_ON_ROAD');
     abcd.push('ATTEMPTED');
     abcd.push('PARTIALLY_DELIVERED');
+    abcd.push('REJECTED_BY_CUSTOMER');
     // console.log(abcd);
     this.authService.count(localStorage.getItem('site'), today, 'DELIVERED').subscribe((data: any) => {
         // (this.count= (data.content));
@@ -595,6 +608,16 @@ export class OrdersComponent implements OnInit {
       console.log(error);
     });
 
+    this.authService.count(localStorage.getItem('site'), today, 'REJECTED_BY_CUSTOMER').subscribe((data: any) => {
+      this.customer = data;
+    }, error => {
+      if (error.error.message == 'Access Denied') {
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
+
   }
 
   search(term) {
@@ -660,6 +683,7 @@ export class OrdersComponent implements OnInit {
 //         default: return 0;
 //       }
 //     });
+
 }
 
 // function compare(a: number | string, b: number | string, isAsc: boolean) {
