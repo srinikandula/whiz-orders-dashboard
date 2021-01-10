@@ -380,6 +380,10 @@ export class OrdersComponent implements OnInit {
     this.order = orderData;
   }
 
+  goToLink(url: string) {
+    window.open(url, '_blank');
+  }
+
   updateOrderData(term, states) {
     if (states) {
       console.log('this.order', this.order);
