@@ -121,8 +121,11 @@
           <!-- <th  scope="col">Updated</th> -->
           <th scope="col"> Slot</th>
           <th scope="col">Created On</th>
+          <th scope ="col">Driver</th>
+          <th scope="col">ETA</th>
           <th scope="col">Image</th>
           <th scope="col">Action</th>
+          <th scope="col">TrackLink</th>
         </tr>
         </thead>
         <!-- <tr>
@@ -189,6 +192,12 @@
             <button class="btn btn-outline-primary border-0">{{b.createdDate}}</button>
           </td>
           <td>
+            <button class="btn btn-outline-primary border-0">{{b.driverName}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.eta| date:'shortTime'}}</button>
+          </td>
+          <td>
             <button class="btn btn-outline-primary border-0" *ngIf='b.orderImageUrl == null'>-</button>
             <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary border-0" *ngIf='b.orderImageUrl != null'
                     (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
@@ -199,6 +208,9 @@
             <button class="btn btn-sm" *ngIf="b.createdBatch == false" (click)="editOrder(orderContent2, b)">
               Edit
             </button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.trackLink}}</button>
           </td>
         </tr>
         </tbody>
