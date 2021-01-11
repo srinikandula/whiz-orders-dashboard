@@ -188,12 +188,12 @@ export class OrdersComponent implements OnInit {
     this.size = this.stores.length;
   }
 
-  rejected() {
+  rejectedByDA() {
     // console.log(this.arr);
     this.stores = this.arr;
     for (const b of this.stores) {
       this.stores = this.stores.filter(function (number) {
-        return number.status == 'REJECTED';
+        return number.status == 'REJECTED_BY_DA';
       });
       // console.log(this.boards);
     }
@@ -548,7 +548,7 @@ export class OrdersComponent implements OnInit {
         console.log(error);
       });
 
-    this.authService.count(localStorage.getItem('site'), today, 'REJECTED').subscribe((data: any) => {
+    this.authService.count(localStorage.getItem('site'), today, 'REJECTED_BY_DA').subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();

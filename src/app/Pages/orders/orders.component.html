@@ -28,7 +28,7 @@
             <input ngbButton type="radio" value="closed" (change)="closed()">Cancelled<sup>{{this.cancelled}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="rejected" (change)="rejected()">Rejected<sup>{{this.decline}}</sup>
+            <input ngbButton type="radio" value="rejected" (change)="rejectedByDA()">Rejected By DA<sup>{{this.decline}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
             <input ngbButton type="radio" value="attempted" (change)="attempted()">Attempted<sup>{{this.attempt}}</sup>
@@ -164,6 +164,8 @@
             <button class=" btn border-0" *ngIf="b.status == 'ATTEMPTED'" style="color: #DB99FF !important;"><b>{{b.status}}</b>
             </button>
             <button class=" btn border-0" *ngIf="b.status == 'REJECTED_BY_CUSTOMER'" style="color: #FF0000 !important;"><b>{{b.status}}</b>
+            </button>
+            <button class=" btn border-0" *ngIf="b.status == 'REJECTED_BY_DA'" style="color: #FF0000 !important;"><b>{{b.status}}</b>
             </button>
           </td>
           <td>
