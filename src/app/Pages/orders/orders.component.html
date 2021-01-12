@@ -108,6 +108,7 @@
           </th>
           <!-- <th></th> -->
           <th scope="col">#</th>
+          <th scope="col">Customer</th>
           <th scope="col">Order Id</th>
           <th scope="col">Status</th>
           <th scope="col">Site Code</th>
@@ -126,6 +127,7 @@
           <th scope="col">Image</th>
           <th scope="col">Action</th>
           <th scope="col">TrackLink</th>
+          
         </tr>
         </thead>
         <!-- <tr>
@@ -146,6 +148,10 @@
                           (change)="getdata($event, b); false" *ngIf="b.createdBatch == false"></mat-checkbox>
           </th>
           <th>{{(page1 - 1) * pageSize1 + i + 1}}</th>
+          <td>
+            <button class=" btn btn-outline-primary border-0" >
+              <span>{{b.customer_firstname}} ({{b.phoneNumber}})</span></button>
+          </td>
           <td>
             <button class=" btn btn-outline-primary border-0" (click)="openSmall2(content2,b.id)">
               <span>{{b.orderId}}</span></button>
