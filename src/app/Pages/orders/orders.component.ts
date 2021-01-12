@@ -17,6 +17,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material'
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {defaultFormat as _rollupMoment} from 'moment';
+import swal from 'sweetalert2';
 
 const moment = _rollupMoment || _moment;
 
@@ -622,6 +623,46 @@ export class OrdersComponent implements OnInit {
       console.log(error);
     });
 
+  }
+
+
+  callicon(link,id){
+    Swal.fire({
+      title: 'Send WhatsApp Message?',
+      text: "Do you want to share the tracking link via WhatsApp?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Sent it!'
+    }).then((result) => {
+      if (result.value) {
+        this.authService.getcall(id, link).subscribe((data: any) => {
+          // (this.stores = (data.content));
+          // (this.arr= (data.content));
+          // this.sortedData = this.stores.slice();
+          // this.size = data.numberOfElements;
+          // console.log(this.planes);
+          Swal.fire(
+            'Sent!',
+            // 'Your file has been deleted.',
+            'success'
+          )
+        },
+        error => {
+          if (error.error.message == 'Access Denied') {
+            localStorage.clear();
+            this.router.navigate(['/']);
+          }
+          Swal.fire('Error! Message Not Sent', '', 'error')
+          console.log(error);
+        });
+      }else{
+        Swal.fire('Not Sent', '', 'info')
+      }
+    })
+
+   
   }
 
   search(term) {

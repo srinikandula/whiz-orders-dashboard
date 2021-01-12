@@ -46,6 +46,10 @@ export class AuthService {
     return this.http.post<[]>(this.testPath + '/api/v1/more/orders/searchStores', {"clientCode": "MORE"}, this.httpOptions);
   }
 
+  getcall(id,link){
+    return this.http.post<[]>(this.testPath + '/api/v1/whatsAppConversations/sendTrackingLink', {"orderId":id,"link":link}, this.httpOptions);
+  }
+
   getcashsummary(date) {
     let httpOptions2 = {
       headers: new HttpHeaders({
