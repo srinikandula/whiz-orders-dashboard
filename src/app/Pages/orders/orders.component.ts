@@ -66,10 +66,7 @@ export class OrdersComponent implements OnInit {
 
   current = 'all';
   stores: any[];
-  public pageSizeOptions1 = [5, 10];
   public isActive: any;
-  page1 = 1;
-  pageSize1 = 20;
   term;
   closeResult: string;
   size = 0;
@@ -77,7 +74,7 @@ export class OrdersComponent implements OnInit {
   url;
   total;
   delivered;
-  processing;
+  atdc;
   cancelled;
   decline;
   road;
@@ -94,6 +91,12 @@ export class OrdersComponent implements OnInit {
   flightSchedule = {
     date: new Date()
   };
+
+  public pagination:any = {
+    page: 1,
+    size: 10,
+    pageSizes: ['10','20','50','100','200','500','1000']
+};
 
   details;
   details2;
@@ -154,116 +157,36 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  attempted() {
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'ATTEMPTED';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-  }
-
-  partiallyDelivered() {
-    // console.log(this.arr);
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'PARTIALLY_DELIVERED';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-  }
-
-  closed() {
-    // console.log(this.arr);
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'CANCELLED';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-  }
-
-  rejectedByDA() {
-    // console.log(this.arr);
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'REJECTED_BY_DA';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-  }
-
-  completed() {
-    // console.log(this.arr);
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'DELIVERED';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-  }
-
-  pickup() {
-    // console.log(this.arr);
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'READY_FOR_PICKUP';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-  }
-
-  onroad() {
-    // console.log(this.arr);
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'OUT_ON_ROAD';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-  }
-
-  pending() {
-    console.log(this.arr);
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'AT_DC';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
-
-  }
-
-  rejectedByCustomer() {
-    this.stores = this.arr;
-    for (const b of this.stores) {
-      this.stores = this.stores.filter(function (number) {
-        return number.status == 'REJECTED_BY_CUSTOMER';
-      });
-      // console.log(this.boards);
-    }
-    this.size = this.stores.length;
+  status(data) {
+    this.filter(data);
   }
 
   all() {
-    this.stores = this.arr;
-    this.size = this.stores.length;
+    this.pagination.status = null;
+    this.ngOnInit();
+  }
+
+  filter(data){
+    const abc = this.flightSchedule.date.valueOf();
+    const today = this.pipe.transform(abc, 'yyyy-MM-dd');
+    this.pagination.status = data;
+    this.authService.orders(today, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
+      (this.stores = (data.content));
+      (this.arr = (data.content));
+      this.size = data.totalElements;
+      if (this.orderids.length == 0) {
+        this.checkbox = 0;
+      } else {
+        this.checkbox = 1;
+      }
+    },
+    error => {
+      if (error.error.message == 'Access Denied') {
+        localStorage.clear();
+        this.router.navigate(['/']);
+      }
+      console.log(error);
+    });
   }
 
   abc(event) {
@@ -449,13 +372,13 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     const abc = this.flightSchedule.date.valueOf();
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
-    console.log(today);
-    this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+
+    this.authService.orders(today, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
         (this.stores = (data.content));
         (this.arr = (data.content));
         // this.orders = data.content.orderId;
         // this.sortedData = this.stores.slice();
-        this.size = data.numberOfElements;
+        this.size = data.totalElements;
         // for (const o of this.stores) {
         //   if (o.createdBatch == false) {
         //     this.orderids.push(o.orderId);
@@ -474,21 +397,21 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-    this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
-        // (this.count= (data.content));
-        // (this.arr= (data.content));
-        // // this.sortedData = this.stores.slice();
-        // this.size = data.numberOfElements;
-        this.total = data;
+    // this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+    //     // (this.count= (data.content));
+    //     // (this.arr= (data.content));
+    //     // // this.sortedData = this.stores.slice();
+    //     // this.size = data.numberOfElements;
+    //     this.total = data;
 
-      },
-      error => {
-        if (error.error.message == 'Access Denied') {
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
+    //   },
+    //   error => {
+    //     if (error.error.message == 'Access Denied') {
+    //       localStorage.clear();
+    //       this.router.navigate(['/']);
+    //     }
+    //     console.log(error);
+    //   });
     const abcd = [];
     abcd.push('DELIVERED');
     abcd.push('AT_DC');
@@ -500,14 +423,22 @@ export class OrdersComponent implements OnInit {
     abcd.push('PARTIALLY_DELIVERED');
     abcd.push('REJECTED_BY_CUSTOMER');
     // console.log(abcd);
-    this.authService.count(localStorage.getItem('site'), today, 'DELIVERED').subscribe((data: any) => {
+    this.authService.getcount(today).subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();
         // this.size = data.numberOfElements;
         // console.log(data);
-        this.delivered = data;
-
+        this.total = data.total;
+        this.delivered = data.DELIVERED;
+        this.attempt = data.ATTEMPTED;
+        this.atdc = data.AT_DC;
+        this.cancelled = data.CANCELLED;
+        this.decline = data.REJECTED_BY_DA;
+        this.ready = data.READY_FOR_PICKUP;
+        this.road = data.OUT_ON_ROAD;
+        this.partial = data.PARTIALLY_DELIVERED;
+        this.customer = data.REJECTED_BY_CUSTOMER;
       },
       error => {
         if (error.error.message == 'Access Denied') {
@@ -516,113 +447,6 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-
-    this.authService.count(localStorage.getItem('site'), today, 'AT_DC').subscribe((data: any) => {
-        // (this.count= (data.content));
-        // (this.arr= (data.content));
-        // // this.sortedData = this.stores.slice();
-        // this.size = data.numberOfElements;
-        this.processing = data;
-
-      },
-      error => {
-        if (error.error.message == 'Access Denied') {
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
-
-    this.authService.count(localStorage.getItem('site'), today, 'CANCELLED').subscribe((data: any) => {
-        // (this.count= (data.content));
-        // (this.arr= (data.content));
-        // // this.sortedData = this.stores.slice();
-        // this.size = data.numberOfElements;
-        this.cancelled = data;
-
-      },
-      error => {
-        if (error.error.message == 'Access Denied') {
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
-
-    this.authService.count(localStorage.getItem('site'), today, 'REJECTED_BY_DA').subscribe((data: any) => {
-        // (this.count= (data.content));
-        // (this.arr= (data.content));
-        // // this.sortedData = this.stores.slice();
-        // this.size = data.numberOfElements;
-        this.decline = data;
-
-      },
-      error => {
-        if (error.error.message == 'Access Denied') {
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
-    this.authService.count(localStorage.getItem('site'), today, 'READY_FOR_PICKUP').subscribe((data: any) => {
-        // (this.count= (data.content));
-        // (this.arr= (data.content));
-        // // this.sortedData = this.stores.slice();
-        // this.size = data.numberOfElements;
-        this.ready = data;
-
-      },
-      error => {
-        if (error.error.message == 'Access Denied') {
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
-    this.authService.count(localStorage.getItem('site'), today, 'OUT_ON_ROAD').subscribe((data: any) => {
-        // (this.count= (data.content));
-        // (this.arr= (data.content));
-        // // this.sortedData = this.stores.slice();
-        // this.size = data.numberOfElements;
-        this.road = data;
-      }, error => {
-        if (error.error.message == 'Access Denied') {
-          localStorage.clear();
-          this.router.navigate(['/']);
-        }
-        console.log(error);
-      });
-
-    this.authService.count(localStorage.getItem('site'), today, 'ATTEMPTED').subscribe((data: any) => {
-      this.attempt = data;
-    }, error => {
-      if (error.error.message == 'Access Denied') {
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
-
-    this.authService.count(localStorage.getItem('site'), today, 'PARTIALLY_DELIVERED').subscribe((data: any) => {
-      this.partial = data;
-    }, error => {
-      if (error.error.message == 'Access Denied') {
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
-
-    this.authService.count(localStorage.getItem('site'), today, 'REJECTED_BY_CUSTOMER').subscribe((data: any) => {
-      this.customer = data;
-    }, error => {
-      if (error.error.message == 'Access Denied') {
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
-      console.log(error);
-    });
-
   }
 
 
@@ -665,16 +489,26 @@ export class OrdersComponent implements OnInit {
    
   }
 
+  changePage(event) {
+    this.pagination.page = event;
+    this.ngOnInit();
+}
+
+handlePageSizeChange(event) {
+  this.pagination.size = event;
+  this.pagination.page = 1;
+  this.ngOnInit();
+}
   search(term) {
     const abc = this.flightSchedule.date.valueOf();
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
     console.log(today);
     if (term == null || term.length == 0) {
-      this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+      this.authService.orders(today, this.term,this.pagination,localStorage.getItem('host')).subscribe((data: any) => {
           (this.stores = (data.content));
           // (this.arr= (data.content));
           // this.sortedData = this.stores.slice();
-          this.size = data.numberOfElements;
+          this.size = data.totalElements;
           // console.log(this.planes);
         },
         error => {
@@ -688,11 +522,11 @@ export class OrdersComponent implements OnInit {
       const abc = this.flightSchedule.date.valueOf();
       const today = this.pipe.transform(abc, 'yyyy-MM-dd');
       console.log(today);
-      this.authService.orders(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+      this.authService.orders(today, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
           (this.stores = (data.content));
           // (this.arr= (data.content));
           // this.sortedData = this.stores.slice();
-          this.size = data.numberOfElements;
+          this.size = data.totalElements;
           // console.log(this.planes);
         },
         error => {
@@ -705,34 +539,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-
-  selectPageSize(event) {
-    this.pageSize1 = event;
-  }
-
-  // sortData(sort: Sort) {
-  //   const data = this.stores.slice();
-  //   if (!sort.active || sort.direction === '') {
-  //     this.sortedData = data;
-  //     return;
-  //   }
-
-//     this.sortedData = data.sort((a, b) => {
-//       const isAsc = sort.direction === 'asc';
-//       switch (sort.active) {
-//         // case 'name': return compare(a.name, b.name, isAsc);
-//         // case 'calories': return compare(a.calories, b.calories, isAsc);
-//         // case 'fat': return compare(a.fat, b.fat, isAsc);
-//         // case 'carbs': return compare(a.carbs, b.carbs, isAsc);
-//         case 'updatedAt': return compare(a.updatedAt, b.updatedAt, isAsc);
-//         default: return 0;
-//       }
-//     });
-
 }
 
-// function compare(a: number | string, b: number | string, isAsc: boolean) {
-//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-// }
 
 

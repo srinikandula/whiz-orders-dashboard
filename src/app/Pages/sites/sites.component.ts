@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SitesComponent implements OnInit {
 
+  public isActive: any;
+  term;
+
   constructor() { }
 
   ngOnInit() {

@@ -12,32 +12,32 @@
             <input ngbButton type="radio" value="all" (change)="all()">All Orders<sup>{{this.total}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="pending" (change)="pending()">AT DC<sup>{{this.processing}}</sup>
+            <input ngbButton type="radio" value="pending" (change)="status('AT_DC')">AT DC<sup>{{this.atdc}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="readytopickup" (change)="pickup()">Ready To
+            <input ngbButton type="radio" value="readytopickup" (change)="status('READY_FOR_PICKUP')">Ready To
             Pickup<sup>{{this.ready}}</sup>
           </label><label ngbButtonLabel class="btn">
-          <input ngbButton type="radio" value="onroad" (change)="onroad()">Out On Road<sup>{{this.road}}</sup>
+          <input ngbButton type="radio" value="onroad" (change)="status('OUT_ON_ROAD')">Out On Road<sup>{{this.road}}</sup>
         </label>
           <label ngbButtonLabel class="btn">
             <input ngbButton type="radio" value="completed"
-                   (change)="completed()">Delivered<sup>{{this.delivered}}</sup>
+                   (change)="status('DELIVERED')">Delivered<sup>{{this.delivered}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="closed" (change)="closed()">Cancelled<sup>{{this.cancelled}}</sup>
+            <input ngbButton type="radio" value="closed" (change)="status('CANCELLED')">Cancelled<sup>{{this.cancelled}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="rejected" (change)="rejectedByDA()">Rejected By DA<sup>{{this.decline}}</sup>
+            <input ngbButton type="radio" value="rejected" (change)="status('REJECTED_BY_DA')">Rejected By DA<sup>{{this.decline}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="attempted" (change)="attempted()">Attempted<sup>{{this.attempt}}</sup>
+            <input ngbButton type="radio" value="attempted" (change)="status('ATTEMPTED')">Attempted<sup>{{this.attempt}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="pariallyDelivered" (change)="partiallyDelivered()">Partially Delivered<sup>{{this.partial}}</sup>
+            <input ngbButton type="radio" value="pariallyDelivered" (change)="status('PARTIALLY_DELIVERED')">Partially Delivered<sup>{{this.partial}}</sup>
           </label>
           <label ngbButtonLabel class="btn">
-            <input ngbButton type="radio" value="rejectedByCustomer" (change)="rejectedByCustomer()">Rejected By Customer<sup>{{this.customer}}</sup>
+            <input ngbButton type="radio" value="rejectedByCustomer" (change)="status('REJECTED_BY_CUSTOMER')">Rejected By Customer<sup>{{this.customer}}</sup>
           </label>
         </div>
       </div>
@@ -101,7 +101,7 @@
 
       <table class="align-middle text-truncate mb-0 table table-borderless table-hover table-striped">
         <thead>
-        <tr class="text-center">
+        <tr class="text-center" *ngIf="this.size != 0" >
           <th>
             <mat-checkbox  [(ngModel)]='checked' class="mr-3"
                           (change)="abc($event)"></mat-checkbox>
@@ -127,30 +127,30 @@
           <th scope="col">Image</th>
           <th scope="col">Action</th>
           <th scope="col">TrackLink</th>
-
+          
         </tr>
         </thead>
         <!-- <tr>
           <td *ngIf="this.size == '0'">No Data Available<br><img src="./../../../assets/images/Loader.gif"></td>
         </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
         <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
-        <tbody *ngIf="this.size == '0'" class="text-center">
+        <tbody *ngIf="this.size == 0" class="text-center">
         <!-- <tr>
           <td *ngIf="this.size == '0'">No Orders Available</td>
           </tr> -->
-        No Orders Available
+        <td class="text-center">No Orders Available</td>
         </tbody>
-        <tbody *ngIf="this.size != '0'">
+        <tbody *ngIf="this.size != 0">
         <tr class="text-center"
-            *ngFor="let b of stores  | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;">
+            *ngFor="let b of stores ; let i =index;">
           <th>
             <mat-checkbox [checked]='checked' class="mr-3"
                           (change)="getdata($event, b); false" *ngIf="b.createdBatch == false"></mat-checkbox>
           </th>
-          <th>{{(page1 - 1) * pageSize1 + i + 1}}</th>
+          <th> {{(pagination.page-1) * pagination.size  + i + 1}}</th>
           <td>
             <button class=" btn btn-outline-primary border-0" >
-              <span>{{b.customer_firstname}}</span></button>
+              <span>{{b.customer_firstname}} ({{b.shippingInfo.address.telephone}})</span></button>
           </td>
           <td>
             <button class=" btn btn-outline-primary border-0" (click)="openSmall2(content2,b.id)">
@@ -193,7 +193,7 @@
             <button class="btn btn-outline-primary border-0">{{b.orderTotal}}</button>
           </td>
           <td>
-            <button class="btn btn-outline-primary border-0">{{b.slot.startTime| date:'shortTime'}}
+            <button class="btn btn-outline-primary border-0">{{b.slot.startTime| date:"hh:mm a"}}
               -{{b.slot.endTime | date:'shortTime'}}</button>
             <!--            <button class="btn btn-outline-primary border-0"  *ngIf="b.expectedDeliverySlot == null">-</button></td>-->
           <td>
@@ -203,7 +203,7 @@
             <button class="btn btn-outline-primary border-0">{{b.driverName}}</button>
           </td>
           <td>
-            <button class="btn btn-outline-primary border-0">{{b.eta| date:'shortTime'}}</button>
+            <button class="btn btn-outline-primary border-0">{{b.eta| date:"hh:mm a"}}</button>
           </td>
           <td>
             <button class="btn btn-outline-primary border-0" *ngIf='b.orderImageUrl == null'>-</button>
@@ -332,14 +332,17 @@
     </div>
     <div class="d-block p-4 card-footer">
       <div class="d-flex w-100 justify-content-between">
-        <ngb-pagination [(page)]="page1"
-                        [pageSize]="pageSize1"
-                        [collectionSize]="this.size">
+        <ngb-pagination *ngIf="size" [(page)]="pagination.page"
+        [pageSize]="pagination.size"
+        [collectionSize]="size"
+        [boundaryLinks]="true"
+        [maxSize]="5"
+       (pageChange)="changePage($event)">
         </ngb-pagination>
-        <div class="btn-actions-pane-right">
-          <button class="btn btn-outline-primary" (click)="selectPageSize(200)">200</button>
-          <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
-          <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button>
+        <div class="btn-actions-pane-right" *ngIf="size" >
+          <button *ngFor="let size of pagination.pageSizes" class="btn btn-outline-primary" (click)="handlePageSizeChange(size)">{{size}}</button>
+          <!-- <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
+          <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button> -->
         </div>
         <!-- <select class="custom-select" style="width: auto" name="pageSize1" (change)="selectPageSize($event)">
             <option *ngFor = "let size of pageSizeOptions1" [value]="size">{{size}}</option>

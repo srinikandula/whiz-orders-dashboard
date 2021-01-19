@@ -173,12 +173,12 @@ outfordelivery;
     error =>{
       console.log(error);
     });
-    this.authService.sites().subscribe((data:any)=>{
-      (this.sites= (data));
-    },
-    error =>{
-      console.log(error);
-    });
+    // this.authService.sites().subscribe((data:any)=>{
+    //   (this.sites= (data));
+    // },
+    // error =>{
+    //   console.log(error);
+    // });
 
     
   }

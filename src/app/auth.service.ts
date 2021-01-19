@@ -3,9 +3,11 @@ import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {env} from 'process';
 import * as config from "./../assets/appsettings.json";
-import {environment} from 'src/environments/environment';
-
-// import { environment } from 'src/environments/environment';
+// import {environment} from 'src/environments/environment';
+// var environment = require('src/environments/environment');
+// var PropertiesReader = require('properties-reader');
+// var properties = new PropertiesReader(environment);
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +16,14 @@ export class AuthService {
 
   basePath = environment.basePath;
   testPath = environment.testPath;
+  // testPath = properties.get('main.PATH');
   // authToken = localStorage.getItem('access_token');
   // basePath = config.basePath;
   // testPath = config.testPath;
 
   constructor(private router: Router,
               private http: HttpClient) {
+                // console.log(this.testPath);
   }
 
   httpOptions = {
@@ -31,7 +35,7 @@ export class AuthService {
 
 
   login(cred) {
-    return this.http.post<[]>(this.basePath + '/api/auth/signin', cred, this.httpOptions);
+    return this.http.post<[]>(this.testPath + '/api/auth/signin', cred, this.httpOptions);
   }
 
   roles() {
@@ -42,9 +46,9 @@ export class AuthService {
     });
   }
 
-  sites() {
-    return this.http.post<[]>(this.testPath + '/api/v1/more/orders/searchStores', {"clientCode": "MORE"}, this.httpOptions);
-  }
+  // sites() {
+  //   return this.http.post<[]>(this.testPath + '/api/v1/more/orders/searchStores', {"clientCode": "MORE"}, this.httpOptions);
+  // }
 
   getcall(id,link){
     return this.http.post<[]>(this.testPath + '/api/v1/whatsAppConversations/sendTrackingLink', {"orderId":id,"link":link}, this.httpOptions);
@@ -89,26 +93,39 @@ export class AuthService {
   }
 
   // "orderIds":orderids,
-  orders(code, date, search) {
-    console.log(config.testPath, config.basePath);
-    if (code == 'all') {
+  orders(date, search, pagination, host) {
+    // console.log(config.testPath, config.basePath);
+    // if (code == 'all') {
       return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {
         "date": date,
-        "searchParam": search
+        "searchParam": search,
+        "page":pagination.page,
+        "size":pagination.size,
+        "clientCode":pagination.clientCode,
+        "host":host,
+        "status":pagination.status
       }, this.httpOptions);
-    } else {
-      return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {
-        "storeId": code,
-        "date": date,
-        "searchParam": search
-      }, this.httpOptions);
-    }
+    // } else {
+    //   return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {
+    //     "storeId": code,
+    //     "date": date,
+    //     "searchParam": search,
+    //     "page":pagination.page,
+    //     "size":pagination.size,
+    //     "clientCode":host,
+    //     "status":pagination.status
+    //   }, this.httpOptions);
+    // }
   }
 
+
+  getcount(date){
+    return this.http.get<[]>(this.testPath + '/api/v1/more/orders/getOrdersSummery?date=' + date, this.httpOptions);
+  }
   count(code, date, search) {
     if (code == 'all') {
-      return this.http.post<[]>(this.testPath + '/api/v1/more/orders/count', {
-        "searchParam": search,
+      return this.http.post<[]>(this.testPath + '/api/v1/more/orders/getOrdersSummery', {
+        // "searchParam": search,
         "date": date
       }, this.httpOptions);
     } else {
