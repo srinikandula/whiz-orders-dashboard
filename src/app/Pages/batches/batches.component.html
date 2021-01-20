@@ -44,9 +44,9 @@
         </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
       <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
       <tbody>
-      <tr class="text-center"  *ngFor ="let b of batches | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" >
+      <tr class="text-center"  *ngFor ="let b of batches; let i =index;" >
           <!-- <th><mat-checkbox [checked]='checked' class="mr-3"></mat-checkbox></th> -->
-          <th>{{(page1-1) * pageSize1  + i + 1}}</th>
+          <th>{{(pagination.page-1) * pagination.size  + i + 1}}</th>
           <td><button class=" btn btn-outline-primary border-0" (click)="shifts(b.id)" *ngIf="b.planCreated == false"><span>{{b.batchName}}</span></button>
             <button class=" btn btn-outline-primary border-0" *ngIf="b.planCreated == true" (click)="opensweetalert()"><span>{{b.batchName}}</span></button>
           </td>
@@ -64,14 +64,17 @@
     </div>
       <div class="d-block p-4 card-footer">
           <div class="d-flex w-100 justify-content-between">
-        <ngb-pagination [(page)]="page1"
-        [pageSize]="pageSize1"
-        [collectionSize]="this.size">
+        <ngb-pagination *ngIf="size" [(page)]="pagination.page"
+        [pageSize]="pagination.size"
+        [collectionSize]="size"
+        [boundaryLinks]="true"
+        [maxSize]="5"
+       (pageChange)="changePage($event)">
       </ngb-pagination>
-      <div  class="btn-actions-pane-right">
-        <button class="btn btn-outline-primary" (click)="selectPageSize(200)">200</button>
-        <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
-        <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button>
+      <div  class="btn-actions-pane-right"  *ngIf="size">
+        <button class="btn btn-outline-primary" *ngFor="let size of pagination.pageSizes" (click)="handlePageSizeChange(size)">{{size}}</button>
+        <!-- <button class="btn btn-outline-primary" (click)="selectPageSize(500)">500</button>
+        <button class="btn btn-outline-primary" (click)="selectPageSize(1000)">1000</button> -->
       </div>
       <!-- <select class="custom-select" style="width: auto" name="pageSize1" (change)="selectPageSize($event)">
           <option *ngFor = "let size of pageSizeOptions1" [value]="size">{{size}}</option>

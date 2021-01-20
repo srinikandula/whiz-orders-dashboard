@@ -35,7 +35,7 @@ export class AuthService {
 
 
   login(cred) {
-    return this.http.post<[]>(this.testPath + '/api/auth/signin', cred, this.httpOptions);
+    return this.http.post<[]>(this.testPath + '/api/auth/signin',cred, this.httpOptions);
   }
 
   roles() {
@@ -84,8 +84,9 @@ export class AuthService {
     return this.http.get<[]>(this.testPath + '//api/v1/more/orders/getOrder/' + id, httpOptions2);
   }
 
-  batches(search) {
-    return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search', {"searchParam": search}, this.httpOptions);
+  batches(search,pagination,host) {
+    return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search', {"searchParam": search, "page":pagination.page,
+    "size":pagination.size, "clientCode": host}, this.httpOptions);
   }
 
   createbatches(orderids, sitecode, batchname, date) {
@@ -101,8 +102,8 @@ export class AuthService {
         "searchParam": search,
         "page":pagination.page,
         "size":pagination.size,
-        "clientCode":pagination.clientCode,
-        "host":host,
+        "clientCode":host,
+        // "host":host,
         "status":pagination.status
       }, this.httpOptions);
     // } else {
@@ -119,8 +120,8 @@ export class AuthService {
   }
 
 
-  getcount(date){
-    return this.http.get<[]>(this.testPath + '/api/v1/more/orders/getOrdersSummery?date=' + date, this.httpOptions);
+  getcount(date,host){
+    return this.http.get<[]>(this.testPath + '/api/v1/more/orders/getOrdersSummery?date=' + date + '&clientCode=' + host, this.httpOptions);
   }
   count(code, date, search) {
     if (code == 'all') {
@@ -149,14 +150,14 @@ export class AuthService {
   //     return this.http.post<[]>(this.testPath + '/api/v1/more/orders/count', {"storeId":code,"status":search},this.httpOptions);
   //   }
   // }
-  shifts(id, date) {
+  shifts(id, date, host) {
     let httpOptions2 = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         // 'batchId':id
       })
     };
-    return this.http.get<[]>(this.testPath + '/api/v1/locusBatch/getShifts?batchId=' + id + '&date=' + date, httpOptions2);
+    return this.http.get<[]>(this.testPath + '/api/v1/locusBatch/getShifts?batchId=' + id + '&date=' + date + '&clientCode=' + host, httpOptions2);
   }
 
   cashm(date) {

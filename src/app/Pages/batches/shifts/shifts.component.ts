@@ -48,7 +48,7 @@ export class ShiftsComponent implements OnInit {
 
   ngOnInit() {
     const today = this.pipe.transform(this.today, 'yyyy-MM-dd');
-    this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
+    this.authService.shifts(localStorage.getItem('batchid'), today, localStorage.getItem('host')).subscribe((data: any) => {
         (this.shifts = (data));
         if (this.shifts.length) {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);
@@ -74,7 +74,7 @@ export class ShiftsComponent implements OnInit {
 
   tomorrow() {
     const today = this.pipe.transform(this.tom, 'yyyy-MM-dd');
-    this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
+    this.authService.shifts(localStorage.getItem('batchid'), today, localStorage.getItem('host')).subscribe((data: any) => {
         (this.shifts = (data));
         if (this.shifts.length) {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);
@@ -154,7 +154,7 @@ export class ShiftsComponent implements OnInit {
 
   thenn() {
     const today = this.pipe.transform(this.then, 'yyyy-MM-dd');
-    this.authService.shifts(localStorage.getItem('batchid'), today).subscribe((data: any) => {
+    this.authService.shifts(localStorage.getItem('batchid'), today, localStorage.getItem('host')).subscribe((data: any) => {
         (this.shifts = (data));
         if (this.shifts.length) {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);

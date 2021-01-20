@@ -16,6 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
             setHeaders: {
                 Authorization: "Bearer " + authToken,
                 // Cookie: "token=" + authToken
+                // clientCode: url
             }
         });
         return next.handle(req);

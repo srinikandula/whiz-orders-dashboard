@@ -423,7 +423,7 @@ export class OrdersComponent implements OnInit {
     abcd.push('PARTIALLY_DELIVERED');
     abcd.push('REJECTED_BY_CUSTOMER');
     // console.log(abcd);
-    this.authService.getcount(today).subscribe((data: any) => {
+    this.authService.getcount(today,localStorage.getItem('host')).subscribe((data: any) => {
         // (this.count= (data.content));
         // (this.arr= (data.content));
         // // this.sortedData = this.stores.slice();

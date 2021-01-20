@@ -18,15 +18,21 @@ export class BatchesComponent implements OnInit {
   term;
   closeResult: string;
   size = 0;
+  
+  public pagination:any = {
+    page: 1,
+    size: 10,
+    pageSizes: ['10','20','50','100','200','500','1000']
+};
 
   constructor(private authService: AuthService,private router: Router,private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.authService.batches(this.term).subscribe((data:any)=>{
+    this.authService.batches(this.term,  this.pagination ,localStorage.getItem('host')).subscribe((data:any)=>{
       (this.batches= (data.content));
       // (this.arr= (data.content));
       // this.sortedData = this.stores.slice();
-      this.size = data.numberOfElements;
+      this.size = data.totalElements;
       // console.log(this.stores);
     },
     error =>{
@@ -52,13 +58,24 @@ export class BatchesComponent implements OnInit {
     this.router.navigate(['/batches/shifts']);
   }
 
+  changePage(event) {
+    this.pagination.page = event;
+    this.ngOnInit();
+}
+
+handlePageSizeChange(event) {
+  this.pagination.size = event;
+  this.pagination.page = 1;
+  this.ngOnInit();
+}
+
   search(term){
     if(term == null || term.length == 0){
-      this.authService.batches(this.term).subscribe((data:any)=>{
+      this.authService.batches(this.term, this.pagination,localStorage.getItem('host')).subscribe((data:any)=>{
         (this.batches= (data.content));
         // (this.arr= (data.content));
         // this.sortedData = this.stores.slice();
-        this.size = data.numberOfElements;
+        this.size = data.totalElements;
         // console.log(this.planes);
       },
       error =>{
@@ -70,11 +87,11 @@ export class BatchesComponent implements OnInit {
       });
     }
     else if(term.length >= 4){
-      this.authService.batches(this.term).subscribe((data:any)=>{
+      this.authService.batches(this.term, this.pagination,localStorage.getItem('host')).subscribe((data:any)=>{
         (this.batches= (data.content));
         // (this.arr= (data.content));
         // this.sortedData = this.stores.slice();
-        this.size = data.numberOfElements;
+        this.size = data.totalElements;
         // console.log(this.planes);
       },
       error =>{
@@ -86,7 +103,4 @@ export class BatchesComponent implements OnInit {
       });
     }
   }
-  selectPageSize(event) {
-    this.pageSize1 = event;
-    }
 }
