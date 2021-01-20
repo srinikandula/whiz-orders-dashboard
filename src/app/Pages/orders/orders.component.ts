@@ -336,7 +336,7 @@ export class OrdersComponent implements OnInit {
       alert('You cancelled the creating batch!');
     } else {
 
-      this.authService.createbatches(this.orderids, this.sitecode, prompt, today).subscribe((data: any) => {
+      this.authService.createbatches(this.orderids, this.sitecode, prompt, localStorage.getItem('host'), today).subscribe((data: any) => {
           // (this.stores= (data.content));
           // (this.arr= (data.content));
           // // this.sortedData = this.stores.slice();

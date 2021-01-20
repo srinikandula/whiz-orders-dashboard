@@ -89,8 +89,8 @@ export class AuthService {
     "size":pagination.size, "clientCode": host}, this.httpOptions);
   }
 
-  createbatches(orderids, sitecode, batchname, date) {
-    return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/createBatch?orderIds=' + orderids + "&siteCode=" + sitecode + "&batchName=" + batchname + '&date=' + date, this.httpOptions);
+  createbatches(orderids, sitecode, batchname, host, date) {
+    return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/createBatch?orderIds=' + orderids + "&siteCode=" + sitecode + "&batchName=" + batchname + '&date=' + date + '&clientCode=' + host, this.httpOptions);
   }
 
   // "orderIds":orderids,
