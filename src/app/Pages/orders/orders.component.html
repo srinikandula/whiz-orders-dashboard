@@ -218,8 +218,10 @@
             </button>
           </td>
           <td>
-            <button class=" btn btn-outline-primary border-0" (click)="goToLink (b.trackLink)">track</button>
-            <button class=" btn btn-outline-default" (click)="callicon(b.trackLink, b.id)" ngbTooltip="Share via Whatsapp"><i class="fa fa-whatsapp text-success"> </i></button>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.status != 'AT_DC'" (click)="goToLink (b.trackLink)">track</button>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.status == 'AT_DC'" >-</button>
+            <button class=" btn btn-outline-default" *ngIf="b.status != 'AT_DC'"  (click)="callicon(b.trackLink, b.id)" ngbTooltip="Share via Whatsapp"><i class="fa fa-whatsapp text-success"> </i></button>
+            <button class=" btn btn-outline-default" *ngIf="b.status == 'AT_DC'"  >-</button>
           </td>
         </tr>
         </tbody>

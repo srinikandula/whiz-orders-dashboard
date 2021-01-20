@@ -131,7 +131,7 @@ export class OrdersComponent implements OnInit {
         console.log(this.details);
         (this.details2 = (data.orderItems));
         // this.sortedData = this.stores.slice();
-        this.size = data.numberOfElements;
+        // this.size = data.numberOfElements;
         // console.log(this.stores);
 
       },
