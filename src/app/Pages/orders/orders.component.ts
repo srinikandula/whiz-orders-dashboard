@@ -490,11 +490,16 @@ export class OrdersComponent implements OnInit {
   }
 
   changePage(event) {
+    this.orderids = [];
+    this.checked = false;
     this.pagination.page = event;
     this.ngOnInit();
+
 }
 
 handlePageSizeChange(event) {
+  this.orderids = [];
+  this.checked = false;
   this.pagination.size = event;
   this.pagination.page = 1;
   this.ngOnInit();

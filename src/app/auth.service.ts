@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  basePath = environment.basePath;
+  // basePath = environment.basePath;
   testPath = environment.testPath;
   // testPath = properties.get('main.PATH');
   // authToken = localStorage.getItem('access_token');
@@ -38,13 +38,13 @@ export class AuthService {
     return this.http.post<[]>(this.testPath + '/api/auth/signin',cred, this.httpOptions);
   }
 
-  roles() {
-    //   let customHeaders: Headers = new Headers();
-    // customHeaders.append('token', token);
-    return this.http.get<[]>(this.basePath + '/api/v1/user/getRoles', {
-      headers: {['Content-Type']: 'application/json'},
-    });
-  }
+  // roles() {
+  //   //   let customHeaders: Headers = new Headers();
+  //   // customHeaders.append('token', token);
+  //   return this.http.get<[]>(this.basePath + '/api/v1/user/getRoles', {
+  //     headers: {['Content-Type']: 'application/json'},
+  //   });
+  // }
 
   // sites() {
   //   return this.http.post<[]>(this.testPath + '/api/v1/more/orders/searchStores', {"clientCode": "MORE"}, this.httpOptions);

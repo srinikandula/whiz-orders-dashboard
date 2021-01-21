@@ -144,7 +144,7 @@
         <tr class="text-center"
             *ngFor="let b of stores ; let i =index;">
           <th>
-            <mat-checkbox [checked]='checked' class="mr-3"
+            <mat-checkbox  [checked]='checked' class="mr-3"
                           (change)="getdata($event, b); false" *ngIf="b.createdBatch == false"></mat-checkbox>
           </th>
           <th> {{(pagination.page-1) * pagination.size  + i + 1}}</th>

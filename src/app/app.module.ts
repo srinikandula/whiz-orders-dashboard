@@ -47,7 +47,7 @@ import {DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {ChartsModule} from 'ng2-charts';
-import {TimeAgoPipe} from 'time-ago-pipe';
+// import {TimeAgoPipe} from 'time-ago-pipe';
 // import {CountUpModule} from 'countup.js-angular2';
 
 
@@ -201,7 +201,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     OptionsDrawerComponent,
     PageTitleComponent,
     FilterPipe,
-    TimeAgoPipe,
+    // TimeAgoPipe,
 
     // HEADER
 
