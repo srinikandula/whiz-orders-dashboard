@@ -100,6 +100,7 @@ export class OrdersComponent implements OnInit {
 
   details;
   details2;
+  details3;
   error;
 
   orderids: any[] = [];
@@ -122,17 +123,18 @@ export class OrdersComponent implements OnInit {
 
   }
 
-  openSmall2(content, id) {
+  openSmall2(content, id, items) {
     this.modalService.open(content, {
       size: 'lg'
     });
     this.authService.ordersdetails(id).subscribe((data: any) => {
         (this.details = (Array.of(data)));
-        console.log(this.details);
+        // console.log(this.details);
         (this.details2 = (data.orderItems));
+        this.details3 = Array.of(items.address);
         // this.sortedData = this.stores.slice();
         // this.size = data.numberOfElements;
-        // console.log(this.stores);
+        console.log(this.details3);
 
       },
       error => {
