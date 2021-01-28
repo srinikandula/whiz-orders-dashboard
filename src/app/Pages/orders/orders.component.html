@@ -124,10 +124,11 @@
           <th scope="col">Created On</th>
           <th scope ="col">Driver</th>
           <th scope="col">ETA</th>
+          <th scope="col">Completed At</th>
           <th scope="col">Image</th>
           <th scope="col">Action</th>
           <th scope="col">TrackLink</th>
-          
+
         </tr>
         </thead>
         <!-- <tr>
@@ -206,6 +207,10 @@
             <button class="btn btn-outline-primary border-0">{{b.eta| date:"hh:mm a"}}</button>
           </td>
           <td>
+            <button class="btn btn-outline-primary border-0">{{b.completedAt| date:"hh:mm a"}}</button>
+            <button class=" btn btn-outline-default" *ngIf="b.completedAt == null"  >-</button>
+          </td>
+          <td>
             <button class="btn btn-outline-primary border-0" *ngIf='b.orderImageUrl == null'>-</button>
             <button class="mb-2 mr-2 btn-icon btn-icon-only btn btn-primary border-0" *ngIf='b.orderImageUrl != null'
                     (click)="openLarge(content1,b.orderImageUrl)"><i class="pe-7s-photo btn-icon-wrapper"> </i></button>
@@ -259,13 +264,13 @@
                 <tr class="text-center" >
                   <th>Name</th>
                   <td>{{data.firstname}}</td>
-                  
-                  
+
+
                 </tr>
                 <tr >
                   <th>Contact Number</th>
                   <td>{{data.telephone}}</td>
-                 
+
                 </tr>
                 <tr>
                   <th>Address</th>
