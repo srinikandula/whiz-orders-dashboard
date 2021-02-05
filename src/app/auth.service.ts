@@ -64,6 +64,18 @@ export class AuthService {
     return this.http.get<[]>(this.testPath + '/api/v1/more/orders/getCashSummery?date=' + date, httpOptions2);
   }
 
+  uploadfile(data){
+    let body = "orders=" + data;
+    // console.log(data.get('formFile'));
+    // let httpOptions2 = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+    //     // 'batchId':id
+    //   })
+    // };
+    return this.http.post<[]>(this.testPath + '/api/v1/more/orders/uploadExcel', data);
+  }
+
   getordersummary(date) {
     let httpOptions2 = {
       headers: new HttpHeaders({

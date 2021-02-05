@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {Sort} from '@angular/material/sort';
 import {AuthService} from '../../auth.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
+import * as _ from 'lodash';
 
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
@@ -59,10 +61,14 @@ export interface Dessert {
 
 export class OrdersComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private modalService: NgbModal) {
+  constructor(private authService: AuthService, private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
     // }
   }
+
+  @ViewChild('UploadFileInput') uploadFileInput: ElementRef;
+  fileUploadForm: FormGroup;
+  fileInputLabel: string;
 
   current = 'all';
   stores: any[];
@@ -148,6 +154,89 @@ export class OrdersComponent implements OnInit {
       });
 
   }
+
+
+  onFileSelect(event) {
+    let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      // console.log(file);
+
+      if (!_.includes(af, file.type)) {
+        alert('Only EXCEL Docs Allowed!');
+      } else {
+        this.fileInputLabel = file.name;
+        this.fileUploadForm.get('myfile').setValue(file);
+      }
+    }
+  }
+
+  openSmall3(content) {
+    this.modalService.open(content,  {
+      size: 'lg',
+    });
+  }
+
+
+  onFormSubmit() {
+    if (!this.fileUploadForm.get('myfile').value) {
+      alert('Please fill valid details!');
+      return false;
+    }
+    
+    let formData = new FormData();
+     formData.append('orders', this.fileUploadForm.get('myfile').value);
+    // formData.append('agentId', '007');
+
+    // console.log(this.fileUploadForm.get('myfile').value);
+    this.authService.uploadfile(formData).subscribe((data: any) => {
+      console.log(data);
+      if(data.statusCodeValue == 400){
+        let error:any[] = [];
+        for(let i=0; i< data.body.length; i++){
+          console.log(data.body)
+          error.push('<li class="text-left text-danger">' + ' ' + data.body[i] + '</li>');
+        }
+        console.log(error);
+        Swal.fire({
+          title: 'Orders Can Not Be Inserted!',
+          html: '<ol class="overflow-auto" style="height: 250px;overflow: scroll">' + error.join('') + '</ol>',
+          // html: true,
+          type: 'error'
+        });
+        this.fileUploadForm.reset();
+        this.fileInputLabel = null;
+      }
+      else{
+      Swal.fire({
+        title: 'File Uploaded',
+        text: data.body.count + ' Orders is Successfully Inserted!',
+        type: 'success'
+      });
+      this.fileUploadForm.reset();
+      this.fileInputLabel = null;
+    }
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    },
+    error => {
+      if (error.error.message == 'Access Denied') {
+        localStorage.clear();
+        this.router.navigate(['/']);
+      } else {
+        Swal.fire({
+          title: 'Orders Can Not Be Created!',
+          text: error.error.code || error.error.message,
+          type: 'warning'
+        });
+        this.fileUploadForm.reset();
+      this.fileInputLabel = null;
+      }
+      console.log(error);
+    });
+
+}
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -372,6 +461,12 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.fileUploadForm = this.formBuilder.group({
+      myfile: ['']
+    });
+
+
     const abc = this.flightSchedule.date.valueOf();
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
 

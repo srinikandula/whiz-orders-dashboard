@@ -94,6 +94,8 @@
       <div class="btn-actions-pane-right">
         <button class="btn btn-outline-primary" style="margin-left: 10px;" style="visibility:hidden;" id="batch"
                 (click)="createbatch()"><span>Create Batch</span></button>
+        <button class="btn btn-outline-primary" style="margin-left: 10px;" 
+                (click)="openSmall3(content3)"><span>Upload File</span></button>
         <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
       </div>
     </div>
@@ -349,6 +351,48 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
         </div>
+      </ng-template>
+
+
+      <ng-template #content3 let-c="close" let-d="dismiss">
+        <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+        <div class="modal-header">
+          <h4 class="modal-title">File Upload</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row mb-3">
+                <!-- <div class="col-sm-12">
+                    <div>
+                        <h6 class="head-title margin-top-8"><span>UPLOAD</span></h6>
+                    </div>
+                </div> -->
+        
+                <div class="col-sm text-center">
+        
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" name="myfile"
+                            (change)="onFileSelect($event)" #UploadFileInput>
+                        <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Choose File'}}</label>
+                    </div>
+        
+                </div>
+              </div>
+                <!-- <div class="row">
+                <div class="col-sm text-center">
+                    <button class="btn btn-primary" type="submit">Upload</button>
+                </div>
+            </div> -->
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Upload</button>
+          <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </form>
       </ng-template>
 
     </div>
