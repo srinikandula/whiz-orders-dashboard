@@ -309,7 +309,7 @@ export class OrdersComponent implements OnInit {
         document.getElementById('batch').style.visibility = 'hidden';
         this.checkbox = 0;
       }
-      console.log(this.orderids);
+      // console.log(this.orderids);
       //   // this.shiftids.push({
       //   //   "shiftIds":id});
       //   if(this.orderids.length != 0){
@@ -345,7 +345,7 @@ export class OrdersComponent implements OnInit {
       }
       // this.orderids = this.orderids.filter(function(e){return e != id})
     }
-    console.log(event.checked, this.orderids);
+    // console.log(event.checked, this.orderids);
   }
 
   getdata(event, orderData) {
@@ -385,7 +385,7 @@ export class OrdersComponent implements OnInit {
         document.getElementById('batch').style.visibility = 'hidden';
       }
       this.orderids = this.orderids.filter(function (e) {
-        return e != orderData.id;
+        return e != orderData.orderId;
       });
     }
   }
