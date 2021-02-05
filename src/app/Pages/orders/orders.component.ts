@@ -215,10 +215,10 @@ export class OrdersComponent implements OnInit {
       });
       this.fileUploadForm.reset();
       this.fileInputLabel = null;
-    }
       setTimeout(() => {
         window.location.reload();
       }, 3000);
+    }
     },
     error => {
       if (error.error.message == 'Access Denied') {
