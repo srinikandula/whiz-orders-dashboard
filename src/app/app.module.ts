@@ -8,6 +8,7 @@ import {rootReducer, ArchitectUIState} from './ThemeOptions/store';
 import {ConfigActions} from './ThemeOptions/store/config.actions';
 import {AppRoutingModule} from './app-routing.module';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 import {CommonModule} from '@angular/common';
 import {HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -398,6 +399,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
       DEFAULT_PERFECT_SCROLLBAR_CONFIG,
       // DEFAULT_DROPZONE_CONFIG,
     },
+    {provide : LocationStrategy , useClass: HashLocationStrategy},
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
