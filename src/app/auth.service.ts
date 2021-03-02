@@ -66,7 +66,7 @@ export class AuthService {
 
   uploadfile(data){
     let body = "orders=" + data;
-    // console.log(data.get('formFile'));
+     console.log(data.get('formFile'));
     // let httpOptions2 = {
     //   headers: new HttpHeaders({
     //     'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
