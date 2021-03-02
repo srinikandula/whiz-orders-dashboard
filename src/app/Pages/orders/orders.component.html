@@ -94,7 +94,7 @@
       <div class="btn-actions-pane-right">
         <button class="btn btn-outline-primary" style="margin-left: 10px;" style="visibility:hidden;" id="batch"
                 (click)="createbatch()"><span>Create Batch</span></button>
-        <button class="btn btn-outline-primary" style="margin-left: 10px;" 
+        <button class="btn btn-outline-primary" style="margin-left: 10px;"
                 (click)="openSmall3(content3)"><span>Upload File</span></button>
         <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
       </div>
@@ -112,6 +112,7 @@
           <th scope="col">#</th>
           <th scope="col">Customer</th>
           <th scope="col">Order Id</th>
+          <th scope="col">Client OrderID</th>
           <th scope="col">Status</th>
           <th scope="col">Site Code</th>
           <th scope="col">Items Quantity</th>
@@ -144,8 +145,7 @@
         <td class="text-center">No Orders Available</td>
         </tbody>
         <tbody *ngIf="this.size != 0">
-        <tr class="text-center"
-            *ngFor="let b of stores ; let i =index;">
+        <tr class="text-center" *ngFor="let b of stores ; let i =index;">
           <th>
             <mat-checkbox  [checked]='checked' class="mr-3"
                           (change)="getdata($event, b); false" *ngIf="b.createdBatch == false"></mat-checkbox>
@@ -158,6 +158,9 @@
           <td>
             <button class=" btn btn-outline-primary border-0" (click)="openSmall2(content2,b.id, b.shippingInfo)">
               <span>{{b.orderId}}</span></button>
+          </td>
+          <td>
+              <span>{{b.clientOrderId}}</span>
           </td>
           <td>
             <button class=" btn border-0" *ngIf="b.status == 'AT_DC'" style="color: #000000 !important;"><b>{{b.status}}</b></button>
@@ -374,15 +377,15 @@
                         <h6 class="head-title margin-top-8"><span>UPLOAD</span></h6>
                     </div>
                 </div> -->
-        
+
                 <div class="col-sm text-center">
-        
+
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="customFile" name="myfile"
                             (change)="onFileSelect($event)" #UploadFileInput>
                         <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Choose File'}}</label>
                     </div>
-        
+
                 </div>
               </div>
                 <!-- <div class="row">
@@ -390,7 +393,7 @@
                     <button class="btn btn-primary" type="submit">Upload</button>
                 </div>
             </div> -->
-        
+
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary" type="submit">Upload</button>
