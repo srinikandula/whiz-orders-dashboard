@@ -73,7 +73,7 @@ export class AuthService {
     //     // 'batchId':id
     //   })
     // };
-    return this.http.post<[]>(this.testPath + '/api/v1/more/orders/uploadExcel', data);
+    return this.http.post<[]>(this.testPath + '/api/v1/more/orders/uploadCloverOrders', data);
   }
 
   getordersummary(date) {
