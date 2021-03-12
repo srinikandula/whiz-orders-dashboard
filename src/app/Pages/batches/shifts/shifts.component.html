@@ -48,7 +48,13 @@
           </div>
         </div>
       </div>
-      <div class="btn-actions-pane-right">
+      
+      <div class="form-check ml-auto mr-3"> 
+        <input type="checkbox" class="form-check-input" [(ngModel)]="forceuse">
+        <label class="form-check-label mr-3" >Force Use All Vehicles</label>
+      </div> 
+      <div class="btn-actions-pane-right" style="margin-left: 0 !important;">
+        <!---->
         <button class=" btn btn-outline-primary" (click)="createplan()"><span>Allocate</span></button>
         <button class="btn btn-outline-danger" style="margin-left: 10px;"><span class="fa fa-filter"></span></button>
       </div>

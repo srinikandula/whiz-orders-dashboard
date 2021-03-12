@@ -188,8 +188,8 @@ export class AuthService {
     return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/createPlan?shiftIds=' + shifts + '&batchId=' + batchid, this.httpOptions);
   }
 
-  createplanForShifts(shifts, batchId) {
-    return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/createPlan?' + '&batchId=' + batchId, shifts, this.httpOptions);
+  createplanForShifts(shifts,forceuse, batchId) {
+    return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/createPlan?' + 'batchId=' + batchId + '&forceUseAllVehicles=' + forceuse, shifts, this.httpOptions);
   }
 
   planes(search) {

@@ -19,6 +19,7 @@ export class ShiftsComponent implements OnInit {
   public isActive: any;
   page1 = 1;
   pageSize1 = 10;
+  forceuse = false;
   term;
   closeResult: string;
   size = 0;
@@ -204,7 +205,7 @@ export class ShiftsComponent implements OnInit {
   }
 
   createplan() {
-    this.authService.createplanForShifts(this.shiftids, localStorage.getItem('batchid')).subscribe((data: any) => {
+    this.authService.createplanForShifts(this.shiftids,this.forceuse, localStorage.getItem('batchid')).subscribe((data: any) => {
         Swal.fire({
           title: 'Shift Allocated!',
           text: 'Shift is Successfully Allocated!',
