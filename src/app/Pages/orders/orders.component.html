@@ -301,12 +301,16 @@
                 <tr>
                   <th>Item</th>
                   <th>Quantity</th>
+                  <th>Rejected Count</th>
+                  <th>Delivered Count</th>
                   <th>price</th>
                   <th>status</th>
                 </tr>
                 <tr *ngFor="let o of details2;">
                   <td>{{o.name}}</td>
                   <td>{{o.itemQuantity}}</td>
+                  <td>{{o.rejectedQuantity}}</td>
+                  <td>{{o.deliveredQuantity}}</td>
                   <td>{{o.price}}</td>
                   <td>{{o.status}}</td>
                 </tr>
