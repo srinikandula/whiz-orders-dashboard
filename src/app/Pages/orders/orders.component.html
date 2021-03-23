@@ -89,6 +89,11 @@
             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
             <mat-datepicker #picker3></mat-datepicker>
           </mat-form-field>
+
+          <select class="custom-select ml-2" style="width: auto; border: none; border-bottom: 1px solid #dddddd" name="pageSize1" [(ngModel)]="flightSchedule.userId" (change)="ngOnInit()">
+            <option value="" selected>Select User</option>
+            <option *ngFor="let user of userNamesListWithRole" [value]="user.id">{{user.attrs.userLable}}</option>
+          </select>
         </div>
       </div>
       <div class="btn-actions-pane-right">
