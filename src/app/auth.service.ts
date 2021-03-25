@@ -97,20 +97,24 @@ export class AuthService {
   }
 
   batches(search,pagination,host) {
-    return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search', {"searchParam": search, "page":pagination.page,
-    "size":pagination.size, "clientCode": host}, this.httpOptions);
+    return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/search', {"searchParam": search, "page":pagination.page, "size":pagination.size, "clientCode": host}, this.httpOptions);
   }
 
   createbatches(orderids, sitecode, batchname, host, date) {
     return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/createBatch?orderIds=' + orderids + "&siteCode=" + sitecode + "&batchName=" + batchname + '&date=' + date + '&clientCode=' + host, this.httpOptions);
   }
 
+  getUserNameList(data) {
+    return this.http.post<[]>(this.testPath + '/api/v1/user/getUserNamesList', data, this.httpOptions);
+  }
+
   // "orderIds":orderids,
-  orders(date, search, pagination, host) {
+  orders(date, userId, search, pagination, host) {
     // console.log(config.testPath, config.basePath);
     // if (code == 'all') {
       return this.http.post<[]>(this.testPath + '/api/v1/more/orders/search', {
         "date": date,
+        "userId": userId,
         "searchParam": search,
         "page":pagination.page,
         "size":pagination.size,

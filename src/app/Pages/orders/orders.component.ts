@@ -60,10 +60,14 @@ export interface Dessert {
 })
 
 export class OrdersComponent implements OnInit {
+  private userNamesListWithRole: Array<any> = [];
 
   constructor(private authService: AuthService, private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
     // }
+    this.authService.getUserNameList({}).subscribe((response: any) => {
+      this.userNamesListWithRole = response.content;
+    });
   }
 
   @ViewChild('UploadFileInput') uploadFileInput: ElementRef;
@@ -95,7 +99,8 @@ export class OrdersComponent implements OnInit {
   pipe = new DatePipe('en-US');
   date = new FormControl(_moment());
   flightSchedule = {
-    date: new Date()
+    date: new Date(),
+    userId: ''
   };
 
   public pagination:any = {
@@ -183,7 +188,7 @@ export class OrdersComponent implements OnInit {
       alert('Please fill valid details!');
       return false;
     }
-    
+
     let formData = new FormData();
      formData.append('orders', this.fileUploadForm.get('myfile').value);
     // formData.append('agentId', '007');
@@ -258,10 +263,12 @@ export class OrdersComponent implements OnInit {
   }
 
   filter(data){
+    console.log('this.flightSchedule', this.flightSchedule)
     const abc = this.flightSchedule.date.valueOf();
+    const userId = this.flightSchedule.userId;
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
     this.pagination.status = data;
-    this.authService.orders(today, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
+    this.authService.orders(today, userId, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
       (this.stores = (data.content));
       (this.arr = (data.content));
       this.size = data.totalElements;
@@ -419,6 +426,7 @@ export class OrdersComponent implements OnInit {
   createbatch() {
     // console.log(this.flightSchedule.date.valueOf());
     const abc = this.flightSchedule.date.valueOf();
+    const userId = this.flightSchedule.userId;
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
     // console.log(today);
     const prompt = window.prompt('Please Enter The Name Of Batch');
@@ -468,9 +476,10 @@ export class OrdersComponent implements OnInit {
 
 
     const abc = this.flightSchedule.date.valueOf();
+    const userId = this.flightSchedule.userId;
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
 
-    this.authService.orders(today, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
+    this.authService.orders(today, userId, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
         (this.stores = (data.content));
         (this.arr = (data.content));
         // this.orders = data.content.orderId;
@@ -583,7 +592,7 @@ export class OrdersComponent implements OnInit {
       }
     })
 
-   
+
   }
 
   changePage(event) {
@@ -603,10 +612,11 @@ handlePageSizeChange(event) {
 }
   search(term) {
     const abc = this.flightSchedule.date.valueOf();
+    const userId = this.flightSchedule.userId;
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
     console.log(today);
     if (term == null || term.length == 0) {
-      this.authService.orders(today, this.term,this.pagination,localStorage.getItem('host')).subscribe((data: any) => {
+      this.authService.orders(today, userId, this.term,this.pagination,localStorage.getItem('host')).subscribe((data: any) => {
           (this.stores = (data.content));
           // (this.arr= (data.content));
           // this.sortedData = this.stores.slice();
@@ -622,9 +632,10 @@ handlePageSizeChange(event) {
         });
     } else if (term.length >= 4) {
       const abc = this.flightSchedule.date.valueOf();
+      const userId = this.flightSchedule.userId;
       const today = this.pipe.transform(abc, 'yyyy-MM-dd');
       console.log(today);
-      this.authService.orders(today, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
+      this.authService.orders(today, userId, this.term, this.pagination, localStorage.getItem('host')).subscribe((data: any) => {
           (this.stores = (data.content));
           // (this.arr= (data.content));
           // this.sortedData = this.stores.slice();
