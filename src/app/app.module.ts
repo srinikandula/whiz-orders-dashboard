@@ -48,6 +48,7 @@ import {DropzoneModule} from 'ngx-dropzone-wrapper';
 import {DROPZONE_CONFIG} from 'ngx-dropzone-wrapper';
 import {DropzoneConfigInterface} from 'ngx-dropzone-wrapper';
 import {ChartsModule} from 'ng2-charts';
+
 // import {TimeAgoPipe} from 'time-ago-pipe';
 // import {CountUpModule} from 'countup.js-angular2';
 
@@ -111,6 +112,7 @@ import {DrawerComponent} from './Layout/Components/header/elements/drawer/drawer
 
 import {SidebarComponent} from './Layout/Components/sidebar/sidebar.component';
 import {LogoComponent} from './Layout/Components/sidebar/elements/logo/logo.component';
+
 
 // FOOTER
 
