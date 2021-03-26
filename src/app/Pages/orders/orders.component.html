@@ -169,7 +169,10 @@
             <button class=" btn border-0" *ngIf="b.status == 'READY_FOR_PICKUP'" style="color: #F3CC14!important;"><b>{{b.status}}</b></button>
             <button class=" btn border-0" *ngIf="b.status == 'OUT_ON_ROAD'" style="color: #1E90FF !important;"><b>{{b.status}}</b>
             </button>
-            <button class=" btn border-0" *ngIf="b.status == 'ATTEMPTED'" style="color: #DB99FF !important;"><b>{{b.status}}</b>
+            <button class=" btn border-0" *ngIf="b.status == 'ATTEMPTED'" style="color: #DB99FF !important;"><b>{{b.status}}
+              <!-- <button class="btn btn-outline-primary" style="margin-left: 10px;"
+                (click)="openCalendar(calendar,b.orderId)"><span>Reschedule</span></button> -->
+            </b>
             </button>
             <button class=" btn border-0" *ngIf="b.status == 'REJECTED_BY_CUSTOMER'" style="color: #FF0000 !important;"><b>{{b.status}}</b>
             </button>
@@ -230,6 +233,134 @@
       </table>
 
 
+
+      <!-- <ng-template #calendar let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Calendar</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row text-center">
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-primary"
+                  mwlCalendarPreviousView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="closeOpenMonthViewDay()"
+                >
+                  Previous
+                </div>
+                <div
+                  class="btn btn-outline-secondary"
+                  mwlCalendarToday
+                  [(viewDate)]="viewDate"
+                >
+                  Today
+                </div>
+                <div
+                  class="btn btn-primary"
+                  mwlCalendarNextView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="closeOpenMonthViewDay()"
+                >
+                  Next
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+            </div>
+            <div class="col-md-4">
+              <div class="btn-group">
+                <div
+                  class="btn btn-primary"
+                  (click)="setView(CalendarView.Month)"
+                  [class.active]="view === CalendarView.Month"
+                >
+                  Month
+                </div>
+                <div
+                  class="btn btn-primary"
+                  (click)="setView(CalendarView.Week)"
+                  [class.active]="view === CalendarView.Week"
+                >
+                  Week
+                </div>
+                <div
+                  class="btn btn-primary"
+                  (click)="setView(CalendarView.Day)"
+                  [class.active]="view === CalendarView.Day"
+                >
+                  Day
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div [ngSwitch]="view">
+            <mwl-calendar-month-view
+              *ngSwitchCase="CalendarView.Month"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              [activeDayIsOpen]="activeDayIsOpen"
+              (dayClicked)="dayClicked($event.day,date)"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view
+              *ngSwitchCase="CalendarView.Week"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view
+              *ngSwitchCase="CalendarView.Day"
+              [viewDate]="viewDate"
+              [events]="events"
+              [refresh]="refresh"
+              (eventClicked)="handleEvent('Clicked', $event.event)"
+              (eventTimesChanged)="eventTimesChanged($event)"
+            >
+            </mwl-calendar-day-view>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> --
+        </div>
+      </ng-template>
+
+
+      <ng-template #date let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Select Time</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label>Start Time</label>
+          <ngb-timepicker [(ngModel)]="starttime" [meridian]="meridian"></ngb-timepicker>
+          <br>
+          <label>End Time</label>
+          <ngb-timepicker [(ngModel)]="endtime" [meridian]="meridian"></ngb-timepicker>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveDate()">Save changes</button>
+        </div>
+      </ng-template> -->
+
       <ng-template #content1 let-c="close" let-d="dismiss">
         <div class="modal-header">
           <h4 class="modal-title">Image</h4>
@@ -238,7 +369,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <img src="{{this.url}}" alt="Image" style="max-width: 100%; max-height: 100%;">
+          <img src="{{this.url}}" alt="Image" style="width: 100%; max-height: 100%;">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
@@ -279,12 +410,14 @@
             <div class="table-responsive">
               <table class="table table-hover dataTable text-center" style="width: 100%">
                 <tr>
+                  <th>No.</th>
                   <th>Item</th>
                   <th>Quantity</th>
                   <th>price</th>
                   <th>status</th>
                 </tr>
-                <tr *ngFor="let o of details2;">
+                <tr *ngFor="let o of details2; let i = index;">
+                  <td>{{i+1}}</td>
                   <td>{{o.name}}</td>
                   <td>{{o.itemQuantity}}</td>
                   <td>{{o.price}}</td>
@@ -295,6 +428,25 @@
                   <td>{{do.itemQuantity}}</td>
                   <td>{{do.orderTotal}}</td>
                   <td></td>
+                </tr>
+              </table>
+            </div>
+            <hr>
+            <div class="table-responsive">
+              <table class="table table-hover dataTable text-center" style="width: 100%">
+                <tr>
+                  <th>No.</th>
+                  <th>Name</th>
+                  <th>Action</th>
+                  <th>Location</th>
+                  <th>Date</th>
+                </tr>
+                <tr *ngFor="let orderhistory of details4; let i = index;">
+                  <td>{{i + 1}}</td>
+                  <td style="width:20%">{{orderhistory.name}}</td>
+                  <td style="width:20%">{{orderhistory.activityAtLocation}}</td>
+                  <td><a href="http://maps.google.com/?q={{orderhistory.location.display_name}}" target="_blank">{{orderhistory.location.display_name}}</a></td>
+                  <td style="width:20%">{{orderhistory.createdAt | date}}</td>
                 </tr>
               </table>
             </div>

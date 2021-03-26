@@ -8,6 +8,22 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import * as _ from 'lodash';
+// import {
+//   startOfDay,
+//   endOfDay,
+//   subDays,
+//   addDays,
+//   endOfMonth,
+//   isSameDay,
+//   isSameMonth,
+//   addHours,
+// } from 'date-fns';
+// import {
+//   CalendarEvent,
+//   CalendarEventAction,
+//   CalendarEventTimesChangedEvent,
+//   CalendarView,
+// } from 'angular-calendar';
 
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
@@ -70,6 +86,11 @@ export class OrdersComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
 
+  // view: CalendarView = CalendarView.Month;
+
+  // CalendarView = CalendarView;
+
+  viewDate: Date = new Date();
   current = 'all';
   stores: any[];
   public isActive: any;
@@ -108,6 +129,7 @@ export class OrdersComponent implements OnInit {
   details2;
   details3;
   error;
+  details4;
 
   orderids: any[] = [];
   count: any[] = [];
@@ -138,6 +160,7 @@ export class OrdersComponent implements OnInit {
         // console.log(this.details);
         (this.details2 = (data.orderItems));
         this.details3 = Array.of(items.address);
+        this.details4 = data.orderHistory;
         // this.sortedData = this.stores.slice();
         // this.size = data.numberOfElements;
         console.log(this.details3);
@@ -169,6 +192,42 @@ export class OrdersComponent implements OnInit {
         this.fileUploadForm.get('myfile').setValue(file);
       }
     }
+  }
+
+
+  // openCalendar(calendar,orderId){
+  //   this.modalService.open(calendar,  {
+  //     size: 'lg',
+  //   });
+  // }
+
+  // starttime = {hour: 12, minute: 0};
+  // endtime = {hour: 12, minute: 0};
+  // meridian = true;
+  // dayClicked({ date, events }: { date: Date; events: CalendarEvent[] },dates): void {
+  //   // if (isSameMonth(date, this.viewDate)) {
+  //   //   if (
+  //   //     (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+  //   //     events.length === 0
+  //   //   ) {
+  //   //     this.activeDayIsOpen = false;
+  //   //   } else {
+  //   //     this.activeDayIsOpen = true;
+  //   //   }
+  //   //   this.viewDate = date;
+  //   // }
+  //   this.openDate(dates);
+  // }
+
+
+  // saveDate(){
+
+  // }
+  
+  openDate(date){
+    this.modalService.open(date,  {
+      size: 'sm',
+    });
   }
 
   openSmall3(content) {
