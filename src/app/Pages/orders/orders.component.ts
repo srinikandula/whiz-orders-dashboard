@@ -60,7 +60,7 @@ export interface Dessert {
 })
 
 export class OrdersComponent implements OnInit {
-  private userNamesListWithRole: Array<any> = [];
+  userNamesListWithRole: Array<any> = [];
 
   constructor(private authService: AuthService, private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
