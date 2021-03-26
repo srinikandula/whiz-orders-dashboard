@@ -20,6 +20,7 @@ export class AuthService {
   // authToken = localStorage.getItem('access_token');
   // basePath = config.basePath;
   // testPath = config.testPath;
+  // testPath = "http://192.168.29.145:8090";
 
   constructor(private router: Router,
               private http: HttpClient) {
@@ -93,7 +94,7 @@ export class AuthService {
         // 'batchId':id
       })
     };
-    return this.http.get<[]>(this.testPath + '//api/v1/more/orders/getOrder/' + id, httpOptions2);
+    return this.http.get<[]>(this.testPath + '/api/v1/more/orders/getOrder/' + id, httpOptions2);
   }
 
   batches(search,pagination,host) {
