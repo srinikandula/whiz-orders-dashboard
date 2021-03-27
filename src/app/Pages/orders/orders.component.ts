@@ -8,22 +8,22 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import * as _ from 'lodash';
-// import {
-//   startOfDay,
-//   endOfDay,
-//   subDays,
-//   addDays,
-//   endOfMonth,
-//   isSameDay,
-//   isSameMonth,
-//   addHours,
-// } from 'date-fns';
-// import {
-//   CalendarEvent,
-//   CalendarEventAction,
-//   CalendarEventTimesChangedEvent,
-//   CalendarView,
-// } from 'angular-calendar';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours,
+} from 'date-fns';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+} from 'angular-calendar';
 
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
@@ -90,9 +90,9 @@ export class OrdersComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
 
-  // view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Month;
 
-  // CalendarView = CalendarView;
+  CalendarView = CalendarView;
 
   viewDate: Date = new Date();
   current = 'all';
@@ -199,35 +199,67 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  id;
+  openCalendar(calendar,id){
+    this.modalService.open(calendar,  {
+      size: 'lg',
+    });
+    this.id = id;
+  }
 
-  // openCalendar(calendar,orderId){
-  //   this.modalService.open(calendar,  {
-  //     size: 'lg',
-  //   });
-  // }
+  activeDayIsOpen: boolean = true;
+  calendardate;
 
-  // starttime = {hour: 12, minute: 0};
-  // endtime = {hour: 12, minute: 0};
-  // meridian = true;
-  // dayClicked({ date, events }: { date: Date; events: CalendarEvent[] },dates): void {
-  //   // if (isSameMonth(date, this.viewDate)) {
-  //   //   if (
-  //   //     (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-  //   //     events.length === 0
-  //   //   ) {
-  //   //     this.activeDayIsOpen = false;
-  //   //   } else {
-  //   //     this.activeDayIsOpen = true;
-  //   //   }
-  //   //   this.viewDate = date;
-  //   // }
-  //   this.openDate(dates);
-  // }
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+  starttime:any = {hour: 12, minute: 0};
+  endtime = {hour: 12, minute: 0};
+  meridian = true;
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] },dates): void {
+    let today:any = new Date();
+    today = today.getDate();
+    let date2 = date.getDate();
+    if(date2 >= today){
+      this.calendardate = date;
+      this.openDate(dates);
+    }else{
+      alert("Can Not Select Previous Dates");
+    }
+  }
 
 
-  // saveDate(){
-
-  // }
+  saveDate(){
+    console.log(this.id);
+    let date = new Date(this.calendardate);
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let date2 = date.getDate();
+    let starttime:any = new Date(year,month,date2,this.starttime.hour,this.starttime.minute);
+    let endtime:any = new Date(year,month,date2,this.endtime.hour,this.endtime.minute);
+    starttime = Date.parse(starttime);
+    endtime = Date.parse(endtime);
+    this.calendardate = this.pipe.transform(this.calendardate,"yyyy-MM-dd");
+    this.authService.rescheduleOrder(starttime,endtime,this.calendardate,this.id).subscribe((data:any) => {
+      if(data === true){
+        this.modalService.dismissAll();
+        Swal.fire({
+          title: 'Date Rescheduled',
+          type: 'success'
+        });
+        this.ngOnInit();
+      }
+    },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        } else {
+          this.error = error.error.message;
+        }
+        console.log(error);
+      });
+  }
   
   openDate(date){
     this.modalService.open(date,  {

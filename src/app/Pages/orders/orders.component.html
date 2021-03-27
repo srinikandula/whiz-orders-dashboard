@@ -179,8 +179,8 @@
             <button class=" btn border-0" *ngIf="b.status == 'OUT_ON_ROAD'" style="color: #1E90FF !important;"><b>{{b.status}}</b>
             </button>
             <button class=" btn border-0" *ngIf="b.status == 'ATTEMPTED'" style="color: #DB99FF !important;"><b>{{b.status}}
-              <!-- <button class="btn btn-outline-primary" style="margin-left: 10px;"
-                (click)="openCalendar(calendar,b.orderId)"><span>Reschedule</span></button> -->
+              <button class="btn btn-outline-primary" style="margin-left: 10px;"
+                (click)="openCalendar(calendar,b.id)"><span>Reschedule</span></button>
             </b>
             </button>
             <button class=" btn border-0" *ngIf="b.status == 'REJECTED_BY_CUSTOMER'" style="color: #FF0000 !important;"><b>{{b.status}}</b>
@@ -247,7 +247,7 @@
 
 
 
-      <!-- <ng-template #calendar let-c="close" let-d="dismiss">
+      <ng-template #calendar let-c="close" let-d="dismiss">
         <div class="modal-header">
           <h4 class="modal-title">Calendar</h4>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -288,7 +288,7 @@
             <div class="col-md-4">
               <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
               <div class="btn-group">
                 <div
                   class="btn btn-primary"
@@ -312,7 +312,7 @@
                   Day
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <br />
           <div [ngSwitch]="view">
@@ -349,7 +349,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-          <!-- <button type="button" class="btn btn-primary">Save changes</button> --
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
         </div>
       </ng-template>
 
@@ -372,7 +372,7 @@
           <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
           <button type="button" class="btn btn-primary" (click)="saveDate()">Save changes</button>
         </div>
-      </ng-template> -->
+      </ng-template>
 
       <ng-template #content1 let-c="close" let-d="dismiss">
         <div class="modal-header">
@@ -464,7 +464,9 @@
                   <td>{{i + 1}}</td>
                   <td style="width:20%">{{orderhistory.name}}</td>
                   <td style="width:20%">{{orderhistory.activityAtLocation}}</td>
-                  <td><a href="http://maps.google.com/?q={{orderhistory.location.latitude}},{{orderhistory.location.longitude}}" target="_blank">{{orderhistory.location.display_name}}</a></td>
+                  <td *ngIf="orderhistory.location === null">-</td>
+                  <td  *ngIf= "orderhistory.location != null && (orderhistory.location.latitude === 0 || orderhistory.location.longitude === 0) ">{{orderhistory.location.display_name}}</td>
+                  <td *ngIf ="orderhistory.location != null && (orderhistory.location.latitude != 0 && orderhistory.location.longitude != 0)" ><a href="http://maps.google.com/?q={{orderhistory.location.latitude}},{{orderhistory.location.longitude}}" target="_blank">{{orderhistory.location.display_name}}</a></td>
                   <td style="width:20%">{{orderhistory.createdAt | date}}</td>
                 </tr>
               </table>

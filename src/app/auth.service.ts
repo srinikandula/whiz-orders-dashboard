@@ -65,6 +65,15 @@ export class AuthService {
     return this.http.get<[]>(this.testPath + '/api/v1/more/orders/getCashSummery?date=' + date, httpOptions2);
   }
 
+
+  rescheduleOrder(starttime,endtime,date,id){
+    let body = {"id":id,"createdDate":date,"slot": {
+      "endTime": endtime,
+      "startTime": starttime
+  },}
+    return this.http.post<[]>(this.testPath + '/api/v1/orders/rescheduleOrder', body);
+  }
+
   uploadfile(data){
     let body = "orders=" + data;
      console.log(data.get('formFile'));
