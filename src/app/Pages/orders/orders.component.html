@@ -464,7 +464,7 @@
                   <td>{{i + 1}}</td>
                   <td style="width:20%">{{orderhistory.name}}</td>
                   <td style="width:20%">{{orderhistory.activityAtLocation}}</td>
-                  <td><a href="http://maps.google.com/?q={{orderhistory.location.display_name}}" target="_blank">{{orderhistory.location.display_name}}</a></td>
+                  <td><a href="http://maps.google.com/?q={{orderhistory.location.latitude}},{{orderhistory.location.longitude}}" target="_blank">{{orderhistory.location.display_name}}</a></td>
                   <td style="width:20%">{{orderhistory.createdAt | date}}</td>
                 </tr>
               </table>
