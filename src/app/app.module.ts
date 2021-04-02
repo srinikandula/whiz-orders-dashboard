@@ -87,6 +87,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTreeModule} from '@angular/material/tree';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 
 // LAYOUT
@@ -176,6 +177,7 @@ import { LoaderService } from './loader.service';
 import { LoaderInterceptorService } from './loader-interceptor.service';
 import { FleetComponent } from './Pages/fleet/fleet.component';
 import { CustomerComponent } from './Pages/customer/customer.component';
+import { environment } from 'src/environments/environment';
 
 // Angular Material
 
@@ -191,6 +193,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   maxFilesize: 50,
   acceptedFiles: 'image/*'
 };
+
+const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} };
 
 @NgModule({
   declarations: [
@@ -302,6 +306,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     CommonModule,
     LoadingBarRouterModule,
     Ng2SearchPipeModule,
+    SocketIoModule.forRoot(config),
 
     // Angular Bootstrap Components
 

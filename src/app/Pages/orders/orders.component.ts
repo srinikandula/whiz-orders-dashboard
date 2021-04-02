@@ -8,7 +8,6 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import * as _ from 'lodash';
-import * as io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
 import {
   startOfDay,
@@ -38,6 +37,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {defaultFormat as _rollupMoment} from 'moment';
 import swal from 'sweetalert2';
+import { Socket } from 'ngx-socket-io';
 
 
 const moment = _rollupMoment || _moment;
@@ -82,7 +82,7 @@ export class OrdersComponent implements OnInit {
 
   private userNamesListWithRole: Array<any> = [];
 
-  constructor(private authService: AuthService, private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder) {
+  constructor(private authService: AuthService, private router: Router,private socket: Socket, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
     // }
   }
@@ -563,9 +563,7 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  socket;
   setupSocketConnection() {
-    this.socket = io(environment.SOCKET_ENDPOINT);
     this.socket.on('getmessage', (data: string) => {
     if(data === 'updatedata'){
      this.getcounts();
