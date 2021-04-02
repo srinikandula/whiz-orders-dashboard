@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // basePath : 'https://admin.whizzard.in',
-  testPath : 'https://qa.whizzard.in'
+  testPath : 'https://qa.whizzard.in',
+  SOCKET_ENDPOINT: 'https://track.whizzard.in'
 };
 
 /*

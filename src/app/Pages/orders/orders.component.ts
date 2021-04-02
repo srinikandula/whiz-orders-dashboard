@@ -8,22 +8,24 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import * as _ from 'lodash';
-// import {
-//   startOfDay,
-//   endOfDay,
-//   subDays,
-//   addDays,
-//   endOfMonth,
-//   isSameDay,
-//   isSameMonth,
-//   addHours,
-// } from 'date-fns';
-// import {
-//   CalendarEvent,
-//   CalendarEventAction,
-//   CalendarEventTimesChangedEvent,
-//   CalendarView,
-// } from 'angular-calendar';
+import * as io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours,
+} from 'date-fns';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+} from 'angular-calendar';
 
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
@@ -36,6 +38,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {defaultFormat as _rollupMoment} from 'moment';
 import swal from 'sweetalert2';
+
 
 const moment = _rollupMoment || _moment;
 
@@ -78,6 +81,8 @@ export interface Dessert {
 export class OrdersComponent implements OnInit {
   userNamesListWithRole: Array<any> = [];
 
+  private userNamesListWithRole: Array<any> = [];
+
   constructor(private authService: AuthService, private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
     // }
@@ -90,9 +95,9 @@ export class OrdersComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
 
-  // view: CalendarView = CalendarView.Month;
+  view: CalendarView = CalendarView.Month;
 
-  // CalendarView = CalendarView;
+  CalendarView = CalendarView;
 
   viewDate: Date = new Date();
   current = 'all';
@@ -199,35 +204,72 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  id;
+  openCalendar(calendar,id){
+    this.modalService.open(calendar,  {
+      size: 'lg',
+    });
+    this.id = id;
+  }
 
-  // openCalendar(calendar,orderId){
-  //   this.modalService.open(calendar,  {
-  //     size: 'lg',
-  //   });
-  // }
+  activeDayIsOpen: boolean = true;
+  calendardate;
 
-  // starttime = {hour: 12, minute: 0};
-  // endtime = {hour: 12, minute: 0};
-  // meridian = true;
-  // dayClicked({ date, events }: { date: Date; events: CalendarEvent[] },dates): void {
-  //   // if (isSameMonth(date, this.viewDate)) {
-  //   //   if (
-  //   //     (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-  //   //     events.length === 0
-  //   //   ) {
-  //   //     this.activeDayIsOpen = false;
-  //   //   } else {
-  //   //     this.activeDayIsOpen = true;
-  //   //   }
-  //   //   this.viewDate = date;
-  //   // }
-  //   this.openDate(dates);
-  // }
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+  starttime:any = {hour: 12, minute: 0};
+  endtime = {hour: 12, minute: 0};
+  meridian = true;
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] },dates): void {
+    let today:any = new Date();
+    today = today.getDate();
+    let date2 = date.getDate();
+    if(date2 >= today){
+      this.calendardate = date;
+      this.openDate(dates);
+    }else{
+      alert("Can Not Select Previous Dates");
+    }
+  }
 
 
-  // saveDate(){
-
-  // }
+  saveDate(){
+    let date = new Date(this.calendardate);
+    let year = date.getFullYear();
+    let month = date.getMonth();
+    let date2 = date.getDate();
+    let starttime:any = new Date(year,month,date2,this.starttime.hour,this.starttime.minute);
+    let endtime:any = new Date(year,month,date2,this.endtime.hour,this.endtime.minute);
+    starttime = Date.parse(starttime);
+    endtime = Date.parse(endtime);
+    if(starttime === endtime || starttime > endtime){
+      alert("Start Time Can not greater than End Time Or Same.")
+    }
+    else{
+    this.calendardate = this.pipe.transform(this.calendardate,"yyyy-MM-dd");
+    this.authService.rescheduleOrder(starttime,endtime,this.calendardate,this.id).subscribe((data:any) => {
+      if(data === true){
+        this.modalService.dismissAll();
+        Swal.fire({
+          title: 'Date Rescheduled',
+          type: 'success'
+        });
+        this.ngOnInit();
+      }
+    },
+      error => {
+        if (error.error.message == 'Access Denied') {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        } else {
+          this.error = error.error.message;
+        }
+        console.log(error);
+      });
+    }
+  
+  }
   
   openDate(date){
     this.modalService.open(date,  {
@@ -527,13 +569,20 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
 
-    this.fileUploadForm = this.formBuilder.group({
-      myfile: ['']
+  socket;
+  setupSocketConnection() {
+    this.socket = io(environment.SOCKET_ENDPOINT);
+    this.socket.on('getmessage', (data: string) => {
+    if(data === 'updatedata'){
+     this.getcounts();
+     this.getorders();
+    }
     });
+  }
 
 
+  getorders(){
     const abc = this.flightSchedule.date.valueOf();
     const userId = this.flightSchedule.userId;
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
@@ -562,21 +611,13 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-    // this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
-    //     // (this.count= (data.content));
-    //     // (this.arr= (data.content));
-    //     // // this.sortedData = this.stores.slice();
-    //     // this.size = data.numberOfElements;
-    //     this.total = data;
+  }
 
-    //   },
-    //   error => {
-    //     if (error.error.message == 'Access Denied') {
-    //       localStorage.clear();
-    //       this.router.navigate(['/']);
-    //     }
-    //     console.log(error);
-    //   });
+  getcounts(){
+    const abc = this.flightSchedule.date.valueOf();
+    const userId = this.flightSchedule.userId;
+    const today = this.pipe.transform(abc, 'yyyy-MM-dd');
+
     const abcd = [];
     abcd.push('DELIVERED');
     abcd.push('AT_DC');
@@ -612,6 +653,33 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
+  }
+
+  ngOnInit() {
+    this.setupSocketConnection();
+    this.fileUploadForm = this.formBuilder.group({
+      myfile: ['']
+    });
+
+    this.getorders();
+    this.getcounts();
+    
+    // this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+    //     // (this.count= (data.content));
+    //     // (this.arr= (data.content));
+    //     // // this.sortedData = this.stores.slice();
+    //     // this.size = data.numberOfElements;
+    //     this.total = data;
+
+    //   },
+    //   error => {
+    //     if (error.error.message == 'Access Denied') {
+    //       localStorage.clear();
+    //       this.router.navigate(['/']);
+    //     }
+    //     console.log(error);
+    //   });
+    
   }
 
 
