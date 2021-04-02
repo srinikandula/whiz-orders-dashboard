@@ -91,6 +91,10 @@
           </mat-form-field>
         </div>
       </div>
+      <ng-select class=" ml-2" style="width: 25%; font-size: small; font-weight: normal;"  [clearable]="false" [(ngModel)]="flightSchedule.userId">
+        <ng-option value = ''>Select User</ng-option>
+        <ng-option *ngFor="let user of userNamesListWithRole" [value]="user.id">{{user.attrs.userLable}}</ng-option>
+     </ng-select>
       <div class="btn-actions-pane-right">
         <button class="btn btn-outline-primary" style="margin-left: 10px;" style="visibility:hidden;" id="batch"
                 (click)="createbatch()"><span>Create Batch</span></button>
@@ -448,7 +452,7 @@
                   <td *ngIf="orderhistory.location === null">-</td>
                   <td  *ngIf= "orderhistory.location != null && (orderhistory.location.latitude === 0 || orderhistory.location.longitude === 0) ">{{orderhistory.location.display_name}}</td>
                   <td *ngIf ="orderhistory.location != null && (orderhistory.location.latitude != 0 && orderhistory.location.longitude != 0)" ><a href="http://maps.google.com/?q={{orderhistory.location.latitude}},{{orderhistory.location.longitude}}" target="_blank">{{orderhistory.location.display_name}}</a></td>
-                  <td style="width:20%">{{orderhistory.createdAt | date}}</td>
+                  <td style="width:20%">{{orderhistory.createdAt | date:'medium'}}</td>
                 </tr>
               </table>
             </div>

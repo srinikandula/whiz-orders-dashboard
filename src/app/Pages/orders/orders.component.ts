@@ -8,6 +8,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import * as _ from 'lodash';
+import * as io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 import {
   startOfDay,
   endOfDay,
@@ -36,6 +38,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import {defaultFormat as _rollupMoment} from 'moment';
 import swal from 'sweetalert2';
+
 
 const moment = _rollupMoment || _moment;
 
@@ -76,6 +79,7 @@ export interface Dessert {
 })
 
 export class OrdersComponent implements OnInit {
+  userNamesListWithRole: Array<any> = [];
 
   constructor(private authService: AuthService, private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
@@ -115,7 +119,7 @@ export class OrdersComponent implements OnInit {
 // date =  new FormControl(new Date());
   pipe = new DatePipe('en-US');
   date = new FormControl(_moment());
-  flightSchedule = {
+  flightSchedule:any = {
     date: new Date()
   };
 
@@ -225,7 +229,6 @@ export class OrdersComponent implements OnInit {
 
 
   saveDate(){
-    console.log(this.id);
     let date = new Date(this.calendardate);
     let year = date.getFullYear();
     let month = date.getMonth();
@@ -234,6 +237,10 @@ export class OrdersComponent implements OnInit {
     let endtime:any = new Date(year,month,date2,this.endtime.hour,this.endtime.minute);
     starttime = Date.parse(starttime);
     endtime = Date.parse(endtime);
+    if(starttime === endtime || starttime > endtime){
+      alert("Start Time Can not greater than End Time Or Same.")
+    }
+    else{
     this.calendardate = this.pipe.transform(this.calendardate,"yyyy-MM-dd");
     this.authService.rescheduleOrder(starttime,endtime,this.calendardate,this.id).subscribe((data:any) => {
       if(data === true){
@@ -254,6 +261,8 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
+    }
+  
   }
   
   openDate(date){
@@ -551,13 +560,20 @@ export class OrdersComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
 
-    this.fileUploadForm = this.formBuilder.group({
-      myfile: ['']
+  socket;
+  setupSocketConnection() {
+    this.socket = io(environment.SOCKET_ENDPOINT);
+    this.socket.on('getmessage', (data: string) => {
+    if(data === 'updatedata'){
+     this.getcounts();
+     this.getorders();
+    }
     });
+  }
 
 
+  getorders(){
     const abc = this.flightSchedule.date.valueOf();
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
 
@@ -585,21 +601,13 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
-    // this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
-    //     // (this.count= (data.content));
-    //     // (this.arr= (data.content));
-    //     // // this.sortedData = this.stores.slice();
-    //     // this.size = data.numberOfElements;
-    //     this.total = data;
+  }
 
-    //   },
-    //   error => {
-    //     if (error.error.message == 'Access Denied') {
-    //       localStorage.clear();
-    //       this.router.navigate(['/']);
-    //     }
-    //     console.log(error);
-    //   });
+  getcounts(){
+    const abc = this.flightSchedule.date.valueOf();
+    const userId = this.flightSchedule.userId;
+    const today = this.pipe.transform(abc, 'yyyy-MM-dd');
+
     const abcd = [];
     abcd.push('DELIVERED');
     abcd.push('AT_DC');
@@ -635,6 +643,33 @@ export class OrdersComponent implements OnInit {
         }
         console.log(error);
       });
+  }
+
+  ngOnInit() {
+    this.setupSocketConnection();
+    this.fileUploadForm = this.formBuilder.group({
+      myfile: ['']
+    });
+
+    this.getorders();
+    this.getcounts();
+    
+    // this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
+    //     // (this.count= (data.content));
+    //     // (this.arr= (data.content));
+    //     // // this.sortedData = this.stores.slice();
+    //     // this.size = data.numberOfElements;
+    //     this.total = data;
+
+    //   },
+    //   error => {
+    //     if (error.error.message == 'Access Denied') {
+    //       localStorage.clear();
+    //       this.router.navigate(['/']);
+    //     }
+    //     console.log(error);
+    //   });
+    
   }
 
 
