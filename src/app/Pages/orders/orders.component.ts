@@ -80,9 +80,7 @@ export interface Dessert {
 
 export class OrdersComponent implements OnInit {
   userNamesListWithRole: Array<any> = [];
-
-  private userNamesListWithRole: Array<any> = [];
-
+  
   constructor(private authService: AuthService, private router: Router,private socket: Socket, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
     // }
@@ -268,9 +266,9 @@ export class OrdersComponent implements OnInit {
         console.log(error);
       });
     }
-  
+
   }
-  
+
   openDate(date){
     this.modalService.open(date,  {
       size: 'sm',
@@ -661,7 +659,7 @@ export class OrdersComponent implements OnInit {
 
     this.getorders();
     this.getcounts();
-    
+
     // this.authService.count(localStorage.getItem('site'), today, this.term).subscribe((data: any) => {
     //     // (this.count= (data.content));
     //     // (this.arr= (data.content));
@@ -677,7 +675,7 @@ export class OrdersComponent implements OnInit {
     //     }
     //     console.log(error);
     //   });
-    
+
   }
 
 
