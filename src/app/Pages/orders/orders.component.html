@@ -90,10 +90,6 @@
             <mat-datepicker #picker3></mat-datepicker>
           </mat-form-field>
 
-          <select class="custom-select ml-2" style="width: auto; border: none; border-bottom: 1px solid #dddddd" name="pageSize1" [(ngModel)]="flightSchedule.userId" (change)="ngOnInit()">
-            <option value="" selected>Select User</option>
-            <option *ngFor="let user of userNamesListWithRole" [value]="user.id">{{user.attrs.userLable}}</option>
-          </select>
         </div>
       </div>
       <ng-select class=" ml-2" style="width: 25%; font-size: small; font-weight: normal;"  [clearable]="false" [(ngModel)]="flightSchedule.userId">
