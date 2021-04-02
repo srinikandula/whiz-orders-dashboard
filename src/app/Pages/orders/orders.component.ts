@@ -119,8 +119,9 @@ export class OrdersComponent implements OnInit {
 // date =  new FormControl(new Date());
   pipe = new DatePipe('en-US');
   date = new FormControl(_moment());
-  flightSchedule:any = {
-    date: new Date()
+  flightSchedule = {
+    date: new Date(),
+    userId: ''
   };
 
   public pagination:any = {
