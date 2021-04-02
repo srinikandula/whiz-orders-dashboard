@@ -75,6 +75,7 @@
     "ngx-perfect-scrollbar": "^7.2.1",
     "ngx-select-dropdown": "^1.4.2",
     "ngx-slick-carousel": "^0.4.4",
+    "ngx-socket-io": "^4.0.0",
     "ngx-textarea-autosize": "^2.0.0",
     "ngx-toastr": "^10.0.2",
     "ngx-trend": "^3.4.1",
