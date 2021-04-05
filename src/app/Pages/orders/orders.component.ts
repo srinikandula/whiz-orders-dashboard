@@ -171,7 +171,7 @@ export class OrdersComponent implements OnInit {
         this.details4 = data.orderHistory;
         // this.sortedData = this.stores.slice();
         // this.size = data.numberOfElements;
-        console.log(this.details3);
+        // console.log(this.details3);
 
       },
       error => {
@@ -362,7 +362,7 @@ export class OrdersComponent implements OnInit {
   }
 
   filter(data){
-    console.log('this.flightSchedule', this.flightSchedule)
+    // console.log('this.flightSchedule', this.flightSchedule)
     const abc = this.flightSchedule.date.valueOf();
     const userId = this.flightSchedule.userId;
     const today = this.pipe.transform(abc, 'yyyy-MM-dd');
