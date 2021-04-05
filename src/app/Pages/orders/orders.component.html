@@ -96,6 +96,8 @@
         <ng-option value = ''>Select User</ng-option>
         <ng-option *ngFor="let user of userNamesListWithRole" [value]="user.id">{{user.attrs.userLable}}</ng-option>
      </ng-select>
+     <button class="btn btn-outline-primary" style="margin-left: 10px;"
+                (click)="reset()"><span>Reset Filter</span></button>
       <div class="btn-actions-pane-right">
         <button class="btn btn-outline-primary" style="margin-left: 10px;" style="visibility:hidden;" id="batch"
                 (click)="createbatch()"><span>Create Batch</span></button>

@@ -487,6 +487,9 @@ export class OrdersComponent implements OnInit {
     }
     if (event.checked == false) {
       this.flag--;
+      if(this.flag < 0){
+        this.flag = 0;
+      }
       if (this.flag == 0) {
         document.getElementById('batch').style.visibility = 'hidden';
       }
@@ -577,6 +580,13 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+  reset(){
+    this.flightSchedule.date = new Date();
+    this.flightSchedule.userId = '';
+    this.current = 'all';
+    this.all();
+    this.ngOnInit();
+  }
 
   getorders(){
     const abc = this.flightSchedule.date.valueOf();
