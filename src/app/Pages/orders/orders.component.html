@@ -167,7 +167,8 @@
               <span>{{b.orderId}}</span></button>
           </td>
           <td>
-              <span>{{b.clientOrderId}}</span>
+            <span *ngIf="b.clientOrderId !== null">{{b.clientOrderId}}</span>
+            <span *ngIf="b.clientOrderId === null"> - </span>
           </td>
           <td>
             <button class=" btn border-0" *ngIf="b.status == 'AT_DC'" style="color: #000000 !important;"><b>{{b.status}}</b></button>
@@ -216,10 +217,12 @@
             <button class="btn btn-outline-primary border-0">{{b.createdDate}}</button>
           </td>
           <td>
-            <button class="btn btn-outline-primary border-0">{{b.driverName}}</button>
+            <button class="btn btn-outline-primary border-0" *ngIf="b.driverName !== null">{{b.driverName}}</button>
+            <button class="btn btn-outline-default border-0" *ngIf="b.driverName === null"  >-</button>
           </td>
           <td>
-            <button class="btn btn-outline-primary border-0">{{b.eta| date:"hh:mm a"}}</button>
+            <button class="btn btn-outline-primary border-0" *ngIf="b.eta !== null ">{{b.eta| date:"hh:mm a"}}</button>
+            <button class="btn btn-outline-default border-0" *ngIf="b.eta === null"  >-</button>
           </td>
           <td>
             <button class="btn btn-outline-primary border-0">{{b.completedAt| date:"hh:mm a"}}</button>
