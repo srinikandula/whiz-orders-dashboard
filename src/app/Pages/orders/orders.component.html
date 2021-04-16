@@ -160,10 +160,10 @@
           <th> {{(pagination.page-1) * pagination.size  + i + 1}}</th>
           <td>
             <button class=" btn btn-outline-primary border-0" >
-              <span>{{b.customer_firstname}} ({{b.shippingInfo.address.telephone}})</span></button>
+              <span>{{b.customerName}} ({{b.customerPhoneNumber}})</span></button>
           </td>
           <td>
-            <button class=" btn btn-outline-primary border-0" (click)="openSmall2(content2,b.id, b.shippingInfo)">
+            <button class=" btn btn-outline-primary border-0" (click)="openSmall2(content2,b.id)">
               <span>{{b.orderId}}</span></button>
           </td>
           <td>

@@ -33,7 +33,7 @@ export class AuthService {
       // 'Authorization': "Bearer " + this.authToken
     })
   };
-  
+
   login(cred) {
     return this.http.post<[]>(this.testPath + '/api/auth/signin',cred, this.httpOptions);
   }

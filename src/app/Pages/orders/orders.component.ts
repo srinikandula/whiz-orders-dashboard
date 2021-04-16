@@ -80,7 +80,7 @@ export interface Dessert {
 
 export class OrdersComponent implements OnInit {
   userNamesListWithRole: Array<any> = [];
-  
+
   constructor(private authService: AuthService, private router: Router,private socket: Socket, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
     // }
@@ -159,7 +159,7 @@ export class OrdersComponent implements OnInit {
 
   }
 
-  openSmall2(content, id, items) {
+  openSmall2(content, id) {
     this.modalService.open(content, {
       size: 'lg'
     });
@@ -167,7 +167,7 @@ export class OrdersComponent implements OnInit {
         (this.details = (Array.of(data)));
         // console.log(this.details);
         (this.details2 = (data.orderItems));
-        this.details3 = Array.of(items.address);
+        this.details3 = Array.of(data.address);
         this.details4 = data.orderHistory;
         // this.sortedData = this.stores.slice();
         // this.size = data.numberOfElements;
