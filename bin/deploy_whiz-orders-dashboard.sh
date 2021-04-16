@@ -5,9 +5,9 @@
 set -ex
 
 # to retain all backups, set this value to a non-positive integer
-bucket=whiz-orders-angular-builds
+export bucket=whiz-orders-angular-builds
 
-build_location=whiz-orders-angular-build
+export build_location=whiz-orders-angular-build
 
 #get the last uploaded zip filename
 build_name=`aws s3 ls s3://$bucket | tail -1 | awk '{print $4}'`
