@@ -167,7 +167,7 @@ export class OrdersComponent implements OnInit {
         (this.details = (Array.of(data)));
         // console.log(this.details);
         (this.details2 = (data.orderItems));
-        this.details3 = Array.of(data.address);
+        this.details3 = data.address;
         this.details4 = data.orderHistory;
         // this.sortedData = this.stores.slice();
         // this.size = data.numberOfElements;
