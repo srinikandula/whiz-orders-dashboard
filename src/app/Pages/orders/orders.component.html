@@ -39,6 +39,9 @@
           <label ngbButtonLabel class="btn">
             <input ngbButton type="radio" value="rejectedByCustomer" (change)="status('REJECTED_BY_CUSTOMER')">Rejected By Customer<sup>{{this.customer}}</sup>
           </label>
+          <label ngbButtonLabel class="btn">
+            <input ngbButton type="radio" value="UnAssigned" (change)="status('UN_ASSIGNED')">UnAssigned<sup>{{this.unassigned}}</sup>
+          </label>
         </div>
       </div>
     </div>
@@ -189,6 +192,11 @@
             <button class=" btn border-0" *ngIf="b.status == 'REJECTED_BY_CUSTOMER'" style="color: #FF0000 !important;"><b>{{b.status}}</b>
             </button>
             <button class=" btn border-0" *ngIf="b.status == 'REJECTED_BY_DA'" style="color: #FF0000 !important;"><b>{{b.status}}</b>
+            </button>
+            <button class=" btn border-0" *ngIf="b.status == 'UN_ASSIGNED'" style="color: gray !important;"><b>{{b.status}}
+              <button class="btn btn-outline-primary" style="margin-left: 10px;" (click)="gotoAllocate(b.id,flightSchedule.date,b.siteCode)"
+                ><span>Allocate</span></button>
+            </b>
             </button>
           </td>
           <td>

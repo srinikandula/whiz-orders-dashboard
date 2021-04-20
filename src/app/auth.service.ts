@@ -144,6 +144,15 @@ export class AuthService {
     // }
   }
 
+  allocateshift(shiftid,id){
+      return this.http.post<[]>(this.testPath + '/api/v1/locusIntegration/assignRiderToTask?id=' + id + '&shiftId=' + shiftid, {}, this.httpOptions);
+  }
+
+
+  getshifts(sitecode,date){
+    return this.http.get<[]>(this.testPath + '/api/v1/userShift/getShiftsForOrders?siteCode=' + sitecode + '&shiftDateStr=' + date, this.httpOptions);
+  }
+
 
   getcount(date,host){
     return this.http.get<[]>(this.testPath + '/api/v1/more/orders/getOrdersSummery?date=' + date + '&clientCode=' + host, this.httpOptions);

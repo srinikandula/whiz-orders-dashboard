@@ -178,6 +178,7 @@ import { LoaderInterceptorService } from './loader-interceptor.service';
 import { FleetComponent } from './Pages/fleet/fleet.component';
 import { CustomerComponent } from './Pages/customer/customer.component';
 import { environment } from 'src/environments/environment';
+import { SelectshiftComponent } from './Pages/orders/selectshift/selectshift.component';
 
 // Angular Material
 
@@ -252,6 +253,8 @@ const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} }
     FleetComponent,
 
     CustomerComponent,
+
+    SelectshiftComponent,
     
 
     // Applications

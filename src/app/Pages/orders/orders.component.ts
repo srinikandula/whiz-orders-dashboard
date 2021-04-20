@@ -118,6 +118,7 @@ export class OrdersComponent implements OnInit {
   customer;
   flag = 0;
   checked;
+  unassigned;
   shift: any;
 // date =  new FormControl(new Date());
   pipe = new DatePipe('en-US');
@@ -208,6 +209,15 @@ export class OrdersComponent implements OnInit {
       size: 'lg',
     });
     this.id = id;
+  }
+
+  gotoAllocate(id,date,sitecode){
+    let abc = date.valueOf();
+    abc = this.pipe.transform(abc, 'yyyy-MM-dd');
+    localStorage.setItem('OrderDate',abc);
+    localStorage.setItem('OrderId',id);
+    localStorage.setItem('OrderSiteCode',sitecode);
+    this.router.navigate(['/orders/shifts']);
   }
 
   activeDayIsOpen: boolean = true;
@@ -651,6 +661,7 @@ export class OrdersComponent implements OnInit {
         this.road = data.OUT_ON_ROAD;
         this.partial = data.PARTIALLY_DELIVERED;
         this.customer = data.REJECTED_BY_CUSTOMER;
+        this.unassigned = data.UN_ASSIGNED;
       },
       error => {
         if (error.error.message == 'Access Denied') {

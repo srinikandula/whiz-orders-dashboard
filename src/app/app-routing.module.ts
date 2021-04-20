@@ -14,6 +14,7 @@ import { SitesComponent } from './Pages/sites/sites.component';
 import { CashmanagementComponent } from './Pages/cashmanagement/cashmanagement.component';
 import { FleetComponent } from './Pages/fleet/fleet.component';
 import { CustomerComponent } from './Pages/customer/customer.component';
+import { SelectshiftComponent } from './Pages/orders/selectshift/selectshift.component';
 
 // DEMO PAGES
 
@@ -84,6 +85,7 @@ const routes: Routes = [
       // {path: 'home', component: HomeComponent,data: {extraParameter: ''},canActivate: [RouterguardGuard]},
       // {path:'',redirectTo:'home',pathMatch:'full', canActivate: [RouterguardGuard]},
       {path: 'orders', component: OrdersComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
+      {path: 'orders/shifts', component: SelectshiftComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'fleet', component: FleetComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'batches', component: BatchesComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
       {path: 'batches/shifts', component: ShiftsComponent,data: {extraParameter: ''}, canActivate: [RouterguardGuard]},
