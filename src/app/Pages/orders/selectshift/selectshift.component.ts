@@ -18,6 +18,7 @@ export class SelectshiftComponent implements OnInit {
   pageSize1 = 10;
   checked;
   shifts: any[];
+  term;
 
   constructor(private authService: AuthService, private router: Router) { }
 
