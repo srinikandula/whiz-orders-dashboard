@@ -113,8 +113,8 @@ export class AuthService {
     return this.http.post<[]>(this.testPath + '/api/v1/locusBatch/createBatch?orderIds=' + orderids + "&siteCode=" + sitecode + "&batchName=" + batchname + '&date=' + date + '&clientCode=' + host, this.httpOptions);
   }
 
-  getUserNameList(data) {
-    return this.http.post<[]>(this.testPath + '/api/v1/user/getUserNamesList', data, this.httpOptions);
+  getUserNameList(date, clientCode) {
+    return this.http.get<[]>(this.testPath + '/api/v1/user/getUsersForOrdersFilter' + '?clientCode=' + clientCode + '&dateStr=' + date, this.httpOptions);
   }
 
   // "orderIds":orderids,

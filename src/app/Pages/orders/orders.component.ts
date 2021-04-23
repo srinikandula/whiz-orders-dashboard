@@ -8,6 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import * as _ from 'lodash';
+import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
 import {
   startOfDay,
@@ -80,12 +81,15 @@ export interface Dessert {
 
 export class OrdersComponent implements OnInit {
   userNamesListWithRole: Array<any> = [];
+  
 
   constructor(private authService: AuthService, private router: Router,private socket: Socket, private modalService: NgbModal, private formBuilder: FormBuilder) {
     // if(this.stores != null){
     // }
-    this.authService.getUserNameList({}).subscribe((response: any) => {
-      this.userNamesListWithRole = response.content;
+    let abc2 = this.flightSchedule.date.valueOf();
+    let today = this.pipe.transform(abc2, 'yyyy-MM-dd');
+    this.authService.getUserNameList(today,  localStorage.getItem('host')).subscribe((response: any) => {
+      this.userNamesListWithRole = response;
     });
   }
 
@@ -96,7 +100,7 @@ export class OrdersComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
-
+  
   viewDate: Date = new Date();
   current = 'all';
   stores: any[];
@@ -127,10 +131,10 @@ export class OrdersComponent implements OnInit {
     date: new Date(),
     userId: ''
   };
-
+  
   public pagination:any = {
     page: 1,
-    size: 10,
+    size: 500,
     pageSizes: ['10','20','50','100','200','500','1000']
 };
 
@@ -754,6 +758,26 @@ handlePageSizeChange(event) {
   this.pagination.page = 1;
   this.ngOnInit();
 }
+
+exportexcel(){
+    const abc = this.flightSchedule.date.valueOf();
+    let name  = localStorage.getItem('host');
+    if(name.substr(0,2) === 'qa'){
+      name = name.substr(2);
+    }
+    const today = name + '_' + this.pipe.transform(abc, 'yyyy-MM-dd') + '.xlsx';
+    /* table id is passed over here */   
+    let element = document.getElementById('exportexcel'); 
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, today);
+}
+
   search(term) {
     const abc = this.flightSchedule.date.valueOf();
     const userId = this.flightSchedule.userId;

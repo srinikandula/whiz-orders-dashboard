@@ -97,11 +97,15 @@
       </div>
       <ng-select class=" ml-2" style="width: 25%; font-size: small; font-weight: normal;"  [clearable]="false" [(ngModel)]="flightSchedule.userId" (ngModelChange)="ngOnInit()">
         <ng-option value = ''>Select User</ng-option>
-        <ng-option *ngFor="let user of userNamesListWithRole" [value]="user.id">{{user.attrs.userLable}}</ng-option>
+        <ng-option *ngFor="let user of userNamesListWithRole" [value]="user.id">{{user.fullName}}</ng-option>
      </ng-select>
-     <button class="btn btn-outline-primary" style="margin-left: 10px;"
-                (click)="reset()"><span>Reset Filter</span></button>
+     <button class="btn btn-outline-primary" style="margin-left: 4px;"
+                (click)="reset()"><span>Reset Filter</span>
+     </button>
       <div class="btn-actions-pane-right">
+        <button class="btn btn-outline-primary" style="margin-left: 10px;"
+                (click)="exportexcel()"><span>Export Excel</span>
+        </button>
         <button class="btn btn-outline-primary" style="margin-left: 10px;" style="visibility:hidden;" id="batch"
                 (click)="createbatch()"><span>Create Batch</span></button>
         <button class="btn btn-outline-primary" style="margin-left: 10px;"
@@ -258,6 +262,122 @@
         </tbody>
       </table>
 
+
+      <table class="align-middle text-truncate mb-0 table table-borderless table-hover table-striped" style="display: none;" id="exportexcel">
+        <thead>
+        <tr class="text-center" *ngIf="this.size != 0" >
+          <!-- <th>
+            <mat-checkbox  [(ngModel)]='checked' class="mr-3"
+                          (change)="abc($event)"></mat-checkbox>
+          </th> -->
+          <!-- <th></th> -->
+          <!-- <th scope="col">#</th> -->
+          <th scope="col">Customer Name</th>
+          <th scope="col">Customer PhoneNumber</th>
+          <th scope="col">Order Id</th>
+          <th scope="col">Client OrderID</th>
+          <th scope="col">Status</th>
+          <th scope="col">Site Code</th>
+          <th scope="col">Items Quantity</th>
+          <th scope="col">Weight</th>
+          <th scope="col">Volume</th>
+          <th scope="col">Crates</th>
+          <th scope="col">Order Total</th>
+          <!-- <th scope="col">Actions</th> -->
+          <!-- <th>mat-sort-header="updatedAt"</th> -->
+          <!-- <th  scope="col">Updated</th> -->
+          <th scope="col"> Slot</th>
+          <th scope="col">Created On</th>
+          <th scope ="col">Driver Name</th>
+          <th scope ="col">Driver Contact Number</th>
+          <th scope="col">ETA</th>
+          <th scope="col">Completed At</th>
+          <!-- <th scope="col">Image</th>
+          <th scope="col">Action</th> -->
+          <!-- <th scope="col">TrackLink</th> -->
+
+        </tr>
+        </thead>
+        <!-- <tr>
+          <td *ngIf="this.size == '0'">No Data Available<br><img src="./../../../assets/images/Loader.gif"></td>
+        </tr>  *ngFor ="let b of board$ | filter:term | slice: (page1-1) * pageSize1 : (page1-1) * pageSize1 + pageSize1; let i =index;" -->
+        <!-- </tbody>  *ngFor = "let size of pageSizeOptions1" [value]="size" (change)="selectPageSize($event)" -->
+        <tbody *ngIf="this.size == 0" class="text-center">
+        <!-- <tr>
+          <td *ngIf="this.size == '0'">No Orders Available</td>
+          </tr> -->
+        <td class="text-center">No Orders Available</td>
+        </tbody>
+        <tbody *ngIf="this.size != 0">
+        <tr class="text-center" *ngFor="let b of stores ; let i =index;">
+          <!-- <th>
+            <mat-checkbox  [checked]='checked' class="mr-3"
+                          (change)="getdata($event, b); false" *ngIf="b.createdBatch == false"></mat-checkbox>
+          </th> -->
+          <!-- <th> {{(pagination.page-1) * pagination.size  + i + 1}}</th> -->
+          <td>
+            <button class=" btn btn-outline-primary border-0" >
+              <span>{{b.customerName}}</span></button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0" >
+              <span>{{b.customerPhoneNumber}}</span></button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0">
+              <span>{{b.orderId}}</span></button>
+          </td>
+          <td>
+            <span>{{b.clientOrderId}}</span>
+          </td>
+          <td>
+            <button class=" btn border-0"><b>{{b.status}}</b>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.siteCode}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.itemQuantity}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.weight + ' KG'}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.volume}} CBM</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.crates}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.orderTotal}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.slot.startTime| date:"hh:mm a"}}
+              -{{b.slot.endTime | date:'shortTime'}}</button>
+            <!--            <button class="btn btn-outline-primary border-0"  *ngIf="b.expectedDeliverySlot == null">-</button></td>-->
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.createdDate}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.driverName}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.driverNumber}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.eta| date:"hh:mm a"}}</button>
+          </td>
+          <td>
+            <button class="btn btn-outline-primary border-0">{{b.completedAt| date:"hh:mm a"}}</button>
+          </td>
+          <!-- <td>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.status != 'AT_DC'">{{b.trackLink}}</button>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.status == 'AT_DC'" >-</button>
+          </td> -->
+        </tr>
+        </tbody>
+      </table>
 
 
       <ng-template #calendar let-c="close" let-d="dismiss">
