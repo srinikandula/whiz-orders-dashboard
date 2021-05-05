@@ -760,6 +760,7 @@ handlePageSizeChange(event) {
 }
 
 exportexcel(){
+  
     const abc = this.flightSchedule.date.valueOf();
     let name  = localStorage.getItem('host');
     if(name.substr(0,2) === 'qa'){
@@ -769,7 +770,7 @@ exportexcel(){
     /* table id is passed over here */   
     let element = document.getElementById('exportexcel'); 
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-
+    ws['!cols'] = [{width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}, {width: 20}]
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');

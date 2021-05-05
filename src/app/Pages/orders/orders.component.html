@@ -281,6 +281,7 @@
           <th scope="col">Customer PhoneNumber</th>
           <th scope="col">Order Id</th>
           <th scope="col">Client OrderID</th>
+          <th scope="col">AWB Number</th>
           <th scope="col">Status</th>
           <th scope="col">Site Code</th>
           <th scope="col">Items Quantity</th>
@@ -333,7 +334,10 @@
               <span>{{b.orderId}}</span></button>
           </td>
           <td>
-            <span>{{b.clientOrderId}}</span>
+            <span>{{b.clientOrderId}}<span *ngIf="b.wmsOrderId !== null" style="font-weight: bold;"> - {{b.wmsOrderId}}</span></span>
+          </td>
+          <td>
+            <span>{{b.awbNumber}}</span>
           </td>
           <td>
             <button class=" btn border-0"><b>{{b.status}}</b>
