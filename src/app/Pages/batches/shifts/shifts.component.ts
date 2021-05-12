@@ -56,6 +56,8 @@ export class ShiftsComponent implements OnInit {
           this.shifts.forEach(item => item.vehicleType == 4 ? item.weight = 800 : item.vehicleType == 3 ? item.weight = 100 : item.vehicleType == 2 ? item.weight = 15 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.volume = 392 : item.vehicleType == 3 ? item.volume = 100 : item.vehicleType == 2 ? item.volume = 8 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.crates = 100 : item.vehicleType == 3 ? item.crates = 50 : item.vehicleType == 2 ? item.crates = 5 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.distance = 100 : item.vehicleType == 3 ? item.distance = 100 : item.vehicleType == 2 ? item.distance = 50 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.distance = 5 : 0);
         }
         // console.log(data.shiftId);
         // (this.starttime= (data.startTime));
@@ -82,6 +84,8 @@ export class ShiftsComponent implements OnInit {
           this.shifts.forEach(item => item.vehicleType == 4 ? item.weight = 800 : item.vehicleType == 3 ? item.weight = 100 : item.vehicleType == 2 ? item.weight = 15 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.volume = 392 : item.vehicleType == 3 ? item.volume = 100 : item.vehicleType == 2 ? item.volume = 8 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.crates = 100 : item.vehicleType == 3 ? item.crates = 50 : item.vehicleType == 2 ? item.crates = 5 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.distance = 100 : item.vehicleType == 3 ? item.distance = 100 : item.vehicleType == 2 ? item.distance = 50 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.distance = 5 : 0);
         }
         // console.log(data.shiftId);
         // (this.starttime= (data.startTime));
@@ -110,6 +114,23 @@ export class ShiftsComponent implements OnInit {
       size: 'sm'
     });
     this.shift = data;
+    // if(this.shift.count === 0){
+    //   if(this.shift.vehicleType === 2){
+    //       this.shift.count = 5;
+    //     }else if(this.shift.vehicleType === 4){
+    //       this.shift.count = 40;
+    //     }
+    //     console.log(this.shift);
+    // }
+
+    // if(this.shift.distance === 0){
+    //   console.log(this.shift);
+    //   if(this.shift.vehicleType === 2){
+    //       this.shift.distance = 50;
+    //     }else if(this.shift.vehicleType === 4){
+    //       this.shift.distance = 100;
+    //     }
+    // }
     // this.authService.ordersdetails(id).subscribe((data: any) => {
     //     (this.details = (Array.of(data)));
     //     (this.details2 = (data.orderItems));
@@ -160,6 +181,8 @@ export class ShiftsComponent implements OnInit {
         if (this.shifts.length) {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.weight = 800 : item.vehicleType == 3 ? item.weight = 100 : item.vehicleType == 2 ? item.weight = 15 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.distance = 100 : item.vehicleType == 3 ? item.distance = 100 : item.vehicleType == 2 ? item.distance = 50 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.distance = 5 : 0);
         }
         // console.log(data.shiftId);
         // (this.starttime= (data.startTime));

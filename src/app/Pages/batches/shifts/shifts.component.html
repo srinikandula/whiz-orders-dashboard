@@ -77,6 +77,8 @@
           <th scope="col">Weight</th>
           <th scope="col">Volume</th>
           <th scope="col">Crates</th>
+          <th scope="col">Order Count</th>
+          <th scope="col">Distance</th>
           <th scope="col">Vehicle Number</th>
           <th scope="col">Vehicle Type</th>
 
@@ -126,6 +128,12 @@
           </td>
           <td>
             <button class=" btn btn-outline-primary border-0">{{b.crates}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.count != 0">{{b.count}}</button>
+          </td>
+          <td>
+            <button class=" btn btn-outline-primary border-0" *ngIf="b.distance != 0">{{b.distance}}KM</button>
           </td>
           <td>
             <button class=" btn btn-outline-primary border-0">{{b.vehicleRegistrationNumber}}</button>
@@ -194,6 +202,18 @@
       <div class="col">
         <label>Crates</label>
         <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.crates"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Orders Count</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.count"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label>Distance</label>
+        <input type="number" class="form-control form-control-sm" min="0" [(ngModel)]="shift.distance"/>
       </div>
     </div>
   </div>
