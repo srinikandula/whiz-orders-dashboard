@@ -57,7 +57,7 @@ export class ShiftsComponent implements OnInit {
           this.shifts.forEach(item => item.vehicleType == 4 ? item.volume = 392 : item.vehicleType == 3 ? item.volume = 100 : item.vehicleType == 2 ? item.volume = 8 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.crates = 100 : item.vehicleType == 3 ? item.crates = 50 : item.vehicleType == 2 ? item.crates = 5 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.distance = 100 : item.vehicleType == 3 ? item.distance = 100 : item.vehicleType == 2 ? item.distance = 50 : 0);
-          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.distance = 5 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.count = 5 : 0);
         }
         // console.log(data.shiftId);
         // (this.starttime= (data.startTime));
@@ -85,7 +85,7 @@ export class ShiftsComponent implements OnInit {
           this.shifts.forEach(item => item.vehicleType == 4 ? item.volume = 392 : item.vehicleType == 3 ? item.volume = 100 : item.vehicleType == 2 ? item.volume = 8 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.crates = 100 : item.vehicleType == 3 ? item.crates = 50 : item.vehicleType == 2 ? item.crates = 5 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.distance = 100 : item.vehicleType == 3 ? item.distance = 100 : item.vehicleType == 2 ? item.distance = 50 : 0);
-          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.distance = 5 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.count = 5 : 0);
         }
         // console.log(data.shiftId);
         // (this.starttime= (data.startTime));
@@ -182,7 +182,7 @@ export class ShiftsComponent implements OnInit {
           // this.shifts.forEach(item => item.vehicleType == 4 ? item.quantity = 50 : item.vehicleType == 3 ? item.quantity = 30 : item.vehicleType == 2 ? item.quantity = 20 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.weight = 800 : item.vehicleType == 3 ? item.weight = 100 : item.vehicleType == 2 ? item.weight = 15 : 0);
           this.shifts.forEach(item => item.vehicleType == 4 ? item.distance = 100 : item.vehicleType == 3 ? item.distance = 100 : item.vehicleType == 2 ? item.distance = 50 : 0);
-          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.distance = 5 : 0);
+          this.shifts.forEach(item => item.vehicleType == 4 ? item.count = 40 : item.vehicleType == 3 ? item.count = 40 : item.vehicleType == 2 ? item.count = 5 : 0);
         }
         // console.log(data.shiftId);
         // (this.starttime= (data.startTime));
