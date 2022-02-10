@@ -80,7 +80,7 @@
     "ngx-textarea-autosize": "^2.0.0",
     "ngx-toastr": "^10.0.2",
     "ngx-trend": "^3.4.1",
-    "node-sass": "^4.14.0",
+    "node-sass": "^7.0.0",
     "nouislider": "^13.1.4",
     "pe7-icon": "^1.0.4",
     "redux": "4.0.0",
