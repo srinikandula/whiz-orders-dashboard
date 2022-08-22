@@ -8,7 +8,7 @@ import {rootReducer, ArchitectUIState} from './ThemeOptions/store';
 import {ConfigActions} from './ThemeOptions/store/config.actions';
 import {AppRoutingModule} from './app-routing.module';
 import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
-import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import {DatePipe, HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 import {CommonModule} from '@angular/common';
 import {HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -255,23 +255,23 @@ const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} }
     CustomerComponent,
 
     SelectshiftComponent,
-    
+
 
     // Applications
 
-    
+
 
     // User Pages
 
-  
+
 
     // Elements
 
-   
+
 
     // Components
 
-   
+
 
     // Tables
 
@@ -284,7 +284,7 @@ const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} }
 
     // Form Widgets
 
-    
+
 
     // CHARTS
 
@@ -294,11 +294,11 @@ const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} }
 
     // Chart.js Examples
 
-  
+
 
     // ANGULAR MATERIAL
 
-    
+
 
   ],
   imports: [
@@ -398,7 +398,7 @@ const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} }
     MatPaginatorModule,
     MatTreeModule,
     MatRippleModule,
-    
+
   ],
   providers: [
     {
@@ -419,7 +419,8 @@ const config: SocketIoConfig = { url: environment.SOCKET_ENDPOINT, options: {} }
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true },
     ConfigActions,
     ThemeOptions,
-    RouterguardGuard
+    RouterguardGuard,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
