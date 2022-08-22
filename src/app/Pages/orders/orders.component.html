@@ -126,7 +126,7 @@
           <th scope="col">#</th>
           <th scope="col">Customer</th>
           <th scope="col">Order Id</th>
-          <th scope="col">Client OrderID</th>
+<!--          <th scope="col">Client OrderID</th>-->
           <th scope="col">AWB Number</th>
           <th scope="col">Status</th>
           <th scope="col">Site Code</th>
@@ -174,10 +174,10 @@
             <button class=" btn btn-outline-primary border-0" (click)="openSmall2(content2,b.id)">
               <span>{{b.orderId}}</span></button>
           </td>
-          <td>
-            <span *ngIf="b.clientOrderId !== null">{{b.clientOrderId}}<span *ngIf="b.wmsOrderId !== null" style="font-weight: bold;"> - {{b.wmsOrderId}}</span></span>
-            <span *ngIf="b.clientOrderId === null"> - </span>
-          </td>
+<!--          <td>-->
+<!--            <span *ngIf="b.clientOrderId !== null">{{b.clientOrderId}}<span *ngIf="b.wmsOrderId !== null" style="font-weight: bold;"> - {{b.wmsOrderId}}</span></span>-->
+<!--            <span *ngIf="b.clientOrderId === null"> - </span>-->
+<!--          </td>-->
           <td>
             <span *ngIf="b.awbNumber !== null && b.awbNumber !== 0">{{b.awbNumber}}</span>
             <span *ngIf="b.awbNumber === null || b.awbNumber === 0"> - </span>
